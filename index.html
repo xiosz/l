@@ -3,183 +3,770 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>圣林铸造雕塑官网</title>
-    <meta name="description" content="专业定制青铜雕塑 - 传承失蜡法铸造工艺">
+    <title>极乐阁陪玩俱乐部 - 专业游戏伴侣</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* 基础样式 */
+        /* 基础样式与重置 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
         }
-
-        /* 虚化背景层 */
-        .background-layer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: url('bg-texture.jpg') center/cover;
-            filter: blur(10px) brightness(0.8);
+        
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --accent-color: #ff3e80;
+            --dark-bg: #0f0f1a;
+            --card-bg: #1a1a2e;
+            --text-light: #ffffff;
+            --text-gray: #b0b0d0;
         }
-
-        /* 主内容容器 */
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
         .container {
-            background: rgba(255, 255, 255, 0.93);
+            width: 90%;
             max-width: 1200px;
-            margin: 20px auto;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+            margin: 0 auto;
+            padding: 0 20px;
         }
-
-        /* 标题样式 */
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .header h1 {
-            font-size: 2.8em;
-            color: #4a4a4a;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-        .header p {
-            color: #666;
-            margin-top: 15px;
-        }
-        /* 图片展示墙 */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            padding: 20px;
-        }
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-            transition: transform 0.3s;
-        }
-        .gallery-item:hover {
-            transform: translateY(-5px);
-        }
-        .gallery-item img {
+        
+        /* 导航栏 */
+        header {
+            background-color: rgba(15, 15, 26, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
             width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 10px;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(106, 17, 203, 0.3);
+            padding: 15px 0;
         }
-        .image-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
             color: white;
-            padding: 20px;
-            text-align: center;
+            font-size: 1.5rem;
+            cursor: pointer;
         }
-
-        /* 服务流程 */
-        .process {
+        
+        /* 英雄区域 */
+        .hero {
+            padding: 180px 0 100px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(15, 15, 26, 0.9) 100%), 
+                        url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            margin-top: 70px;
+            border-radius: 0 0 30px 30px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #ff7e5f, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: var(--text-gray);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(106, 17, 203, 0.6);
+        }
+        
+        /* 服务部分 */
+        section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 2.5rem;
+        }
+        
+        .section-title span {
+            color: var(--accent-color);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(106, 17, 203, 0.2);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary-color);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        /* 陪玩师展示 */
+        .companions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .companion-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border: 1px solid rgba(37, 117, 252, 0.2);
+        }
+        
+        .companion-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .companion-img {
+            height: 200px;
+            background-color: #2a2a3e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--primary-color);
+        }
+        
+        .companion-info {
+            padding: 25px;
+        }
+        
+        .companion-info h3 {
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .games {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            margin: 50px 0;
+            gap: 8px;
+            margin-top: 15px;
         }
+        
+        .game-tag {
+            background-color: rgba(106, 17, 203, 0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* 流程部分 */
+        .process-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+        
         .process-step {
             flex: 1;
-            min-width: 250px;
-            padding: 25px;
-            background: #f8f8f8;
-            border-radius: 10px;
+            min-width: 200px;
             text-align: center;
+            padding: 0 20px;
+            position: relative;
         }
-        .process-step h3 {
-            color: #c39d6b;
-            margin: 15px 0;
+        
+        .process-step:not(:last-child):after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary-color), transparent);
         }
-        /* 联系方式 */
-        .contact {
-            text-align: center;
-            padding: 40px;
-            background: #f0f0f0;
+        
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        /* 联系表单 */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            margin-top: 30px;
+        }
+        
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form select {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(106, 17, 203, 0.3);
             border-radius: 10px;
+            color: white;
+            font-size: 1rem;
         }
-        .qrcode {
-            width: 150px;
-            margin: 20px auto;
+        
+        .contact-form input:focus,
+        .contact-form textarea:focus,
+        .contact-form select:focus {
+            outline: none;
+            border-color: var(--primary-color);
         }
-
-        /* 移动端适配 */
+        
+        .contact-form button {
+            background: linear-gradient(to right, var(--accent-color), #ff7e5f);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .contact-form button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 62, 128, 0.3);
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: #0a0a12;
+            padding: 70px 0 30px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-links h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
         @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-                padding: 15px;
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--dark-bg);
+                flex-direction: column;
+                padding: 20px;
+                text-align: center;
+                border-top: 1px solid rgba(106, 17, 203, 0.3);
             }
-            .header h1 {
-                font-size: 2em;
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .process-step:not(:last-child):after {
+                display: none;
+            }
+            
+            .process-step {
+                margin-bottom: 40px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="background-layer"></div>
-    
-    <div class="container">
-        <!-- 标题 -->
-        <div class="header">
-            <h1>圣林铸造雕塑官网</h1>
-            <p>非遗传承单位</p>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span>极乐阁陪玩</span>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#services">服务项目</a></li>
+                    <li><a href="#companions">陪玩导师</a></li>
+                    <li><a href="#process">服务流程</a></li>
+                    <li><a href="#contact">立即预约</a></li>
+                </ul>
+            </nav>
         </div>
+    </header>
 
-        <!-- 图片展示墙 -->
-        <div class="gallery">
-            <div class="gallery-item">
-                <img src="statue1.MP4" alt="青铜佛像">
-                <div class="image-caption">大型青铜佛像</div>
-            </div>
-            <div class="gallery-item">
-                <img src="tatue2.MP4" alt="人物雕塑">
-                <div class="image-caption">历史人物雕塑</div>
-            </div>
-            <div class="gallery-item">
-                <img src="可爱.JPG" alt="宗教雕塑">
-                <div class="image-caption">宗教主题雕塑</div>
-            </div>
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>极乐阁陪玩俱乐部</h1>
+            <p>专业游戏伴侣，带你上分，陪你娱乐，提升你的游戏体验。超过500名认证陪玩师，覆盖所有热门游戏，24小时随时响应。</p>
+            <a href="#contact" class="cta-button">立即预约陪玩师 <i class="fas fa-arrow-right"></i></a>
         </div>
+    </section>
 
-        <!-- 服务流程 -->
-         <div class="process">
-            <div class="process-step">
-                <h3>01</h3>
-                <p>3D建模设计</p>
-            </div>
-            <div class="process-step">
-                <h3>02</h3>
-                <p>蜡模精密制作</p>
-            </div>
-            <div class="process-step">
-                <h3>03</h3>
-                <p>青铜浇铸</p>
-            </div>
-            <div class="process-step">
-                <h3>04</h3>
-                <p>表面处理</p>
+    <!-- 服务项目 -->
+    <section id="services">
+        <div class="container">
+            <h2 class="section-title">我们的<span>服务项目</span></h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>游戏教学</h3>
+                    <p>从基础操作到高级技巧，职业选手亲自指导，快速提升你的游戏水平。</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>组队上分</h3>
+                    <p>与高水平陪玩师组队，轻松上分，告别连败，享受胜利的快感。</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>娱乐陪玩</h3>
+                    <p>不为上分，只为开心。幽默有趣的陪玩师让你的游戏时间充满欢乐。</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>专属定制</h3>
+                    <p>根据你的需求定制服务，包括时间、游戏类型和陪玩师特点等。</p>
+                </div>
             </div>
         </div>
+    </section>
 
-        <!-- 联系方式 -->
-        <div class="contact">
-            <h2>立即咨询</h2>
-            <p>咨询电话：183****5861</p>
-            <p>微信扫描二维码咨询</p>
-            <img class="qrcode" src="微信二维码.png" alt="微信二维码">
+    <!-- 陪玩师展示 -->
+    <section id="companions" style="background-color: rgba(15, 15, 26, 0.7);">
+        <div class="container">
+            <h2 class="section-title">明星<span>陪玩师</span></h2>
+            <div class="companions-grid">
+                <div class="companion-card">
+                    <div class="companion-img">
+                        <i class="fas fa-user-ninja"></i>
+                    </div>
+                    <div class="companion-info">
+                        <h3>影刃</h3>
+                        <p>前职业选手，擅长战术分析与实战教学</p>
+                        <div class="games">
+                            <span class="game-tag">王者荣耀</span>
+                            <span class="game-tag">英雄联盟</span>
+                            <span class="game-tag">VALORANT</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="companion-card">
+                    <div class="companion-img">
+                        <i class="fas fa-user-astronaut"></i>
+                    </div>
+                    <div class="companion-info">
+                        <h3>星语</h3>
+                        <p>声音甜美，幽默风趣，娱乐陪玩专家</p>
+                        <div class="games">
+                            <span class="game-tag">原神</span>
+                            <span class="game-tag">永劫无间</span>
+                            <span class="game-tag">APEX英雄</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="companion-card">
+                    <div class="companion-img">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="companion-info">
+                        <h3>墨白</h3>
+                        <p>耐心细致，专精新手教学，好评率100%</p>
+                        <div class="games">
+                            <span class="game-tag">CS:GO</span>
+                            <span class="game-tag">DOTA 2</span>
+                            <span class="game-tag">守望先锋</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="companion-card">
+                    <div class="companion-img">
+                        <i class="fas fa-user-crown"></i>
+                    </div>
+                    <div class="companion-info">
+                        <h3>king</h3>
+                        <p>全能型陪玩师，多个游戏顶级段位</p>
+                        <div class="games">
+                            <span class="game-tag">绝地求生</span>
+                            <span class="game-tag">命运2</span>
+                            <span class="game-tag">彩虹六号</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- 服务流程 -->
+    <section id="process">
+        <div class="container">
+            <h2 class="section-title">服务<span>流程</span></h2>
+            <div class="process-container">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>选择服务</h3>
+                    <p>浏览我们的服务项目，选择最适合你的陪玩类型</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>匹配陪玩师</h3>
+                    <p>根据你的游戏和需求，系统匹配最合适的陪玩师</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>确认预约</h3>
+                    <p>选择服务时间并完成预约，陪玩师会提前联系你</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>开始游戏</h3>
+                    <p>按时上线，享受专业的陪玩服务与游戏乐趣</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系表单 -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">立即<span>预约</span></h2>
+            <div class="contact-container">
+                <div>
+                    <h3>预约陪玩服务</h3>
+                    <p>填写以下信息，我们会在30分钟内联系您确认预约详情</p>
+                    <div class="contact-info" style="margin-top: 30px;">
+                        <p><i class="fas fa-phone" style="margin-right: 10px;"></i> 客服电话: 400-123-4567</p>
+                        <p><i class="fas fa-envelope" style="margin-right: 10px;"></i> 邮箱: service@jilege.com</p>
+                        <p><i class="fas fa-clock" style="margin-right: 10px;"></i> 服务时间: 24小时全天候</p>
+                    </div>
+                </div>
+                <div>
+                    <form class="contact-form" id="bookingForm">
+                        <input type="text" placeholder="您的姓名" required>
+                        <input type="tel" placeholder="联系电话" required>
+                        <select required>
+                            <option value="" disabled selected>选择游戏</option>
+                            <option value="lol">英雄联盟</option>
+                            <option value="王者荣耀">王者荣耀</option>
+                            <option value="原神">原神</option>
+                            <option value="csgo">CS:GO</option>
+                            <option value="其他">其他游戏</option>
+                        </select>
+                        <select required>
+                            <option value="" disabled selected>服务类型</option>
+                            <option value="教学">游戏教学</option>
+                            <option value="上分">组队上分</option>
+                            <option value="娱乐">娱乐陪玩</option>
+                            <option value="定制">专属定制</option>
+                        </select>
+                        <textarea placeholder="其他要求（可选）" rows="3"></textarea>
+                        <button type="submit">提交预约</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="logo" style="font-size: 1.5rem; margin-bottom: 20px;">
+                        <i class="fas fa-gamepad"></i>
+                        <span>极乐阁陪玩</span>
+                    </div>
+                    <p>专业游戏陪玩俱乐部，致力于提供最优质的游戏陪伴体验。</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-qq"></i></a>
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>快速链接</h3>
+                    <ul>
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#services">服务项目</a></li>
+                        <li><a href="#companions">陪玩导师</a></li>
+                        <li><a href="#process">服务流程</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>热门游戏</h3>
+                    <ul>
+                        <li><a href="#">英雄联盟</a></li>
+                        <li><a href="#">王者荣耀</a></li>
+                        <li><a href="#">原神</a></li>
+                        <li><a href="#">永劫无间</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>政策条款</h3>
+                    <ul>
+                        <li><a href="#">服务协议</a></li>
+                        <li><a href="#">隐私政策</a></li>
+                        <li><a href="#">退款政策</a></li>
+                        <li><a href="#">陪玩师守则</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 极乐阁陪玩俱乐部. 保留所有权利. | 设计用于演示目的</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if(this.getAttribute('href') === '#') return;
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if(targetElement) {
+                    // 关闭移动端菜单
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 表单提交处理
+        const bookingForm = document.getElementById('bookingForm');
+        bookingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 获取表单数据
+            const formData = new FormData(this);
+            const name = this.querySelector('input[type="text"]').value;
+            
+            // 这里实际开发中应发送到服务器
+            alert(`感谢 ${name} 的预约！我们会尽快联系您确认详情。`);
+            
+            // 重置表单
+            this.reset();
+        });
+        
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.backgroundColor = 'rgba(15, 15, 26, 0.98)';
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.3)';
+            } else {
+                header.style.backgroundColor = 'rgba(15, 15, 26, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
