@@ -270,53 +270,6 @@
         }
         .service-id { font-size: 0.8rem; color: var(--color-gray); font-family: monospace; }
 
-        /* ===== 导师展示 ===== */
-        #companions {
-            background-color: rgba(26, 26, 26, 0.7);
-        }
-        .companions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        .companion-card {
-            background-color: var(--color-darker);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(42, 157, 143, 0.2);
-            transition: transform 0.3s;
-        }
-        .companion-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--color-accent);
-        }
-        .companion-img {
-            height: 180px;
-            background: linear-gradient(135deg, var(--color-primary), var(--color-darker));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: rgba(255, 255, 255, 0.1);
-        }
-        .companion-info { padding: 25px; }
-        .companion-info h3 {
-            color: var(--color-secondary);
-            margin-bottom: 10px;
-            font-size: 1.4rem;
-        }
-        .companion-info p {
-            color: var(--color-gray);
-            margin-bottom: 15px;
-            font-size: 0.95rem;
-        }
-        .companion-stats {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            color: var(--color-accent);
-        }
-
         /* ===== 流程部分 ===== */
         .process-steps {
             display: flex;
@@ -522,7 +475,6 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home">探灵首页</a></li>
                 <li><a href="#services">服务项目</a></li>
-                <li><a href="#companions">摸金导师</a></li>
                 <li><a href="#process">行动流程</a></li>
                 <li><a href="#contact">立即预约</a></li>
             </ul>
@@ -537,7 +489,7 @@
             <p>“一人玩是密室逃脱，四人玩是喜剧现场。” 我们深谙游戏“搜打撤”精髓，提供从“胃袋”到“保护老板”的全套专业陪玩服务。告别团灭，高效摸金，与资深导师一起征服古墓，带宝平安归来。</p>
             <div class="hero-btns">
                 <a href="#services" class="btn"><i class="fas fa-gem"></i> 查看服务项目</a>
-                <a href="#contact" class="btn btn-secondary"><i class="fas fa-headset"></i> 立即预约导师</a>
+                <a href="#contact" class="btn btn-secondary"><i class="fas fa-headset"></i> 立即预约</a>
             </div>
         </div>
     </section>
@@ -560,7 +512,7 @@
                     <!-- 服务项目卡片示例：胃袋 -->
                     <div class="service-item">
                         <div class="service-header">
-                            <h4 class="service-name">胃袋 (资源保障)</h4>
+                            <h4 class="service-name">胃袋</h4>
                             <div class="service-price">3.9<small>/单起</small></div>
                         </div>
                         <p class="service-desc">确保你在单局游戏中获得基础资源补给，平稳渡过前期搜索阶段。</p>
@@ -572,7 +524,7 @@
                     <!-- 臭鞋子 -->
                     <div class="service-item">
                         <div class="service-header">
-                            <h4 class="service-name">臭鞋子 (干扰道具)</h4>
+                            <h4 class="service-name">臭鞋子</h4>
                             <div class="service-price">3.99<small>/单</small></div>
                         </div>
                         <p class="service-desc">向指定对手投掷干扰道具，影响其移动或侦查效率。</p>
@@ -584,7 +536,7 @@
                     <!-- 雪莲永动机 -->
                     <div class="service-item">
                         <div class="service-header">
-                            <h4 class="service-name">雪莲永动机 (治疗保障)</h4>
+                            <h4 class="service-name">雪莲永动机</h4>
                             <div class="service-price">8.8<small>/单</small></div>
                         </div>
                         <p class="service-desc">在探险“昆仑秘境”等地图时，提供持续的治疗支持，化身团队医疗兵。</p>
@@ -593,7 +545,7 @@
                     <!-- 魔芋永动机 -->
                     <div class="service-item">
                         <div class="service-header">
-                            <h4 class="service-name">魔芋永动机 (状态保障)</h4>
+                            <h4 class="service-name">魔芋永动机</h4>
                             <div class="service-price">6.6<small>/单</small></div>
                         </div>
                         <p class="service-desc">提供持续的状态恢复支持，应对地图中的各类环境伤害。</p>
@@ -608,7 +560,7 @@
                     <!-- 屠龙 -->
                     <div class="service-item">
                         <div class="service-header">
-                            <h4 class="service-name">屠龙 (精英击杀)</h4>
+                            <h4 class="service-name">屠龙</h4>
                             <div class="service-price">9<small>/单</small></div>
                         </div>
                         <p class="service-desc">承诺击杀局内指定的精英怪物或BOSS（如“鬼新娘”），为团队扫清最大威胁。</p>
@@ -617,7 +569,7 @@
                     <!-- 堵命 -->
                     <div class="service-item">
                         <div class="service-header">
-                            <h4 class="service-name">堵命 (殿后掩护)</h4>
+                            <h4 class="service-name">堵命</h4>
                             <div class="service-price">8<small>/单</small></div>
                         </div>
                         <p class="service-desc">在撤离点或关键路口进行断后，抵挡怪物追击，确保队友安全撤离。</p>
@@ -626,7 +578,7 @@
                     <!-- 保护老板 -->
                     <div class="service-item">
                         <div class="service-header">
-                            <h4 class="service-name">保护老板 (VIP护送)</h4>
+                            <h4 class="service-name">保护老板</h4>
                             <div class="service-price">9.9<small>/单</small></div>
                         </div>
                         <p class="service-desc">指定一位队友为“老板”，全程重点保护，直至其携带宝物安全撤离。“昆仑地图+2”。</p>
@@ -641,7 +593,7 @@
                     <!-- 六星连珠 -->
                     <div class="service-item">
                         <div class="service-header">
-                            <h4 class="service-name">六星连珠 (幸运拉满)</h4>
+                            <h4 class="service-name">六星连珠</h4>
                             <div class="service-price">28.8<small>/单</small></div>
                         </div>
                         <p class="service-desc">玄学服务！旨在为当局游戏带来极佳运气，更容易发现“圣杯、雪莲、龙珠”等高价值宝物。</p>
@@ -650,7 +602,7 @@
                     <!-- 金棺尿壶 & 玉扳指 -->
                     <div class="service-item">
                         <div class="service-header">
-                            <h4 class="service-name">金棺尿壶 (趣味互动)</h4>
+                            <h4 class="service-name">金棺尿壶</h4>
                             <div class="service-price">6.6<small>/单</small></div>
                         </div>
                         <p class="service-desc">一种独特的趣味互动玩法，增加游戏欢乐气氛。</p>
@@ -659,7 +611,7 @@
                     <!-- 比大小 -->
                     <div class="service-item">
                         <div class="service-header">
-                            <h4 class="service-name">比大小 (趣味博弈)</h4>
+                            <h4 class="service-name">比大小</h4>
                             <div class="service-price">6.6<small>/单</small></div>
                         </div>
                         <p class="service-desc">与队友或导师进行趣味点数博弈，增加游戏内社交乐趣。</p>
@@ -668,54 +620,11 @@
                     <!-- 摇一摇 -->
                     <div class="service-item">
                         <div class="service-header">
-                            <h4 class="service-name">摇一摇 (随机惊喜)</h4>
+                            <h4 class="service-name">摇一摇</h4>
                             <div class="service-price">8.88<small>/单</small></div>
                         </div>
                         <p class="service-desc">随机获得一项未知的趣味服务或小型资源包，惊喜感十足。</p>
                         <span class="service-tag">随机乐趣</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 导师展示 -->
-    <section id="companions">
-        <div class="container">
-            <h2 class="section-title">明星摸金导师</h2>
-            <p class="section-subtitle">我们的导师不仅是游戏高手，更是精通“探、打、撤”的团队指挥官，能带你以最专业的姿态破解古墓机关，应对“伪人”袭击。</p>
-            <div class="companions-grid">
-                <div class="companion-card">
-                    <div class="companion-img"><i class="fas fa-user-secret"></i></div>
-                    <div class="companion-info">
-                        <h3>搬山道人</h3>
-                        <p>前职业战队战术指挥。精通所有地图撤离点与机关解法，擅长“保护老板”和战术殿后。</p>
-                        <div class="companion-stats">
-                            <span>专精：战术指挥</span>
-                            <span>评分：9.8</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="companion-card">
-                    <div class="companion-img"><i class="fas fa-ghost"></i></div>
-                    <div class="companion-info">
-                        <h3>红衣</h3>
-                        <p>“鬼新娘”关卡专家。擅长利用地形与怪物周旋，是“屠龙”和“雪莲永动机”服务王牌。</p>
-                        <div class="companion-stats">
-                            <span>专精：生存输出</span>
-                            <span>评分：9.6</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="companion-card">
-                    <div class="companion-img"><i class="fas fa-compass"></i></div>
-                    <div class="companion-info">
-                        <h3>分金校尉</h3>
-                        <p>人形资源雷达。精通“胃袋”资源规划和“六星连珠”玄学寻宝，最大化单局收益。</p>
-                        <div class="companion-stats">
-                            <span>专精：资源搜索</span>
-                            <span>评分：9.7</span>
-                        </div>
                     </div>
                 </div>
             </div>
