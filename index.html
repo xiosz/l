@@ -3,771 +3,718 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>puppy俱乐部 - 《超自然行动组》专属陪玩</title>
+    <title>puppy俱乐部 - 《超自然行动组》专业陪玩</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;500;700&display=swap">
     <style>
-        /* 基础样式与重置 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
-        }
-        
+        /* ===== 基础样式重置与变量定义 ===== */
         :root {
-            --primary-color: #8a2be2; /* 超自然紫色 */
-            --secondary-color: #00ced1; /* 神秘青色 */
-            --accent-color: #ff6b6b; /* 行动红 */
-            --dark-bg: #0c0c1a; /* 深空背景 */
-            --card-bg: #1a1a2e;
-            --text-light: #ffffff;
-            --text-gray: #b0b0d0;
-            --game-color: #6a0dad; /* 游戏主题色 */
+            --color-primary: #8b0000; /* 暗红，如血、朱砂 */
+            --color-secondary: #d4af37; /* 鎏金，如铜器、宝物 */
+            --color-accent: #2a9d8f; /* 青碧，如青铜、玉器 */
+            --color-dark: #0f0f0f; /* 深黑，如墓室 */
+            --color-darker: #1a1a1a; /* 暗灰，如石壁 */
+            --color-light: #f0e6d2; /* 浅黄，如旧纸、帛书 */
+            --color-gray: #8a8a8a;
         }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background-color: var(--dark-bg);
-            color: var(--text-light);
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--color-dark);
+            color: var(--color-light);
             line-height: 1.6;
-            overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(0, 206, 209, 0.1) 0%, transparent 20%);
+                radial-gradient(circle at 20% 30%, rgba(139, 0, 0, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(42, 157, 143, 0.05) 0%, transparent 20%);
+            min-height: 100vh;
         }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 80px 0; }
+        h1, h2, h3 { font-weight: 700; }
+        a { color: inherit; text-decoration: none; transition: all 0.3s ease; }
+        ul { list-style: none; }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--color-primary), #5a0000);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        
-        /* 导航栏 */
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(139, 0, 0, 0.5); }
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--color-secondary), #b8941f);
+        }
+        .btn-secondary:hover { box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5); }
+
+        /* ===== 导航栏 ===== */
         header {
-            background-color: rgba(12, 12, 26, 0.95);
+            background-color: rgba(15, 15, 15, 0.95);
             backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+            border-bottom: 1px solid rgba(139, 0, 0, 0.3);
             padding: 15px 0;
-            transition: all 0.3s ease;
         }
-        
-        nav {
+        nav .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
         .logo {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 1.8rem;
+            color: var(--color-secondary);
             display: flex;
             align-items: center;
-            font-size: 1.8rem;
-            font-weight: bold;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
         }
-        
-        .logo i {
-            margin-right: 10px;
-            font-size: 2rem;
-        }
-        
+        .logo i { margin-right: 10px; color: var(--color-primary); }
         .game-tag {
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin-left: 15px;
-            font-weight: 600;
+            background: var(--color-darker);
+            color: var(--color-accent);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            border: 1px solid var(--color-accent);
         }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 30px;
-        }
-        
+        .nav-links { display: flex; }
+        .nav-links li { margin-left: 35px; }
         .nav-links a {
-            color: var(--text-light);
-            text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
-            font-size: 1.1rem;
-        }
-        
-        .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        /* 英雄区域 */
-        .hero {
-            padding: 180px 0 100px;
-            text-align: center;
-            background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(12, 12, 26, 0.95) 100%);
-            margin-top: 70px;
-            border-radius: 0 0 30px 30px;
+            font-size: 1.05rem;
             position: relative;
-            overflow: hidden;
         }
-        
-        .hero::before {
-            content: "";
+        .nav-links a:hover { color: var(--color-secondary); }
+        .nav-links a::after {
+            content: '';
             position: absolute;
-            top: 0;
+            bottom: -5px;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            width: 0;
+            height: 2px;
+            background: var(--color-secondary);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .mobile-menu-btn { display: none; font-size: 1.5rem; background: none; border: none; color: var(--color-light); cursor: pointer; }
+
+        /* ===== 英雄区域 (头部横幅) ===== */
+        .hero {
+            padding-top: 180px;
+            padding-bottom: 100px;
+            text-align: center;
+            background: linear-gradient(rgba(10, 10, 10, 0.85), rgba(10, 10, 10, 0.9)), url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
-            opacity: 0.15;
-            z-index: -1;
+            background-attachment: fixed;
+            margin-top: 60px;
+            border-bottom: 2px solid var(--color-primary);
         }
-        
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             margin-bottom: 15px;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            color: var(--color-light);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
         }
-        
-        .game-title {
-            font-size: 2.2rem;
-            color: var(--accent-color);
+        .hero h1 span { color: var(--color-secondary); }
+        .game-subtitle {
+            font-size: 1.8rem;
+            color: var(--color-accent);
             margin-bottom: 25px;
-            font-weight: 700;
-            letter-spacing: 1px;
+            font-weight: 500;
         }
-        
         .hero p {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             max-width: 700px;
             margin: 0 auto 40px;
-            color: var(--text-gray);
+            color: var(--color-gray);
         }
-        
-        .cta-button {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
-            border: none;
-            cursor: pointer;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.6);
-        }
-        
-        /* 服务部分 */
-        section {
-            padding: 100px 0;
-        }
-        
+        .hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+
+        /* ===== 通用标题样式 ===== */
         .section-title {
             text-align: center;
-            margin-bottom: 60px;
             font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--color-secondary);
+            position: relative;
+            padding-bottom: 15px;
         }
-        
-        .section-title span {
-            color: var(--accent-color);
+        .section-title::after {
+            content: '✦';
+            display: block;
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-top: 10px;
+            letter-spacing: 10px;
         }
-        
+        .section-subtitle {
+            text-align: center;
+            color: var(--color-gray);
+            max-width: 700px;
+            margin: 0 auto 60px;
+            font-size: 1.1rem;
+        }
+
+        /* ===== 服务项目区 - 核心部分 ===== */
+        .services-intro {
+            background-color: var(--color-darker);
+            padding: 40px;
+            border-radius: 10px;
+            border-left: 5px solid var(--color-accent);
+            margin-bottom: 60px;
+            font-size: 1.1rem;
+        }
+        .services-intro p { margin-bottom: 15px; }
+        .services-intro i { color: var(--color-secondary); margin-right: 10px; }
+
+        /* 服务项目网格布局 */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
         }
-        
-        .service-card {
-            background-color: var(--card-bg);
-            border-radius: 15px;
-            padding: 40px 30px;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid rgba(138, 43, 226, 0.2);
+        .service-category {
+            margin-bottom: 50px;
+        }
+        .category-title {
+            font-size: 1.8rem;
+            color: var(--color-light);
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+        .category-title i { margin-right: 15px; color: var(--color-accent); }
+
+        /* 单个服务卡片样式 */
+        .service-item {
+            background: linear-gradient(145deg, #222222, #1a1a1a);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid rgba(139, 0, 0, 0.2);
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
-        
-        .service-card::before {
-            content: "";
+        .service-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--color-primary);
+            box-shadow: 0 15px 30px rgba(139, 0, 0, 0.2);
+        }
+        .service-item::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--color-primary), var(--color-secondary));
         }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            border-color: var(--primary-color);
-        }
-        
-        .service-icon {
-            font-size: 3rem;
-            margin-bottom: 25px;
-            color: var(--primary-color);
-        }
-        
-        .service-card h3 {
-            font-size: 1.5rem;
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
             margin-bottom: 15px;
         }
-        
-        /* 陪玩师展示 */
+        .service-name {
+            font-size: 1.4rem;
+            color: var(--color-secondary);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        .service-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            white-space: nowrap;
+        }
+        .service-price small {
+            font-size: 1rem;
+            color: var(--color-gray);
+        }
+        .service-desc {
+            color: var(--color-gray);
+            font-size: 0.95rem;
+            flex-grow: 1;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .service-tag {
+            display: inline-block;
+            background-color: rgba(212, 175, 55, 0.15);
+            color: var(--color-secondary);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        .service-footer {
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .service-id { font-size: 0.8rem; color: var(--color-gray); font-family: monospace; }
+
+        /* ===== 导师展示 ===== */
+        #companions {
+            background-color: rgba(26, 26, 26, 0.7);
+        }
         .companions-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 30px;
         }
-        
         .companion-card {
-            background-color: var(--card-bg);
-            border-radius: 15px;
+            background-color: var(--color-darker);
+            border-radius: 12px;
             overflow: hidden;
+            border: 1px solid rgba(42, 157, 143, 0.2);
             transition: transform 0.3s;
-            border: 1px solid rgba(0, 206, 209, 0.2);
         }
-        
         .companion-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 25px rgba(0, 206, 209, 0.2);
+            border-color: var(--color-accent);
         }
-        
         .companion-img {
-            height: 220px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            height: 180px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-darker));
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 4rem;
-            color: white;
-            position: relative;
+            color: rgba(255, 255, 255, 0.1);
         }
-        
-        .companion-rank {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: gold;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-        
-        .companion-info {
-            padding: 25px;
-        }
-        
+        .companion-info { padding: 25px; }
         .companion-info h3 {
+            color: var(--color-secondary);
             margin-bottom: 10px;
             font-size: 1.4rem;
-            color: var(--secondary-color);
         }
-        
-        .specialties {
+        .companion-info p {
+            color: var(--color-gray);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        .companion-stats {
             display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 15px;
-        }
-        
-        .specialty-tag {
-            background-color: rgba(138, 43, 226, 0.2);
-            padding: 5px 12px;
-            border-radius: 20px;
+            justify-content: space-between;
             font-size: 0.9rem;
+            color: var(--color-accent);
         }
-        
-        /* 游戏特色部分 */
-        .game-features {
-            background-color: rgba(12, 12, 26, 0.7);
-            border-radius: 20px;
-            padding: 50px;
-            margin-top: 50px;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        
-        .feature-item {
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-        }
-        
-        /* 流程部分 */
-        .process-container {
+
+        /* ===== 流程部分 ===== */
+        .process-steps {
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
             margin-top: 50px;
-        }
-        
-        .process-step {
-            flex: 1;
-            min-width: 220px;
-            text-align: center;
-            padding: 0 15px;
             position: relative;
-            margin-bottom: 30px;
         }
-        
-        .process-step:not(:last-child):after {
+        .process-steps::before {
             content: '';
             position: absolute;
             top: 40px;
-            right: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(to right, var(--primary-color), transparent);
+            left: 50px;
+            right: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--color-primary), var(--color-accent));
+            z-index: 1;
         }
-        
+        .step {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 30px;
+        }
         .step-number {
             width: 80px;
             height: 80px;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            line-height: 80px;
+            background: linear-gradient(135deg, var(--color-dark), var(--color-primary));
+            color: white;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin: 0 auto 20px;
             font-size: 2rem;
             font-weight: bold;
-            margin: 0 auto 20px;
-            color: white;
+            border: 5px solid var(--color-darker);
+            box-shadow: 0 0 0 5px rgba(139, 0, 0, 0.3);
         }
-        
-        /* 联系表单 */
+        .step h3 {
+            color: var(--color-light);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        /* ===== 预约联系 ===== */
+        #contact { background-color: var(--color-darker); }
         .contact-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 50px;
             margin-top: 30px;
         }
-        
+        .contact-info p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .contact-info i {
+            color: var(--color-accent);
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 20px;
+        }
         .contact-form input,
-        .contact-form textarea,
-        .contact-form select {
+        .contact-form select,
+        .contact-form textarea {
             width: 100%;
             padding: 15px;
             margin-bottom: 20px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(138, 43, 226, 0.3);
-            border-radius: 10px;
-            color: white;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            border-radius: 8px;
+            color: var(--color-light);
             font-size: 1rem;
         }
-        
         .contact-form input:focus,
-        .contact-form textarea:focus,
-        .contact-form select:focus {
+        .contact-form select:focus,
+        .contact-form textarea:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+            border-color: var(--color-primary);
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.2);
         }
-        
-        .contact-form button {
-            background: linear-gradient(to right, var(--accent-color), #ff8e53);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
-        }
-        
-        .contact-form button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
-        }
-        
-        /* 页脚 */
+
+        /* ===== 页脚 ===== */
         footer {
-            background-color: #090914;
+            background-color: #0a0a0a;
             padding: 70px 0 30px;
-            margin-top: 50px;
-            border-top: 1px solid rgba(138, 43, 226, 0.2);
+            border-top: 1px solid rgba(139, 0, 0, 0.2);
         }
-        
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 40px;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
-        
-        .footer-links h3 {
+        .footer-logo {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 2rem;
+            color: var(--color-secondary);
             margin-bottom: 20px;
+        }
+        .footer-links h3 {
+            color: var(--color-light);
+            margin-bottom: 25px;
             font-size: 1.3rem;
-            color: var(--secondary-color);
+            position: relative;
+            padding-bottom: 10px;
         }
-        
-        .footer-links ul {
-            list-style: none;
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--color-primary);
         }
-        
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-links a {
-            color: var(--text-gray);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: var(--accent-color);
-        }
-        
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: var(--color-gray); }
+        .footer-links a:hover { color: var(--color-secondary); padding-left: 5px; }
         .social-icons {
             display: flex;
             gap: 15px;
             margin-top: 20px;
         }
-        
         .social-icons a {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             width: 40px;
             height: 40px;
-            background-color: var(--card-bg);
+            background-color: var(--color-darker);
             border-radius: 50%;
-            color: white;
+            color: var(--color-light);
             transition: all 0.3s;
         }
-        
         .social-icons a:hover {
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            background-color: var(--color-primary);
             transform: translateY(-5px);
         }
-        
         .copyright {
             text-align: center;
             padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-gray);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--color-gray);
             font-size: 0.9rem;
         }
-        
-        /* 游戏模式标签 */
-        .mode-tag {
-            display: inline-block;
-            background: linear-gradient(45deg, #8a2be2, #00ced1);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 25px;
-            margin: 5px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        
-        /* 响应式设计 */
+
+        /* ===== 响应式设计 ===== */
         @media (max-width: 992px) {
-            .process-step:not(:last-child):after {
-                display: none;
-            }
+            .hero h1 { font-size: 2.5rem; }
+            .section-title { font-size: 2.2rem; }
+            .process-steps::before { display: none; }
+            .process-steps { justify-content: center; }
+            .step { flex: 0 0 45%; }
         }
-        
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
                 position: absolute;
-                top: 70px;
+                top: 100%;
                 left: 0;
                 width: 100%;
-                background-color: var(--dark-bg);
+                background-color: var(--color-dark);
                 flex-direction: column;
                 padding: 20px;
-                text-align: center;
-                border-top: 1px solid rgba(138, 43, 226, 0.3);
-                z-index: 1000;
+                border-top: 1px solid rgba(139, 0, 0, 0.3);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
             }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .nav-links li {
-                margin: 15px 0;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .game-title {
-                font-size: 1.8rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .game-features {
-                padding: 30px 20px;
-            }
-            
-            .game-title {
-                font-size: 1.8rem;
-            }
+            .nav-links.active { display: flex; }
+            .nav-links li { margin: 15px 0; margin-left: 0; }
+            .mobile-menu-btn { display: block; }
+            .hero { padding-top: 150px; padding-bottom: 80px; }
+            .hero h1 { font-size: 2rem; }
+            .game-subtitle { font-size: 1.4rem; }
+            .hero p { font-size: 1rem; }
+            .step { flex: 0 0 100%; }
+            .services-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
         }
-        
         @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
-            .service-card, .companion-card {
-                padding: 25px 20px;
-            }
+            .hero h1 { font-size: 1.8rem; }
+            .section-title { font-size: 1.8rem; }
+            .service-item { padding: 20px; }
+            .service-name { font-size: 1.2rem; }
+            .service-price { font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
     <!-- 导航栏 -->
     <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <i class="fas fa-paw"></i>
-                    <span>puppy俱乐部</span>
-                    <div class="game-tag">超自然行动组</div>
-                </div>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="#home">首页</a></li>
-                    <li><a href="#services">陪玩服务</a></li>
-                    <li><a href="#companions">特工导师</a></li>
-                    <li><a href="#features">游戏特色</a></li>
-                    <li><a href="#process">加入行动</a></li>
-                    <li><a href="#contact">立即预约</a></li>
-                </ul>
-            </nav>
-        </div>
+        <nav class="container">
+            <div class="logo">
+                <i class="fas fa-paw"></i>
+                puppy俱乐部
+                <span class="game-tag">超自然行动组</span>
+            </div>
+            <button class="mobile-menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">探灵首页</a></li>
+                <li><a href="#services">服务项目</a></li>
+                <li><a href="#companions">摸金导师</a></li>
+                <li><a href="#process">行动流程</a></li>
+                <li><a href="#contact">立即预约</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- 英雄区域 -->
+    <!-- 英雄区域/横幅 -->
     <section class="hero" id="home">
         <div class="container">
-            <h1>puppy俱乐部</h1>
-            <div class="game-title">《超自然行动组》专属陪玩</div>
-            <p>专注《超自然行动组》高端陪玩服务，专业特工导师一对一指导，带你掌握超自然力量，完成机密任务，攀登排行榜巅峰！</p>
-            <div style="margin: 25px 0;">
-                <span class="mode-tag">超自然调查模式</span>
-                <span class="mode-tag">幽灵追击战</span>
-                <span class="mode-tag">异能团队竞技</span>
-                <span class="mode-tag">深渊副本挑战</span>
+            <h1>专业的<span>《超自然行动组》</span>陪玩俱乐部</h1>
+            <p class="game-subtitle">组队探险 · 分工协作 · 寻宝撤离[citation:1][citation:4]</p>
+            <p>“一人玩是密室逃脱，四人玩是喜剧现场。”[citation:6] 我们深谙游戏“搜打撤”精髓[citation:4]，提供从“胃袋”到“保护老板”的全套专业陪玩服务。告别团灭，高效摸金，与资深导师一起征服古墓，带宝平安归来。</p>
+            <div class="hero-btns">
+                <a href="#services" class="btn"><i class="fas fa-gem"></i> 查看服务项目</a>
+                <a href="#contact" class="btn btn-secondary"><i class="fas fa-headset"></i> 立即预约导师</a>
             </div>
-            <a href="#contact" class="cta-button">立即加入超自然行动 <i class="fas fa-arrow-right"></i></a>
         </div>
     </section>
 
-    <!-- 服务项目 -->
+    <!-- 服务项目区 -->
     <section id="services">
         <div class="container">
-            <h2 class="section-title">专属<span>陪玩服务</span></h2>
-            <p style="text-align: center; max-width: 800px; margin: 0 auto 50px; color: var(--text-gray); font-size: 1.1rem;">
-                我们只专注于《超自然行动组》一款游戏，提供最专业、最深度的陪玩服务
-            </p>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-ghost"></i>
+            <h2 class="section-title">摸金服务清单</h2>
+            <p class="section-subtitle">明码标价，专业可靠。所有服务均以游戏内“铲铲币”或实际货币结算，由对应段位的导师执行，确保任务成功率。</p>
+
+            <div class="services-intro">
+                <p><i class="fas fa-info-circle"></i> 《超自然行动组》是一款4人PVE合作生存手游，核心是“搜索、战斗、撤离”[citation:1][citation:4]。在古墓中，你们既是队友，也是彼此的依靠。</p>
+                <p><i class="fas fa-handshake"></i> 选择puppy俱乐部，就是选择了一位精通地图机制、怪物特性和撤离路线的资深“工友”，让你每次下墓都收益最大化。</p>
+            </div>
+
+            <!-- 服务项目分类列表 -->
+            <div class="service-category">
+                <h3 class="category-title"><i class="fas fa-archive"></i> 基础保障 & 资源服务</h3>
+                <div class="services-grid">
+                    <!-- 服务项目卡片示例：胃袋 -->
+                    <div class="service-item">
+                        <div class="service-header">
+                            <h4 class="service-name">胃袋 (资源保障)</h4>
+                            <div class="service-price">3.9<small>/局起</small></div>
+                        </div>
+                        <p class="service-desc">确保你在单局游戏中获得基础资源补给，平稳渡过前期搜索阶段。</p>
+                        <span class="service-tag">新手必备</span>
+                        <div class="service-footer">
+                            <span>迷你: 3.9 | 小: 8.8 | 中: 22 | 大: 68</span>
+                        </div>
                     </div>
-                    <h3>超自然能力教学</h3>
-                    <p>深度解析游戏内全部12种超自然能力，从基础掌握到高阶运用，快速提升你的异能操控技巧。</p>
+                    <!-- 臭鞋子 -->
+                    <div class="service-item">
+                        <div class="service-header">
+                            <h4 class="service-name">臭鞋子 (干扰道具)</h4>
+                            <div class="service-price">3.99<small>/次</small></div>
+                        </div>
+                        <p class="service-desc">向指定对手投掷干扰道具，影响其移动或侦查效率。</p>
+                        <span class="service-tag">战术干扰</span>
+                        <div class="service-footer">
+                            <span>升级版: 9.99</span>
+                        </div>
+                    </div>
+                    <!-- 雪莲永动机 -->
+                    <div class="service-item">
+                        <div class="service-header">
+                            <h4 class="service-name">雪莲永动机 (治疗保障)</h4>
+                            <div class="service-price">8.8<small>/局</small></div>
+                        </div>
+                        <p class="service-desc">在探险“昆仑秘境”等地图时[citation:6]，提供持续的治疗支持，化身团队医疗兵。</p>
+                        <span class="service-tag">高难地图</span>
+                    </div>
+                    <!-- 魔芋永动机 -->
+                    <div class="service-item">
+                        <div class="service-header">
+                            <h4 class="service-name">魔芋永动机 (状态保障)</h4>
+                            <div class="service-price">6.6<small>/局</small></div>
+                        </div>
+                        <p class="service-desc">提供持续的状态恢复支持，应对地图中的各类环境伤害。</p>
+                        <span class="service-tag">状态维持</span>
+                    </div>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-users"></i>
+            </div>
+
+            <div class="service-category">
+                <h3 class="category-title"><i class="fas fa-fighter-jet"></i> 战斗 & 竞技服务</h3>
+                <div class="services-grid">
+                    <!-- 屠龙 -->
+                    <div class="service-item">
+                        <div class="service-header">
+                            <h4 class="service-name">屠龙 (精英击杀)</h4>
+                            <div class="service-price">9<small>/头</small></div>
+                        </div>
+                        <p class="service-desc">承诺击杀局内指定的精英怪物或BOSS（如“鬼新娘”[citation:1]），为团队扫清最大威胁。</p>
+                        <span class="service-tag">暴力输出</span>
                     </div>
-                    <h3>特工组队行动</h3>
-                    <p>与资深特工导师组队，执行高难度超自然任务，优化团队配合，大幅提高任务成功率。</p>
+                    <!-- 堵命 -->
+                    <div class="service-item">
+                        <div class="service-header">
+                            <h4 class="service-name">堵命 (殿后掩护)</h4>
+                            <div class="service-price">8<small>/次</small></div>
+                        </div>
+                        <p class="service-desc">在撤离点或关键路口进行断后，抵挡怪物追击，确保队友安全撤离。</p>
+                        <span class="service-tag">团队牺牲</span>
+                    </div>
+                    <!-- 保护老板 -->
+                    <div class="service-item">
+                        <div class="service-header">
+                            <h4 class="service-name">保护老板 (VIP护送)</h4>
+                            <div class="service-price">9.9<small>/局</small></div>
+                        </div>
+                        <p class="service-desc">指定一位队友为“老板”，全程重点保护，直至其携带宝物安全撤离。“昆仑地图+2”[citation:10]。</p>
+                        <span class="service-tag">核心服务</span>
+                    </div>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-chart-line"></i>
+            </div>
+
+            <div class="service-category">
+                <h3 class="category-title"><i class="fas fa-dice"></i> 娱乐 & 惊喜服务</h3>
+                <div class="services-grid">
+                    <!-- 六星连珠 -->
+                    <div class="service-item">
+                        <div class="service-header">
+                            <h4 class="service-name">六星连珠 (幸运拉满)</h4>
+                            <div class="service-price">28.8<small>/局</small></div>
+                        </div>
+                        <p class="service-desc">玄学服务！旨在为当局游戏带来极佳运气，更容易发现“圣杯、雪莲、龙珠”[citation:1]等高价值宝物。</p>
+                        <span class="service-tag">运气加成</span>
                     </div>
-                    <h3>排行榜冲刺</h3>
-                    <p>针对排行榜机制定制训练计划，突破瓶颈，快速提升段位，登上特工排行榜前列。</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-dungeon"></i>
+                    <!-- 金棺尿壶 & 玉扳指 -->
+                    <div class="service-item">
+                        <div class="service-header">
+                            <h4 class="service-name">金棺尿壶 (趣味互动)</h4>
+                            <div class="service-price">6.6<small>/次</small></div>
+                        </div>
+                        <p class="service-desc">一种独特的趣味互动玩法，增加游戏欢乐气氛。</p>
+                        <span class="service-tag">玉扳指套餐: 4</span>
                     </div>
-                    <h3>深渊副本攻坚</h3>
-                    <p>专攻高难度深渊副本，提供详细攻略和实战指导，帮助您获得珍稀装备和资源。</p>
+                    <!-- 比大小 -->
+                    <div class="service-item">
+                        <div class="service-header">
+                            <h4 class="service-name">比大小 (趣味博弈)</h4>
+                            <div class="service-price">6.6<small>/次</small></div>
+                        </div>
+                        <p class="service-desc">与队友或导师进行趣味点数博弈，增加游戏内社交乐趣。</p>
+                        <span class="service-tag">欢乐互动</span>
+                    </div>
+                    <!-- 摇一摇 -->
+                    <div class="service-item">
+                        <div class="service-header">
+                            <h4 class="service-name">摇一摇 (随机惊喜)</h4>
+                            <div class="service-price">8.88<small>/次</small></div>
+                        </div>
+                        <p class="service-desc">随机获得一项未知的趣味服务或小型资源包，惊喜感十足。</p>
+                        <span class="service-tag">随机乐趣</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 游戏特色 -->
-    <section id="features" style="padding-top: 50px;">
+    <!-- 导师展示 -->
+    <section id="companions">
         <div class="container">
-            <div class="game-features">
-                <h2 class="section-title">《超自然行动组》<span>游戏特色</span></h2>
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <i class="fas fa-hand-sparkles"></i>
-                        </div>
-                        <h3>12种超自然能力</h3>
-                        <p>从念动力到预知未来，掌握多样化的异能战斗系统</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <i class="fas fa-user-secret"></i>
-                        </div>
-                        <h3>特工职业系统</h3>
-                        <p>6大特工职业，每种职业有独特的技能树和发展路线</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <i class="fas fa-moon"></i>
-                        </div>
-                        <h3>昼夜系统</h3>
-                        <p>真实的昼夜交替影响超自然现象出现频率和类型</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <i class="fas fa-tasks"></i>
-                        </div>
-                        <h3>动态任务系统</h3>
-                        <p>超过200个动态生成的超自然事件和机密任务</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 特工导师展示 -->
-    <section id="companions" style="background-color: rgba(12, 12, 26, 0.7);">
-        <div class="container">
-            <h2 class="section-title">明星<span>特工导师</span></h2>
-            <p style="text-align: center; max-width: 800px; margin: 0 auto 50px; color: var(--text-gray);">
-                我们的特工导师均为《超自然行动组》顶尖玩家，拥有丰富的游戏理解和教学经验
-            </p>
+            <h2 class="section-title">明星摸金导师</h2>
+            <p class="section-subtitle">我们的导师不仅是游戏高手，更是精通“探、打、撤”的团队指挥官[citation:4]，能带你以最专业的姿态破解古墓机关，应对“伪人”袭击[citation:4]。</p>
             <div class="companions-grid">
                 <div class="companion-card">
-                    <div class="companion-img">
-                        <i class="fas fa-user-ninja"></i>
-                        <div class="companion-rank">传奇特工</div>
-                    </div>
+                    <div class="companion-img"><i class="fas fa-user-secret"></i></div>
                     <div class="companion-info">
-                        <h3>幽灵</h3>
-                        <p>前职业战队队长，专精幽灵系能力，战术指挥专家</p>
-                        <div class="specialties">
-                            <span class="specialty-tag">幽灵追击</span>
-                            <span class="specialty-tag">团队指挥</span>
-                            <span class="specialty-tag">排行榜前10</span>
+                        <h3>搬山道人</h3>
+                        <p>前职业战队战术指挥。精通所有地图撤离点与机关解法，擅长“保护老板”和战术殿后。</p>
+                        <div class="companion-stats">
+                            <span>专精：战术指挥</span>
+                            <span>评分：9.8</span>
                         </div>
                     </div>
                 </div>
                 <div class="companion-card">
-                    <div class="companion-img">
-                        <i class="fas fa-user-astronaut"></i>
-                        <div class="companion-rank">超凡大师</div>
-                    </div>
+                    <div class="companion-img"><i class="fas fa-ghost"></i></div>
                     <div class="companion-info">
-                        <h3>预言者</h3>
-                        <p>预知能力专精，深渊副本通关记录保持者</p>
-                        <div class="specialties">
-                            <span class="specialty-tag">预知能力</span>
-                            <span class="specialty-tag">副本攻略</span>
-                            <span class="specialty-tag">装备优化</span>
+                        <h3>红衣</h3>
+                        <p>“鬼新娘”关卡专家[citation:1]。擅长利用地形与怪物周旋，是“屠龙”和“雪莲永动机”服务王牌。</p>
+                        <div class="companion-stats">
+                            <span>专精：生存输出</span>
+                            <span>评分：9.6</span>
                         </div>
                     </div>
                 </div>
                 <div class="companion-card">
-                    <div class="companion-img">
-                        <i class="fas fa-user-graduate"></i>
-                        <div class="companion-rank">至尊导师</div>
-                    </div>
+                    <div class="companion-img"><i class="fas fa-compass"></i></div>
                     <div class="companion-info">
-                        <h3>念力师</h3>
-                        <p>新人教学专家，念动力大师，超自然能力理论研究者</p>
-                        <div class="specialties">
-                            <span class="specialty-tag">新人教学</span>
-                            <span class="specialty-tag">念动力</span>
-                            <span class="specialty-tag">能力理论</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="companion-card">
-                    <div class="companion-img">
-                        <i class="fas fa-user-crown"></i>
-                        <div class="companion-rank">异能宗师</div>
-                    </div>
-                    <div class="companion-info">
-                        <h3>元素使</h3>
-                        <p>元素控制全能型选手，多个赛季排行榜前三</p>
-                        <div class="specialties">
-                            <span class="specialty-tag">元素控制</span>
-                            <span class="specialty-tag">PVP竞技</span>
-                            <span class="specialty-tag">全能力精通</span>
+                        <h3>分金校尉</h3>
+                        <p>人形资源雷达。精通“胃袋”资源规划和“六星连珠”玄学寻宝，最大化单局收益。</p>
+                        <div class="companion-stats">
+                            <span>专精：资源搜索</span>
+                            <span>评分：9.7</span>
                         </div>
                     </div>
                 </div>
@@ -778,71 +725,72 @@
     <!-- 服务流程 -->
     <section id="process">
         <div class="container">
-            <h2 class="section-title">加入<span>行动流程</span></h2>
-            <div class="process-container">
-                <div class="process-step">
+            <h2 class="section-title">合作流程</h2>
+            <p class="section-subtitle">简单四步，开启你的专业摸金之旅</p>
+            <div class="process-steps">
+                <div class="step">
                     <div class="step-number">1</div>
-                    <h3>能力评估</h3>
-                    <p>分析您当前的超自然能力掌握情况和游戏水平</p>
+                    <h3>需求沟通</h3>
+                    <p>告知我们你的目标（上分/娱乐/特定服务）和游戏时间。</p>
                 </div>
-                <div class="process-step">
+                <div class="step">
                     <div class="step-number">2</div>
-                    <h3>特工匹配</h3>
-                    <p>根据评估结果匹配最合适的特工导师</p>
+                    <h3>导师匹配</h3>
+                    <p>根据需求，匹配最擅长相应地图和服务的明星导师。</p>
                 </div>
-                <div class="process-step">
+                <div class="step">
                     <div class="step-number">3</div>
-                    <h3>定制计划</h3>
-                    <p>制定个性化的超自然能力提升计划</p>
+                    <h3>服务执行</h3>
+                    <p>导师组队入局，提供约定的专业陪玩服务，实时沟通。</p>
                 </div>
-                <div class="process-step">
+                <div class="step">
                     <div class="step-number">4</div>
-                    <h3>开始行动</h3>
-                    <p>加入特工小队，执行超自然任务，提升能力</p>
+                    <h3>安全撤离</h3>
+                    <p>达成目标，带宝撤离，确认服务完成并结算。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 联系表单 -->
+    <!-- 预约联系 -->
     <section id="contact">
         <div class="container">
-            <h2 class="section-title">立即<span>预约特工</span></h2>
+            <h2 class="section-title">立即预约下墓</h2>
+            <p class="section-subtitle">添加官方客服，发送你的游戏ID、需求与服务编号，我们将即刻响应</p>
             <div class="contact-container">
                 <div>
-                    <h3>加入超自然行动</h3>
-                    <p>填写以下信息，我们的特工联络员会在20分钟内与您联系，安排能力评估和特工匹配</p>
-                    <div class="contact-info" style="margin-top: 30px;">
-                        <p><i class="fas fa-phone" style="margin-right: 10px; color: var(--secondary-color);"></i> 特工联络专线: 400-013-2013</p>
-                        <p><i class="fas fa-envelope" style="margin-right: 10px; color: var(--secondary-color);"></i> 加密通讯: contact@puppy-club.com</p>
-                        <p><i class="fas fa-clock" style="margin-right: 10px; color: var(--secondary-color);"></i> 服务时间: 24小时应急响应</p>
+                    <h3 style="color: var(--color-secondary); margin-bottom: 25px;">联络方式</h3>
+                    <div class="contact-info">
+                        <p><i class="fab fa-qq"></i> 官方QQ：123456789 (puppy俱乐部客服)</p>
+                        <p><i class="fas fa-comment-dots"></i> 微信：puppy-peiwan (添加请备注“超自然”)</p>
+                        <p><i class="fas fa-clock"></i> 服务时间：13:00 - 次日03:00 (贴合玩家活跃时段)</p>
+                        <p><i class="fas fa-exclamation-circle"></i> 预约提示：高峰期请提前1-2小时预约，以便匹配最佳导师。</p>
                     </div>
-                    <div style="margin-top: 30px; background: rgba(138, 43, 226, 0.1); padding: 20px; border-radius: 10px; border-left: 4px solid var(--primary-color);">
-                        <h4><i class="fas fa-info-circle" style="margin-right: 10px;"></i> 当前活动</h4>
-                        <p>新特工招募中！首次体验可享受8折优惠，完成首次超自然任务还可获得专属游戏道具奖励！</p>
+                    <div style="margin-top: 30px; padding: 20px; background: rgba(139, 0, 0, 0.1); border-radius: 8px;">
+                        <h4><i class="fas fa-gift"></i> 新人福利</h4>
+                        <p>首次预约可任选一项“迷你”或“小”字号服务免费体验！详情咨询客服。</p>
                     </div>
                 </div>
                 <div>
                     <form class="contact-form" id="bookingForm">
-                        <input type="text" placeholder="您的代号" required>
-                        <input type="tel" placeholder="联络方式" required>
+                        <input type="text" placeholder="您的游戏昵称" required>
+                        <input type="text" placeholder="联系方式 (QQ/微信)" required>
                         <select required>
-                            <option value="" disabled selected>当前超自然能力等级</option>
-                            <option value="新人">新人特工 (0-100小时)</option>
-                            <option value="初级">初级特工 (100-500小时)</option>
-                            <option value="中级">中级特工 (500-1000小时)</option>
-                            <option value="高级">高级特工 (1000+小时)</option>
+                            <option value="" disabled selected>主要需求</option>
+                            <option value="win">上分/冲段位</option>
+                            <option value="fun">娱乐搞笑局</option>
+                            <option value="service">指定服务 (如屠龙、保护老板)</option>
+                            <option value="learn">地图教学/机制学习</option>
                         </select>
                         <select required>
-                            <option value="" disabled selected>希望提升的能力方向</option>
-                            <option value="幽灵系">幽灵系能力</option>
-                            <option value="念动力">念动力控制</option>
-                            <option value="元素">元素操控</option>
-                            <option value="预知">预知能力</option>
-                            <option value="全能">全能力提升</option>
+                            <option value="" disabled selected>常玩地图偏好</option>
+                            <option value="tomb">鬼新娘墓室[citation:1]</option>
+                            <option value="kunlun">昆仑秘境[citation:6]</option>
+                            <option value="shu">古蜀遗迹[citation:6]</option>
+                            <option value="any">都可</option>
                         </select>
-                        <textarea placeholder="特别要求或备注（可选）" rows="3"></textarea>
-                        <button type="submit"><i class="fas fa-paper-plane" style="margin-right: 10px;"></i> 发送加密通讯</button>
+                        <textarea placeholder请在此处填写你心仪的服务项目编号或名称，例如：“预约 保护老板 一局 + 胃袋(中)” rows="4"></textarea>
+                        <button type="submit" class="btn" style="width: 100%; font-size: 1.1rem;"><i class="fas fa-paper-plane"></i> 发送预约请求</button>
                     </form>
                 </div>
             </div>
@@ -854,80 +802,68 @@
         <div class="container">
             <div class="footer-content">
                 <div>
-                    <div class="logo" style="font-size: 1.5rem; margin-bottom: 20px;">
-                        <i class="fas fa-paw"></i>
-                        <span>puppy俱乐部</span>
-                    </div>
-                    <p>《超自然行动组》专属高端陪玩服务，专注提升您的超自然能力和特工排名。</p>
+                    <div class="footer-logo">puppy俱乐部</div>
+                    <p>专注《超自然行动组》深度陪玩。我们相信，专业的配合能将“带着目标的紧张”[citation:1]转化为满载而归的喜悦。</p>
                     <div class="social-icons">
-                        <a href="#"><i class="fab fa-weixin"></i></a>
                         <a href="#"><i class="fab fa-qq"></i></a>
-                        <a href="#"><i class="fab fa-discord"></i></a>
-                        <a href="#"><i class="fab fa-twitch"></i></a>
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-bilibili"></i></a>
+                        <a href="#"><i class="fab fa-douyin"></i></a>
                     </div>
                 </div>
                 <div class="footer-links">
-                    <h3>快速链接</h3>
+                    <h3>核心服务</h3>
                     <ul>
-                        <li><a href="#home">首页</a></li>
-                        <li><a href="#services">陪玩服务</a></li>
-                        <li><a href="#companions">特工导师</a></li>
-                        <li><a href="#process">加入流程</a></li>
+                        <li><a href="#services">战斗保障服务</a></li>
+                        <li><a href="#services">资源运营服务</a></li>
+                        <li><a href="#services">娱乐趣味服务</a></li>
+                        <li><a href="#services">全案定制服务</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
-                    <h3>游戏模式</h3>
+                    <h3>游戏攻略</h3>
                     <ul>
-                        <li><a href="#">超自然调查</a></li>
-                        <li><a href="#">幽灵追击战</a></li>
-                        <li><a href="#">异能团队竞技</a></li>
-                        <li><a href="#">深渊副本</a></li>
+                        <li><a href="#">“搜打撤”机制详解[citation:4]</a></li>
+                        <li><a href="#">各地图撤离点指南</a></li>
+                        <li><a href="#">高价值道具图鉴[citation:1]</a></li>
+                        <li><a href="#">怪物应对手册</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
-                    <h3>特工支持</h3>
+                    <h3>俱乐部条款</h3>
                     <ul>
-                        <li><a href="#">能力评估</a></li>
-                        <li><a href="#">战术指南</a></li>
-                        <li><a href="#">装备推荐</a></li>
-                        <li><a href="#">排行榜攻略</a></li>
+                        <li><a href="#">服务协议</a></li>
+                        <li><a href="#">隐私保护</a></li>
+                        <li><a href="#">免责声明</a></li>
+                        <li><a href="#">导师守则</a></li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 puppy俱乐部 - 《超自然行动组》专属陪玩. 保留所有权利. | 本网站与游戏开发商无官方关联</p>
-                <p style="margin-top: 10px; font-size: 0.8rem;">超自然行动组™ 是相关公司的注册商标</p>
+                <p>© 2025 puppy俱乐部. 《超自然行动组》是NIGHT STUDIOS工作室开发、巨人网络运营的游戏[citation:1]。本网站为玩家社群自发组建的陪玩服务平台，与游戏官方无关。</p>
+                <p style="margin-top: 10px; font-size: 0.8em;">游戏乐趣在于探索与协作[citation:8]，请健康游戏，适度消费。</p>
             </div>
         </div>
     </footer>
 
     <script>
         // 移动端菜单切换
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenuBtn = document.getElementById('menuBtn');
         const navLinks = document.getElementById('navLinks');
-        
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
         });
-        
-        // 平滑滚动
+        // 平滑滚动与菜单关闭
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
-                if(this.getAttribute('href') === '#') return;
-                
                 const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
                 const targetElement = document.querySelector(targetId);
-                
-                if(targetElement) {
-                    // 关闭移动端菜单
+                if (targetElement) {
                     navLinks.classList.remove('active');
                     mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                    
                     window.scrollTo({
                         top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
@@ -935,42 +871,18 @@
                 }
             });
         });
-        
-        // 表单提交处理
+        // 表单提交模拟
         const bookingForm = document.getElementById('bookingForm');
         bookingForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            // 获取表单数据
-            const codename = this.querySelector('input[type="text"]').value;
-            
-            // 这里实际开发中应发送到服务器
-            alert(`特工 ${codename}，您的加密通讯已发送！联络员将在20分钟内与您联系。请保持通讯畅通。`);
-            
-            // 重置表单
+            const name = this.querySelector('input[type="text"]').value;
+            alert(`尊敬的 ${name}，您的预约请求已发送！客服将在10分钟内通过您留下的联系方式与您确认细节。`);
             this.reset();
         });
-        
         // 导航栏滚动效果
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.backgroundColor = 'rgba(12, 12, 26, 0.98)';
-                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.3)';
-            } else {
-                header.style.backgroundColor = 'rgba(12, 12, 26, 0.95)';
-                header.style.boxShadow = 'none';
-            }
-        });
-        
-        // 页面加载动画
-        window.addEventListener('load', function() {
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.5s ease';
-            
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-            }, 100);
+            header.style.backgroundColor = window.scrollY > 50 ? 'rgba(10, 10, 10, 0.98)' : 'rgba(15, 15, 15, 0.95)';
         });
     </script>
 </body>
