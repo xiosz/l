@@ -207,7 +207,7 @@
             font-size: 1rem;
         }
         
-        /* 订单和支付区域 - 修改订单服务卡片大小 */
+        /* 订单和支付区域 */
         .order-section {
             margin-top: 35px;
             padding: 20px;
@@ -256,14 +256,13 @@
             overflow-y: auto;
         }
         
-        /* 修改订单服务卡片大小 */
         .selected-service-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 0; /* 减小内边距 */
+            padding: 8px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-            font-size: 0.9rem; /* 减小字体大小 */
+            font-size: 0.9rem;
         }
         
         .selected-service-item:last-child {
@@ -279,11 +278,11 @@
             background: rgba(255, 255, 255, 0.1);
             border: none;
             color: white;
-            width: 24px; /* 减小按钮大小 */
+            width: 24px;
             height: 24px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 0.9rem; /* 减小字体大小 */
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -295,23 +294,23 @@
         }
         
         .quantity-value {
-            margin: 0 8px; /* 减小间距 */
+            margin: 0 8px;
             font-weight: 600;
             min-width: 20px;
             text-align: center;
-            font-size: 0.9rem; /* 减小字体大小 */
+            font-size: 0.9rem;
         }
         
         .remove-btn {
             background: rgba(255, 107, 107, 0.2);
             border: none;
             color: #ff6b6b;
-            padding: 3px 8px; /* 减小内边距 */
+            padding: 3px 8px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 0.8rem; /* 减小字体大小 */
+            font-size: 0.8rem;
             transition: background 0.3s;
-            margin-left: 8px; /* 减小左边距 */
+            margin-left: 8px;
         }
         
         .remove-btn:hover {
@@ -328,7 +327,7 @@
             border-top: 2px solid rgba(255, 255, 255, 0.1);
         }
         
-        /* 支付按钮区域 - 保持左右排列 */
+        /* 支付按钮区域 */
         .payment-buttons {
             display: flex;
             justify-content: space-between;
@@ -579,16 +578,15 @@
                 font-size: 0.85rem;
             }
             
-            /* 修改：移动端支付方式也保持左右排列 */
             .payment-buttons {
-                flex-direction: row; /* 修改：从column改为row */
+                flex-direction: row;
                 gap: 15px;
             }
             
             .payment-link {
                 flex: 1;
-                min-height: 80px; /* 稍微减小高度 */
-                padding: 12px 20px; /* 调整内边距 */
+                min-height: 80px;
+                padding: 12px 20px;
             }
             
             .contact-info {
@@ -637,10 +635,9 @@
                 font-size: 0.8rem;
             }
             
-            /* 修改：超小屏幕也保持左右排列，但可以调整间距 */
             .payment-buttons {
-                flex-direction: row; /* 保持左右排列 */
-                gap: 10px; /* 减小间距 */
+                flex-direction: row;
+                gap: 10px;
             }
             
             .payment-link {
@@ -831,7 +828,7 @@
             </div>
         </div>
         
-        <!-- 订单和支付区域（缩小版） -->
+        <!-- 订单和支付区域 -->
         <div class="order-section">
             <div class="order-title"><i class="fas fa-shopping-cart"></i> 我的订单</div>
             <div class="order-summary">
@@ -847,9 +844,9 @@
                 </div>
             </div>
             
-            <!-- 支付按钮区域 - 左右排列 -->
+            <!-- 支付按钮区域 - 修改支付宝链接为动态 -->
             <div class="payment-buttons">
-                <a href="https://qr.alipay.com/fkx17600htsv037dteago15" class="payment-link alipay" target="_blank" rel="noopener noreferrer">
+                <a href="#" class="payment-link alipay" id="alipayPayment" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-alipay payment-icon"></i>
                     <span class="payment-text">支付宝付款</span>
                 </a>
@@ -1027,7 +1024,6 @@
             
             // 为每个小分类添加点击事件
             const serviceItems = document.querySelectorAll('.service-item');
-            const modalContainer = document.getElementById('modalContainer');
             
             serviceItems.forEach(item => {
                 item.addEventListener('click', function() {
@@ -1044,7 +1040,55 @@
             document.getElementById('wechatPayment').addEventListener('click', function() {
                 showNotification('微信付款功能即将上线，请暂时使用支付宝付款');
             });
+            
+            // 支付宝付款按钮点击事件 - 检查购物车是否为空
+            document.getElementById('alipayPayment').addEventListener('click', function(e) {
+                const totalAmount = getTotalAmount();
+                
+                if (totalAmount <= 0) {
+                    e.preventDefault();
+                    showNotification('请先选择服务，订单总金额不能为0');
+                    return false;
+                }
+                
+                // 动态生成支付宝链接
+                this.href = generateAlipayLink(totalAmount);
+            });
         });
+        
+        // 计算总金额
+        function getTotalAmount() {
+            let total = 0;
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+            });
+            return parseFloat(total.toFixed(2));
+        }
+        
+        // 生成支付宝链接
+        function generateAlipayLink(amount) {
+            // 这里是一个示例，实际使用时需要替换为正确的支付宝链接
+            // 支付宝收款链接通常需要特定的格式，这里只是一个示例
+            // 金额需要转换为以分为单位，或者根据支付宝要求处理
+            
+            // 注意：实际支付宝收款链接需要从支付宝商家平台获取
+            // 以下是示例格式，请替换为您的实际收款链接
+            const baseUrl = 'https://qr.alipay.com/fkx17600htsv037dteago15';
+            
+            // 生成服务描述
+            let serviceNames = [];
+            cart.forEach(item => {
+                serviceNames.push(item.name + '×' + item.quantity);
+            });
+            const serviceDesc = serviceNames.join(',');
+            
+            // 生成游戏ID（这里假设用户会输入，我们使用一个默认值）
+            const gameId = '用户游戏ID';
+            
+            // 构建支付宝链接参数
+            // 注意：实际支付宝链接参数格式可能不同，请根据您的支付宝收款方式调整
+            return `${baseUrl}?amount=${amount}&desc=puppy俱乐部-游戏陪玩服务&gameId=${encodeURIComponent(gameId)}&services=${encodeURIComponent(serviceDesc)}`;
+        }
         
         // 显示服务详情弹窗
         function showServiceModal(name, price, description) {
@@ -1170,7 +1214,7 @@
             }
         }
         
-        // 更新购物车显示 - 简化版，不显示详情
+        // 更新购物车显示
         function updateCartDisplay() {
             const cartList = document.getElementById('selectedServicesList');
             const totalAmountElement = document.getElementById('totalAmount');
@@ -1214,10 +1258,27 @@
             });
             
             cartList.innerHTML = cartHTML;
-            totalAmountElement.textContent = total.toFixed(2) + ' 元';
+            const totalAmount = total.toFixed(2);
+            totalAmountElement.textContent = totalAmount + ' 元';
+            
+            // 更新支付宝链接
+            updateAlipayLink(totalAmount);
             
             // 更新服务项的选中状态
             updateServiceSelection();
+        }
+        
+        // 更新支付宝链接
+        function updateAlipayLink(amount) {
+            const alipayLink = document.getElementById('alipayPayment');
+            const total = parseFloat(amount);
+            
+            if (total > 0) {
+                // 生成支付宝链接
+                alipayLink.href = generateAlipayLink(total);
+            } else {
+                alipayLink.href = '#';
+            }
         }
         
         // 更新服务项的选中状态
