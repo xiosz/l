@@ -59,15 +59,15 @@
             letter-spacing: 2px;
         }
         
-        /* 顶部入口样式 */
-        .entrance-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+        /* 顶部入口样式 - 左右排列 */
+        .entrance-row {
+            display: flex;
             gap: 18px;
             margin-bottom: 25px;
         }
         
-        .entrance-card {
+        .entrance-item {
+            flex: 1;
             background: rgba(30, 30, 50, 0.8);
             backdrop-filter: blur(10px);
             border-radius: 10px;
@@ -76,15 +76,27 @@
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
         
-        .entrance-card:hover {
+        .entrance-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
             border-color: rgba(255, 107, 107, 0.5);
         }
         
-        .entrance-card a {
+        .entrance-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+        }
+        
+        .entrance-link {
             display: block;
             font-size: 1.3rem;
             font-weight: 700;
@@ -96,7 +108,7 @@
             transition: all 0.3s ease;
         }
         
-        .entrance-card a:hover {
+        .entrance-link:hover {
             background: rgba(78, 205, 196, 0.2);
             transform: scale(1.05);
         }
@@ -105,7 +117,6 @@
             font-size: 0.8rem;
             color: #a0a0c0;
             margin-top: 10px;
-            font-style: italic;
         }
         
         /* 服务分类网格 */
@@ -200,7 +211,11 @@
                 font-size: 2.2rem;
             }
             
-            .entrance-grid,
+            .entrance-row {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
             .services-grid {
                 grid-template-columns: 1fr;
                 gap: 16px;
@@ -245,17 +260,17 @@
             <div class="subtitle">专业陪玩服务</div>
         </div>
         
-        <!-- 顶部入口区域 -->
-        <div class="entrance-grid">
-            <div class="entrance-card">
-                <!-- 接待入口链接（请自行替换链接） -->
-                <a href="#YOUR_RECEPTION_LINK_HERE" target="_blank">接待入口</a>
+        <!-- 顶部入口区域 - 左右排列 -->
+        <div class="entrance-row">
+            <div class="entrance-item">
+                <!-- 接待入口链接 -->
+                <a href="#YOUR_RECEPTION_LINK_HERE" class="entrance-link" target="_blank">接待入口</a>
                 <div class="entrance-note">接待客服</div>
             </div>
             
-            <div class="entrance-card">
-                <!-- 付款入口链接（请自行替换链接） -->
-                <a href="https://qr.alipay.com/fkx17600htsv037dteago15"target="_blank">付款入口</a>
+            <div class="entrance-item">
+                <!-- 付款入口链接 -->
+                <a href="https://qr.alipay.com/fkx17600htsv037dteago15" class="entrance-link" target="_blank">付款入口</a>
                 <div class="entrance-note">支付宝付款</div>
             </div>
         </div>
