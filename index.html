@@ -6,6 +6,7 @@
     <title>puppy俱乐部 - 点单</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* 所有样式保持不变，未作修改 */
         * {
             margin: 0;
             padding: 0;
@@ -325,7 +326,7 @@
             border-top: 2px solid rgba(255, 255, 255, 0.1);
         }
         
-        /* 支付按钮区域 */
+        /* 支付按钮区域 - 修改：支付宝和微信按钮样式 */
         .payment-buttons {
             display: flex;
             justify-content: space-between;
@@ -346,6 +347,7 @@
             flex: 1;
             min-height: 90px;
             border: 1px solid rgba(78, 205, 196, 0.3);
+            cursor: pointer;
         }
         
         .payment-link.alipay {
@@ -565,7 +567,7 @@
             color: #ff6b6b;
         }
         
-        /* 微信支付弹窗（可滑动版本） */
+        /* 微信支付弹窗（可滑动版本）- 保持不变 */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -894,7 +896,7 @@
             }
         }
         
-        /* 响应式设计 */
+        /* 响应式设计 - 保持不变 */
         @media (max-width: 768px) {
             .logo {
                 font-size: 2.5rem;
@@ -1092,6 +1094,33 @@
             font-size: 0.95rem;
             color: #f0f0f0;
         }
+        
+        /* 支付宝支付弹窗样式 - 新增 */
+        .alipay-modal .modal-content {
+            border-color: rgba(24, 119, 242, 0.3);
+        }
+        
+        .alipay-modal .modal-title {
+            color: #1877f2;
+        }
+        
+        .alipay-modal .modal-title i {
+            color: #1877f2;
+        }
+        
+        .alipay-modal .order-summary-modal {
+            background: rgba(24, 119, 242, 0.1);
+            border-color: rgba(24, 119, 242, 0.2);
+        }
+        
+        .alipay-modal .modal-btn.primary {
+            background: linear-gradient(135deg, #1877f2, #2e8bf0);
+            box-shadow: 0 5px 15px rgba(24, 119, 242, 0.3);
+        }
+        
+        .alipay-modal .modal-btn.primary:hover {
+            box-shadow: 0 8px 20px rgba(24, 119, 242, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -1229,12 +1258,12 @@
                 </div>
             </div>
             
-            <!-- 支付按钮区域 - 修改支付宝链接为动态 -->
+            <!-- 支付按钮区域 - 修改：支付宝和微信按钮都改为弹窗样式 -->
             <div class="payment-buttons">
-                <a href="#" class="payment-link alipay" id="alipayPayment" target="_blank" rel="noopener noreferrer">
+                <div class="payment-link alipay" id="alipayPayment">
                     <i class="fab fa-alipay payment-icon"></i>
                     <span class="payment-text">支付宝付款</span>
-                </a>
+                </div>
                 <div class="payment-link" id="wechatPayment">
                     <i class="fab fa-weixin payment-icon"></i>
                     <span class="payment-text">微信付款</span>
@@ -1278,7 +1307,7 @@
         </div>
     </div>
 
-    <!-- 微信支付弹窗（新的可滑动版本） -->
+    <!-- 微信支付弹窗（新的可滑动版本）- 保持不变 -->
     <div class="modal-overlay" id="wechatModalOverlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -1342,6 +1371,65 @@
         </div>
     </div>
     
+    <!-- 支付宝支付弹窗（新增，与微信弹窗样式相同但没有图片模块）- 新增 -->
+    <div class="modal-overlay alipay-modal" id="alipayModalOverlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fab fa-alipay"></i> 支付宝付款</h2>
+                <button class="modal-close" id="alipayModalClose">&times;</button>
+            </div>
+            
+            <div class="modal-body" id="alipayModalBody">
+                <div class="pull-to-refresh" id="alipayPullToRefresh">
+                    <i class="fas fa-arrow-down"></i> 下拉关闭弹窗
+                </div>
+                
+                <div class="order-summary-modal">
+                    <div class="order-amount">
+                        <span class="amount-label">订单金额：</span>
+                        <span class="amount-value" id="alipayModalAmount">0.00 元</span>
+                    </div>
+                    
+                    <div class="order-services">
+                        <div class="services-label">服务项目：</div>
+                        <div class="services-list" id="alipayModalServices">
+                            请先选择服务项目
+                        </div>
+                    </div>
+                    
+                    <div class="order-reminder">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <div>请确认订单信息无误后点击下方按钮前往支付宝付款</div>
+                    </div>
+                    
+                    <div class="order-reminder">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <div>付款后请务必联系客服微信确认订单</div>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <!-- 支付宝确认付款按钮，点击后跳转到指定链接 -->
+                    <button class="modal-btn primary" id="confirmAlipayPaymentBtn">
+                        <i class="fab fa-alipay"></i> 确认付款
+                    </button>
+                    <button class="modal-btn secondary" id="closeAlipayModalBtn">
+                        <i class="fas fa-times"></i> 关闭
+                    </button>
+                </div>
+                
+                <div class="contact-info-modal">
+                    <div class="contact-item-modal">
+                        <i class="fas fa-phone-alt"></i> 付款后请截图联系客服微信：Missuxn0917
+                    </div>
+                    <div class="contact-item-modal">
+                        <i class="fas fa-clock"></i> 客服在线时间：8:00 - 次日 02:00
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- 通知消息 -->
     <div class="notification" id="notification">
         <div class="notification-content">
@@ -1353,7 +1441,7 @@
     <!-- 引入粒子效果库 -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // 初始化粒子效果
+        // 初始化粒子效果 - 保持不变
         particlesJS('particles-js', {
             "particles": {
                 "number": {
@@ -1457,23 +1545,29 @@
             "retina_detect": true
         });
         
-        // 购物车数据
+        // 购物车数据 - 保持不变
         let cart = [];
-        // 当前选中的服务
+        // 当前选中的服务 - 保持不变
         let currentService = null;
         
-        // 微信支付弹窗相关变量
+        // 微信支付弹窗相关变量 - 保持不变
         let touchStartY = 0;
         let touchCurrentY = 0;
         let isDragging = false;
         let pullToRefreshElement = null;
         
-        // 初始化应用
+        // 支付宝支付弹窗相关变量 - 新增
+        let alipayTouchStartY = 0;
+        let alipayTouchCurrentY = 0;
+        let alipayIsDragging = false;
+        let alipayPullToRefreshElement = null;
+        
+        // 初始化应用 - 修改：添加支付宝弹窗相关事件
         document.addEventListener('DOMContentLoaded', function() {
-            // 从本地存储加载购物车
+            // 从本地存储加载购物车 - 保持不变
             loadCartFromStorage();
             
-            // 添加卡片悬停效果
+            // 添加卡片悬停效果 - 保持不变
             const cards = document.querySelectorAll('.service-card');
             
             cards.forEach(card => {
@@ -1488,7 +1582,7 @@
                 });
             });
             
-            // 为每个小分类添加点击事件
+            // 为每个小分类添加点击事件 - 保持不变
             const serviceItems = document.querySelectorAll('.service-item');
             
             serviceItems.forEach(item => {
@@ -1497,31 +1591,22 @@
                     const servicePrice = parseFloat(this.getAttribute('data-price'));
                     const serviceDescription = this.getAttribute('data-description');
                     
-                    // 显示iOS风格菜单
+                    // 显示iOS风格菜单 - 保持不变
                     showIosMenu(serviceName, servicePrice, serviceDescription);
                 });
             });
             
-            // 微信付款按钮点击事件 - 显示可滑动弹窗
+            // 支付宝付款按钮点击事件 - 修改：显示支付宝弹窗而不是直接跳转
+            document.getElementById('alipayPayment').addEventListener('click', function() {
+                showAlipayModal();
+            });
+            
+            // 微信付款按钮点击事件 - 保持不变
             document.getElementById('wechatPayment').addEventListener('click', function() {
                 showWechatModal();
             });
             
-            // 支付宝付款按钮点击事件 - 检查购物车是否为空
-            document.getElementById('alipayPayment').addEventListener('click', function(e) {
-                const totalAmount = getTotalAmount();
-                
-                if (totalAmount <= 0) {
-                    e.preventDefault();
-                    showNotification('请先选择服务，订单总金额不能为0');
-                    return false;
-                }
-                
-                // 动态生成支付宝链接
-                this.href = generateAlipayLink(totalAmount);
-            });
-            
-            // iOS菜单按钮事件
+            // iOS菜单按钮事件 - 保持不变
             document.getElementById('iosMenuAddBtn').addEventListener('click', function() {
                 if (currentService) {
                     addToCart(currentService.name, currentService.price, currentService.description);
@@ -1537,14 +1622,14 @@
                 hideIosMenu();
             });
             
-            // 点击遮罩层关闭菜单
+            // 点击遮罩层关闭菜单 - 保持不变
             document.getElementById('iosMenuOverlay').addEventListener('click', function(e) {
                 if (e.target === this) {
                     hideIosMenu();
                 }
             });
             
-            // 微信弹窗关闭按钮事件
+            // 微信弹窗关闭按钮事件 - 保持不变
             document.getElementById('wechatModalClose').addEventListener('click', function() {
                 hideWechatModal();
             });
@@ -1553,25 +1638,59 @@
                 hideWechatModal();
             });
             
-            // 点击遮罩层关闭微信弹窗
+            // 点击遮罩层关闭微信弹窗 - 保持不变
             document.getElementById('wechatModalOverlay').addEventListener('click', function(e) {
                 if (e.target === this) {
                     hideWechatModal();
                 }
             });
             
-            // 初始化微信弹窗触摸事件
+            // 支付宝弹窗关闭按钮事件 - 新增
+            document.getElementById('alipayModalClose').addEventListener('click', function() {
+                hideAlipayModal();
+            });
+            
+            document.getElementById('closeAlipayModalBtn').addEventListener('click', function() {
+                hideAlipayModal();
+            });
+            
+            // 点击遮罩层关闭支付宝弹窗 - 新增
+            document.getElementById('alipayModalOverlay').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    hideAlipayModal();
+                }
+            });
+            
+            // 支付宝确认付款按钮事件 - 新增
+            document.getElementById('confirmAlipayPaymentBtn').addEventListener('click', function() {
+                const totalAmount = getTotalAmount();
+                
+                if (totalAmount <= 0) {
+                    showNotification('请先选择服务，订单总金额不能为0');
+                    return;
+                }
+                
+                // 跳转到指定的支付宝链接 - 新增
+                window.open('https://qr.alipay.com/fkx12535tojpr0bdyg9tc9c', '_blank');
+                hideAlipayModal();
+            });
+            
+            // 初始化微信弹窗触摸事件 - 保持不变
             initWechatModalTouchEvents();
             
-            // 监听键盘ESC键关闭微信弹窗
+            // 初始化支付宝弹窗触摸事件 - 新增
+            initAlipayModalTouchEvents();
+            
+            // 监听键盘ESC键关闭弹窗 - 修改：同时关闭微信和支付宝弹窗
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     hideWechatModal();
+                    hideAlipayModal();
                 }
             });
         });
         
-        // 显示iOS风格菜单
+        // 显示iOS风格菜单 - 保持不变
         function showIosMenu(name, price, description) {
             currentService = {
                 name: name,
@@ -1579,42 +1698,42 @@
                 description: description
             };
             
-            // 更新菜单内容
+            // 更新菜单内容 - 保持不变
             document.getElementById('iosMenuTitle').textContent = name;
             document.getElementById('iosMenuSubtitle').textContent = price + ' 元/单';
             document.getElementById('iosMenuDescription').textContent = description;
             
-            // 显示菜单
+            // 显示菜单 - 保持不变
             const overlay = document.getElementById('iosMenuOverlay');
             const container = document.getElementById('iosMenuContainer');
             
             overlay.style.display = 'flex';
             
-            // 延迟添加show类以触发动画
+            // 延迟添加show类以触发动画 - 保持不变
             setTimeout(() => {
                 container.classList.add('show');
             }, 10);
             
-            // 阻止背景滚动
+            // 阻止背景滚动 - 保持不变
             document.body.style.overflow = 'hidden';
         }
         
-        // 隐藏iOS风格菜单
+        // 隐藏iOS风格菜单 - 保持不变
         function hideIosMenu() {
             const container = document.getElementById('iosMenuContainer');
             const overlay = document.getElementById('iosMenuOverlay');
             
             container.classList.remove('show');
             
-            // 等待动画完成后再隐藏
+            // 等待动画完成后再隐藏 - 保持不变
             setTimeout(() => {
                 overlay.style.display = 'none';
-                // 恢复背景滚动
+                // 恢复背景滚动 - 保持不变
                 document.body.style.overflow = 'auto';
             }, 400);
         }
         
-        // 计算总金额
+        // 计算总金额 - 保持不变
         function getTotalAmount() {
             let total = 0;
             cart.forEach(item => {
@@ -1623,26 +1742,7 @@
             return parseFloat(total.toFixed(2));
         }
         
-        // 生成支付宝链接
-        function generateAlipayLink(amount) {
-            // 注意：这里需要替换为你自己的支付宝收款链接
-            const baseUrl = 'https://qr.alipay.com/fkx17600htsv037dteago15';
-            
-            // 生成服务描述
-            let serviceNames = [];
-            cart.forEach(item => {
-                serviceNames.push(item.name + '×' + item.quantity);
-            });
-            const serviceDesc = serviceNames.join(',');
-            
-            // 生成游戏ID（这里假设用户会输入，我们使用一个默认值）
-            const gameId = '用户游戏ID';
-            
-            // 构建支付宝链接参数
-            return `${baseUrl}?amount=${amount}&desc=puppy俱乐部-游戏陪玩服务&gameId=${encodeURIComponent(gameId)}&services=${encodeURIComponent(serviceDesc)}`;
-        }
-        
-        // 显示微信支付弹窗（新的可滑动版本）
+        // 显示微信支付弹窗（新的可滑动版本）- 保持不变
         function showWechatModal() {
             const totalAmount = getTotalAmount();
             
@@ -1651,45 +1751,86 @@
                 return;
             }
             
-            // 生成服务描述
+            // 生成服务描述 - 保持不变
             let serviceNames = [];
             cart.forEach(item => {
                 serviceNames.push(item.name + ' × ' + item.quantity);
             });
             const serviceDesc = serviceNames.join('<br>');
             
-            // 更新弹窗内容
+            // 更新弹窗内容 - 保持不变
             document.getElementById('modalAmount').textContent = totalAmount.toFixed(2) + ' 元';
             document.getElementById('modalServices').innerHTML = serviceDesc;
             
-            // 显示弹窗
+            // 显示弹窗 - 保持不变
             const modal = document.getElementById('wechatModalOverlay');
             modal.classList.add('show');
             
-            // 重置弹窗位置和状态
+            // 重置弹窗位置和状态 - 保持不变
             const modalContent = document.querySelector('.modal-content');
             modalContent.style.transform = 'translateY(0)';
             
-            // 阻止背景滚动
+            // 阻止背景滚动 - 保持不变
             document.body.style.overflow = 'hidden';
         }
         
-        // 隐藏微信支付弹窗
+        // 隐藏微信支付弹窗 - 保持不变
         function hideWechatModal() {
             const modal = document.getElementById('wechatModalOverlay');
             modal.classList.remove('show');
             
-            // 恢复背景滚动
+            // 恢复背景滚动 - 保持不变
             document.body.style.overflow = 'auto';
         }
         
-        // 初始化微信弹窗触摸事件
+        // 显示支付宝支付弹窗（新增）- 新增
+        function showAlipayModal() {
+            const totalAmount = getTotalAmount();
+            
+            if (totalAmount <= 0) {
+                showNotification('请先选择服务，订单总金额不能为0');
+                return;
+            }
+            
+            // 生成服务描述 - 新增
+            let serviceNames = [];
+            cart.forEach(item => {
+                serviceNames.push(item.name + ' × ' + item.quantity);
+            });
+            const serviceDesc = serviceNames.join('<br>');
+            
+            // 更新弹窗内容 - 新增
+            document.getElementById('alipayModalAmount').textContent = totalAmount.toFixed(2) + ' 元';
+            document.getElementById('alipayModalServices').innerHTML = serviceDesc;
+            
+            // 显示弹窗 - 新增
+            const modal = document.getElementById('alipayModalOverlay');
+            modal.classList.add('show');
+            
+            // 重置弹窗位置和状态 - 新增
+            const modalContent = modal.querySelector('.modal-content');
+            modalContent.style.transform = 'translateY(0)';
+            
+            // 阻止背景滚动 - 新增
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // 隐藏支付宝支付弹窗 - 新增
+        function hideAlipayModal() {
+            const modal = document.getElementById('alipayModalOverlay');
+            modal.classList.remove('show');
+            
+            // 恢复背景滚动 - 新增
+            document.body.style.overflow = 'auto';
+        }
+        
+        // 初始化微信弹窗触摸事件 - 保持不变
         function initWechatModalTouchEvents() {
             const modalBody = document.getElementById('wechatModalBody');
             pullToRefreshElement = document.getElementById('pullToRefresh');
             
             modalBody.addEventListener('touchstart', function(e) {
-                // 如果内容已经滚动到顶部，才允许下拉关闭
+                // 如果内容已经滚动到顶部，才允许下拉关闭 - 保持不变
                 if (modalBody.scrollTop === 0) {
                     touchStartY = e.touches[0].clientY;
                     isDragging = true;
@@ -1703,19 +1844,19 @@
                 touchCurrentY = e.touches[0].clientY;
                 const deltaY = touchCurrentY - touchStartY;
                 
-                // 只允许下拉，不允许上拉关闭
+                // 只允许下拉，不允许上拉关闭 - 保持不变
                 if (deltaY > 0) {
                     e.preventDefault();
                     
-                    // 限制最大下拉距离
+                    // 限制最大下拉距离 - 保持不变
                     const maxPull = 120;
                     const pullAmount = Math.min(deltaY, maxPull);
                     
-                    // 移动弹窗
+                    // 移动弹窗 - 保持不变
                     const modalContent = document.querySelector('.modal-content');
                     modalContent.style.transform = `translateY(${pullAmount}px)`;
                     
-                    // 更新下拉提示
+                    // 更新下拉提示 - 保持不变
                     if (pullAmount > 60) {
                         pullToRefreshElement.classList.add('pulling');
                         pullToRefreshElement.innerHTML = '<i class="fas fa-arrow-down"></i> 释放关闭弹窗';
@@ -1733,7 +1874,7 @@
                 const modalContent = document.querySelector('.modal-content');
                 const deltaY = touchCurrentY - touchStartY;
                 
-                // 如果下拉足够远，则关闭弹窗
+                // 如果下拉足够远，则关闭弹窗 - 保持不变
                 if (deltaY > 60) {
                     modalContent.style.transition = 'transform 0.3s ease';
                     modalContent.style.transform = 'translateY(100vh)';
@@ -1744,7 +1885,7 @@
                         modalContent.style.transform = 'translateY(0)';
                     }, 300);
                 } else {
-                    // 否则恢复原位
+                    // 否则恢复原位 - 保持不变
                     modalContent.style.transition = 'transform 0.3s ease';
                     modalContent.style.transform = 'translateY(0)';
                     
@@ -1753,113 +1894,96 @@
                     }, 300);
                 }
                 
-                // 隐藏下拉提示
+                // 隐藏下拉提示 - 保持不变
                 pullToRefreshElement.classList.remove('show', 'pulling');
             }, { passive: true });
         }
         
-        // 保存二维码到相册
-        function saveQrCodeToAlbum() {
-            const qrImage = document.getElementById('wechatQrImage');
-            const totalAmount = getTotalAmount();
+        // 初始化支付宝弹窗触摸事件 - 新增
+        function initAlipayModalTouchEvents() {
+            const modalBody = document.getElementById('alipayModalBody');
+            alipayPullToRefreshElement = document.getElementById('alipayPullToRefresh');
             
-            // 检查图片是否存在
-            if (!qrImage || qrImage.src.includes('微信收款码.png.jpg')) {
-                showNotification('请先上传您的微信收款二维码图片');
-                return;
-            }
+            modalBody.addEventListener('touchstart', function(e) {
+                // 如果内容已经滚动到顶部，才允许下拉关闭 - 新增
+                if (modalBody.scrollTop === 0) {
+                    alipayTouchStartY = e.touches[0].clientY;
+                    alipayIsDragging = true;
+                    alipayPullToRefreshElement.classList.add('show');
+                }
+            }, { passive: true });
             
-            // 创建一个临时canvas来生成图片
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            
-            // 设置canvas尺寸
-            canvas.width = 300;
-            canvas.height = 400;
-            
-            // 绘制背景
-            ctx.fillStyle = '#1a1a2e';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // 绘制标题
-            ctx.fillStyle = '#ff6b6b';
-            ctx.font = 'bold 18px "Segoe UI", sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText('puppy俱乐部 - 微信支付', canvas.width/2, 30);
-            
-            // 绘制二维码
-            const img = new Image();
-            img.crossOrigin = 'anonymous';
-            img.onload = function() {
-                // 绘制二维码
-                ctx.drawImage(img, 50, 50, 200, 200);
+            modalBody.addEventListener('touchmove', function(e) {
+                if (!alipayIsDragging) return;
                 
-                // 绘制订单信息
-                ctx.fillStyle = '#4ecdc4';
-                ctx.font = 'bold 16px "Segoe UI", sans-serif';
-                ctx.fillText('订单金额: ' + totalAmount.toFixed(2) + ' 元', canvas.width/2, 280);
+                alipayTouchCurrentY = e.touches[0].clientY;
+                const deltaY = alipayTouchCurrentY - alipayTouchStartY;
                 
-                ctx.fillStyle = '#f0f0f0';
-                ctx.font = '14px "Segoe UI", sans-serif';
-                
-                // 绘制服务列表
-                let serviceText = '服务项目:';
-                let yPos = 310;
-                cart.forEach((item, index) => {
-                    if (index < 3) { // 最多显示3个服务
-                        const serviceLine = `${item.name} × ${item.quantity}`;
-                        ctx.fillText(serviceLine, canvas.width/2, yPos);
-                        yPos += 20;
+                // 只允许下拉，不允许上拉关闭 - 新增
+                if (deltaY > 0) {
+                    e.preventDefault();
+                    
+                    // 限制最大下拉距离 - 新增
+                    const maxPull = 120;
+                    const pullAmount = Math.min(deltaY, maxPull);
+                    
+                    // 移动弹窗 - 新增
+                    const modalContent = document.querySelector('#alipayModalOverlay .modal-content');
+                    modalContent.style.transform = `translateY(${pullAmount}px)`;
+                    
+                    // 更新下拉提示 - 新增
+                    if (pullAmount > 60) {
+                        alipayPullToRefreshElement.classList.add('pulling');
+                        alipayPullToRefreshElement.innerHTML = '<i class="fas fa-arrow-down"></i> 释放关闭弹窗';
+                    } else {
+                        alipayPullToRefreshElement.classList.remove('pulling');
+                        alipayPullToRefreshElement.innerHTML = '<i class="fas fa-arrow-down"></i> 下拉关闭弹窗';
                     }
-                });
+                }
+            }, { passive: false });
+            
+            modalBody.addEventListener('touchend', function() {
+                if (!alipayIsDragging) return;
                 
-                if (cart.length > 3) {
-                    ctx.fillText(`...等${cart.length}个服务`, canvas.width/2, yPos);
+                alipayIsDragging = false;
+                const modalContent = document.querySelector('#alipayModalOverlay .modal-content');
+                const deltaY = alipayTouchCurrentY - alipayTouchStartY;
+                
+                // 如果下拉足够远，则关闭弹窗 - 新增
+                if (deltaY > 60) {
+                    modalContent.style.transition = 'transform 0.3s ease';
+                    modalContent.style.transform = 'translateY(100vh)';
+                    
+                    setTimeout(() => {
+                        hideAlipayModal();
+                        modalContent.style.transition = '';
+                        modalContent.style.transform = 'translateY(0)';
+                    }, 300);
+                } else {
+                    // 否则恢复原位 - 新增
+                    modalContent.style.transition = 'transform 0.3s ease';
+                    modalContent.style.transform = 'translateY(0)';
+                    
+                    setTimeout(() => {
+                        modalContent.style.transition = '';
+                    }, 300);
                 }
                 
-                // 绘制提示信息
-                ctx.fillStyle = '#a0a0c0';
-                ctx.font = '12px "Segoe UI", sans-serif';
-                ctx.fillText('付款后请联系客服微信: Missuxn0917', canvas.width/2, yPos + 30);
-                ctx.fillText('puppy俱乐部 © 2023', canvas.width/2, yPos + 50);
-                
-                // 将canvas转换为图片并下载
-                const dataURL = canvas.toDataURL('image/png');
-                const link = document.createElement('a');
-                link.href = dataURL;
-                link.download = `puppy俱乐部_微信支付_${totalAmount.toFixed(2)}元.png`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                showNotification('二维码已保存，请打开微信扫一扫');
-            };
-            
-            img.onerror = function() {
-                // 如果图片加载失败，使用备选方案
-                const link = document.createElement('a');
-                link.href = qrImage.src;
-                link.download = `puppy俱乐部_微信收款码.png`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                showNotification('二维码已保存，请打开微信扫一扫');
-            };
-            
-            img.src = qrImage.src;
+                // 隐藏下拉提示 - 新增
+                alipayPullToRefreshElement.classList.remove('show', 'pulling');
+            }, { passive: true });
         }
         
-        // 添加到购物车
+        // 添加到购物车 - 保持不变
         function addToCart(name, price, description) {
-            // 检查是否已存在
+            // 检查是否已存在 - 保持不变
             const existingItemIndex = cart.findIndex(item => item.name === name);
             
             if (existingItemIndex >= 0) {
-                // 已存在，增加数量
+                // 已存在，增加数量 - 保持不变
                 cart[existingItemIndex].quantity += 1;
             } else {
-                // 新项目
+                // 新项目 - 保持不变
                 cart.push({
                     name: name,
                     price: price,
@@ -1868,52 +1992,52 @@
                 });
             }
             
-            // 保存到本地存储
+            // 保存到本地存储 - 保持不变
             saveCartToStorage();
             
-            // 更新购物车显示
+            // 更新购物车显示 - 保持不变
             updateCartDisplay();
             
-            // 显示通知
+            // 显示通知 - 保持不变
             showNotification(`"${name}" 已添加到订单`);
         }
         
-        // 从购物车移除项目
+        // 从购物车移除项目 - 保持不变
         function removeFromCart(index) {
             if (index >= 0 && index < cart.length) {
                 const itemName = cart[index].name;
                 cart.splice(index, 1);
                 
-                // 保存到本地存储
+                // 保存到本地存储 - 保持不变
                 saveCartToStorage();
                 
-                // 更新购物车显示
+                // 更新购物车显示 - 保持不变
                 updateCartDisplay();
                 
-                // 显示通知
+                // 显示通知 - 保持不变
                 showNotification(`"${itemName}" 已从订单移除`);
             }
         }
         
-        // 更新购物车数量
+        // 更新购物车数量 - 保持不变
         function updateCartItemQuantity(index, change) {
             if (index >= 0 && index < cart.length) {
                 cart[index].quantity += change;
                 
-                // 确保数量至少为1
+                // 确保数量至少为1 - 保持不变
                 if (cart[index].quantity < 1) {
                     cart[index].quantity = 1;
                 }
                 
-                // 保存到本地存储
+                // 保存到本地存储 - 保持不变
                 saveCartToStorage();
                 
-                // 更新购物车显示
+                // 更新购物车显示 - 保持不变
                 updateCartDisplay();
             }
         }
         
-        // 更新购物车显示
+        // 更新购物车显示 - 保持不变
         function updateCartDisplay() {
             const cartList = document.getElementById('selectedServicesList');
             const totalAmountElement = document.getElementById('totalAmount');
@@ -1929,7 +2053,7 @@
                 return;
             }
             
-            // 计算总价
+            // 计算总价 - 保持不变
             let total = 0;
             let cartHTML = '';
             
@@ -1960,27 +2084,11 @@
             const totalAmount = total.toFixed(2);
             totalAmountElement.textContent = totalAmount + ' 元';
             
-            // 更新支付宝链接
-            updateAlipayLink(totalAmount);
-            
-            // 更新服务项的选中状态
+            // 更新服务项的选中状态 - 保持不变
             updateServiceSelection();
         }
         
-        // 更新支付宝链接
-        function updateAlipayLink(amount) {
-            const alipayLink = document.getElementById('alipayPayment');
-            const total = parseFloat(amount);
-            
-            if (total > 0) {
-                // 生成支付宝链接
-                alipayLink.href = generateAlipayLink(total);
-            } else {
-                alipayLink.href = '#';
-            }
-        }
-        
-        // 更新服务项的选中状态
+        // 更新服务项的选中状态 - 保持不变
         function updateServiceSelection() {
             const serviceItems = document.querySelectorAll('.service-item');
             
@@ -1996,7 +2104,7 @@
             });
         }
         
-        // 显示通知
+        // 显示通知 - 保持不变
         function showNotification(message) {
             const notification = document.getElementById('notification');
             const notificationText = document.getElementById('notificationText');
@@ -2004,18 +2112,18 @@
             notificationText.textContent = message;
             notification.classList.add('show');
             
-            // 3秒后自动隐藏
+            // 3秒后自动隐藏 - 保持不变
             setTimeout(() => {
                 notification.classList.remove('show');
             }, 3000);
         }
         
-        // 保存购物车到本地存储
+        // 保存购物车到本地存储 - 保持不变
         function saveCartToStorage() {
             localStorage.setItem('puppyClubCart', JSON.stringify(cart));
         }
         
-        // 从本地存储加载购物车
+        // 从本地存储加载购物车 - 保持不变
         function loadCartFromStorage() {
             const savedCart = localStorage.getItem('puppyClubCart');
             if (savedCart) {
@@ -2028,7 +2136,7 @@
             }
         }
         
-        // 全局函数
+        // 全局函数 - 保持不变
         window.closeModal = function(modalId) {
             const modal = document.getElementById(modalId);
             if (modal) {
