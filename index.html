@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>puppy俱乐部 - 陪玩服务</title>
+    <title>puppy俱乐部 - 专业游戏陪玩服务</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -17,6 +18,7 @@
             color: #f0f0f0;
             min-height: 100vh;
             overflow-x: hidden;
+            line-height: 1.6;
         }
         
         #particles-js {
@@ -29,7 +31,7 @@
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 25px 20px;
             position: relative;
@@ -38,50 +40,62 @@
         
         .header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 35px;
+            padding-top: 15px;
         }
         
         .logo {
-            font-size: 3rem;
+            font-size: 3.2rem;
             font-weight: 800;
             background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 25px rgba(79, 192, 210, 0.3);
+            text-shadow: 0 0 30px rgba(79, 192, 210, 0.4);
             letter-spacing: 2px;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            border-radius: 2px;
         }
         
         .subtitle {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: #a0a0c0;
             letter-spacing: 2px;
+            margin-top: 20px;
+            font-weight: 300;
         }
         
         /* 服务分类网格 */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 22px;
+            margin-bottom: 30px;
         }
         
         .service-card {
-            background: rgba(20, 20, 35, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 10px;
-            padding: 18px;
+            background: rgba(20, 20, 35, 0.85);
+            backdrop-filter: blur(15px);
+            border-radius: 12px;
+            padding: 22px;
             border: 1px solid rgba(100, 100, 150, 0.2);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
-            border-color: rgba(255, 107, 107, 0.4);
         }
         
         .service-card::before {
@@ -90,28 +104,64 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 3px;
+            height: 4px;
             background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 107, 107, 0.5);
+        }
+        
+        .service-card:hover::before {
+            transform: scaleX(1);
         }
         
         .service-item {
-            padding: 6px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 1rem;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            font-size: 1.05rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            border-radius: 6px;
+            position: relative;
+        }
+        
+        .service-item::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: linear-gradient(180deg, #ff6b6b, #4ecdc4);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         
         .service-item:hover {
-            background: rgba(255, 255, 255, 0.03);
-            padding-left: 10px;
-            padding-right: 10px;
+            background: rgba(255, 255, 255, 0.04);
+            padding-left: 15px;
+            padding-right: 15px;
             margin-left: -10px;
             margin-right: -10px;
-            border-radius: 6px;
+        }
+        
+        .service-item:hover::before {
+            opacity: 1;
+        }
+        
+        .service-item.selected {
+            background: rgba(78, 205, 196, 0.1);
+            border-left: 3px solid #4ecdc4;
+            padding-left: 15px;
+            margin-left: -10px;
         }
         
         .service-item:last-child {
@@ -121,96 +171,241 @@
         .service-name {
             font-weight: 600;
             color: #e0e0ff;
+            display: flex;
+            align-items: center;
+        }
+        
+        .service-icon {
+            margin-right: 10px;
+            font-size: 1.1rem;
+            color: #ff6b6b;
         }
         
         .service-price {
             font-weight: 700;
             color: #4ecdc4;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             white-space: nowrap;
         }
         
         .category-title {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             color: #ff6b6b;
-            margin-bottom: 12px;
-            padding-bottom: 6px;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
             border-bottom: 2px solid rgba(255, 107, 107, 0.2);
             display: flex;
             align-items: center;
         }
         
-        .category-title::before {
-            content: '✦';
-            margin-right: 8px;
-            font-size: 1rem;
+        .category-title i {
+            margin-right: 12px;
+            font-size: 1.2rem;
         }
         
-        /* 付款入口区域（移至底部） */
-        .payment-section {
-            margin-top: 35px;
-            padding: 20px;
-            background: rgba(20, 20, 35, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 10px;
+        /* 购物车和订单区域 */
+        .order-section {
+            margin-top: 40px;
+            padding: 25px;
+            background: rgba(20, 20, 35, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 12px;
             border: 1px solid rgba(100, 100, 150, 0.2);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
             position: relative;
             overflow: hidden;
         }
         
-        .payment-section::before {
+        .order-section::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 3px;
+            height: 4px;
             background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
         }
         
-        .payment-section .category-title {
-            text-align: center;
-            justify-content: center;
+        .order-title {
+            font-size: 1.5rem;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
         }
         
-        .payment-content {
+        .order-title i {
+            margin-right: 12px;
+        }
+        
+        .order-summary {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .selected-services {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .selected-service-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        
+        .selected-service-item:last-child {
+            border-bottom: none;
+        }
+        
+        .service-quantity {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+        
+        .quantity-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .quantity-value {
+            margin: 0 15px;
+            font-weight: 600;
+            min-width: 20px;
             text-align: center;
-            padding: 20px 0;
+        }
+        
+        .remove-btn {
+            background: rgba(255, 107, 107, 0.2);
+            border: none;
+            color: #ff6b6b;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+            margin-left: 15px;
+        }
+        
+        .remove-btn:hover {
+            background: rgba(255, 107, 107, 0.3);
+        }
+        
+        .total-price {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4ecdc4;
+            padding-top: 15px;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .payment-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
         }
         
         .payment-link {
-            display: inline-block;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #4ecdc4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-decoration: none;
-            padding: 15px 30px;
-            border-radius: 10px;
+            padding: 18px 30px;
+            border-radius: 12px;
             background: rgba(78, 205, 196, 0.1);
             transition: all 0.3s ease;
-            margin-bottom: 10px;
+            min-width: 180px;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+        }
+        
+        .payment-link.alipay {
+            background: rgba(24, 119, 242, 0.1);
+            border-color: rgba(24, 119, 242, 0.3);
+        }
+        
+        .payment-link.alipay .payment-icon {
+            color: #1877f2;
         }
         
         .payment-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             background: rgba(78, 205, 196, 0.2);
-            transform: scale(1.05);
+        }
+        
+        .payment-link.alipay:hover {
+            background: rgba(24, 119, 242, 0.2);
+        }
+        
+        .payment-icon {
+            font-size: 2.5rem;
+            color: #4ecdc4;
+            margin-bottom: 10px;
+        }
+        
+        .payment-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #f0f0f0;
         }
         
         .payment-note {
-            font-size: 1rem;
+            text-align: center;
+            font-size: 0.95rem;
             color: #a0a0c0;
-            margin-top: 10px;
+            margin-top: 15px;
+            line-height: 1.5;
         }
         
         .footer {
             text-align: center;
-            margin-top: 35px;
-            padding: 12px;
+            margin-top: 45px;
+            padding: 20px;
             color: #8888aa;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             letter-spacing: 1px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .contact-info {
+            display: flex;
+            gap: 25px;
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .contact-item i {
+            color: #4ecdc4;
         }
         
         /* 弹窗样式 */
@@ -220,83 +415,169 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         .modal-content {
             background: rgba(20, 20, 35, 0.95);
-            border-radius: 12px;
-            padding: 30px;
-            max-width: 500px;
+            border-radius: 15px;
+            padding: 35px;
+            max-width: 550px;
             width: 90%;
-            border: 1px solid rgba(255, 107, 107, 0.3);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 107, 107, 0.4);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
             position: relative;
+            animation: slideUp 0.4s ease;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
         
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid rgba(255, 107, 107, 0.2);
+            margin-bottom: 25px;
+            padding-bottom: 18px;
+            border-bottom: 2px solid rgba(255, 107, 107, 0.3);
         }
         
         .modal-title {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: #ff6b6b;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .modal-title i {
+            margin-right: 12px;
         }
         
         .modal-close {
             background: none;
             border: none;
             color: #a0a0c0;
-            font-size: 1.8rem;
+            font-size: 2rem;
             cursor: pointer;
             transition: color 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
         }
         
         .modal-close:hover {
             color: #ff6b6b;
+            background: rgba(255, 255, 255, 0.05);
         }
         
         .modal-body {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #e0e0ff;
-            padding: 20px 0;
+            padding: 15px 0;
             text-align: center;
         }
         
+        .modal-price {
+            font-size: 1.8rem;
+            color: #4ecdc4;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        
+        .modal-btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.05rem;
+        }
+        
+        .modal-btn.primary {
+            background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+            color: white;
+        }
+        
+        .modal-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #f0f0f0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .modal-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        
         /* 响应式设计 */
+        @media (max-width: 992px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
         @media (max-width: 768px) {
             .logo {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
             
             .services-grid {
                 grid-template-columns: 1fr;
-                gap: 16px;
+                gap: 20px;
             }
             
             .service-card {
-                padding: 16px;
+                padding: 20px;
+            }
+            
+            .payment-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .payment-link {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
             }
         }
         
         @media (max-width: 480px) {
             .logo {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
             .subtitle {
-                font-size: 0.9rem;
+                font-size: 1rem;
             }
             
             .container {
@@ -304,12 +585,79 @@
             }
             
             .service-item {
-                font-size: 0.95rem;
+                font-size: 1rem;
             }
             
             .service-price {
-                font-size: 1rem;
+                font-size: 1.05rem;
             }
+            
+            .modal-content {
+                padding: 25px 20px;
+            }
+            
+            .modal-buttons {
+                flex-direction: column;
+            }
+            
+            .modal-btn {
+                width: 100%;
+            }
+        }
+        
+        /* 空购物车提示 */
+        .empty-cart {
+            text-align: center;
+            padding: 40px 20px;
+            color: #8888aa;
+        }
+        
+        .empty-cart i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #4ecdc4;
+            opacity: 0.5;
+        }
+        
+        /* 提示信息 */
+        .notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(20, 20, 35, 0.95);
+            border-left: 4px solid #4ecdc4;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: none;
+            animation: slideInRight 0.3s ease;
+            max-width: 350px;
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .notification.show {
+            display: block;
+        }
+        
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .notification-icon {
+            font-size: 1.5rem;
+            color: #4ecdc4;
+        }
+        
+        .notification-text {
+            font-size: 1rem;
+            color: #f0f0f0;
         }
     </style>
 </head>
@@ -321,116 +669,162 @@
     <div class="container">
         <div class="header">
             <h1 class="logo">puppy俱乐部</h1>
-            <div class="subtitle">专业陪玩服务</div>
+            <div class="subtitle">专业游戏陪玩 · 定制化服务 · 极致游戏体验</div>
         </div>
         
         <!-- 服务分类区域 -->
         <div class="services-grid">
             <!-- 第一类：胃袋相关 -->
             <div class="service-card">
-                <div class="category-title">胃袋服务</div>
-                <div class="service-item" data-name="迷你" data-price="3.9元/单">
-                    <span class="service-name">迷你</span>
+                <div class="category-title"><i class="fas fa-utensils"></i> 胃袋服务</div>
+                <div class="service-item" data-name="迷你" data-price="3.9" data-description="迷你胃袋服务：提供基础资源补给，适合快速游戏或新手入门。">
+                    <span class="service-name"><i class="fas fa-box service-icon"></i> 迷你</span>
                     <span class="service-price">3.9元/单</span>
                 </div>
-                <div class="service-item" data-name="小" data-price="8.8元/单">
-                    <span class="service-name">小</span>
+                <div class="service-item" data-name="小" data-price="8.8" data-description="小胃袋服务：中等资源补给，适合常规游戏需求，性价比较高。">
+                    <span class="service-name"><i class="fas fa-box service-icon"></i> 小</span>
                     <span class="service-price">8.8元/单</span>
                 </div>
-                <div class="service-item" data-name="中" data-price="22元/单">
-                    <span class="service-name">中</span>
+                <div class="service-item" data-name="中" data-price="22" data-description="中胃袋服务：大量资源补给，提供显著游戏优势，适合有一定要求的玩家。">
+                    <span class="service-name"><i class="fas fa-box service-icon"></i> 中</span>
                     <span class="service-price">22元/单</span>
                 </div>
-                <div class="service-item" data-name="大" data-price="68元/单">
-                    <span class="service-name">大</span>
+                <div class="service-item" data-name="大" data-price="68" data-description="大胃袋服务：顶级资源补给，极大提升游戏体验，适合高端玩家和追求极致体验的用户。">
+                    <span class="service-name"><i class="fas fa-box service-icon"></i> 大</span>
                     <span class="service-price">68元/单</span>
                 </div>
             </div>
             
             <!-- 第二类：六星连珠、臭鞋子 -->
             <div class="service-card">
-                <div class="category-title">连珠与干扰</div>
-                <div class="service-item" data-name="六星连珠" data-price="28.8元/单">
-                    <span class="service-name">六星连珠</span>
+                <div class="category-title"><i class="fas fa-meteor"></i> 连珠与干扰</div>
+                <div class="service-item" data-name="六星连珠" data-price="28.8" data-description="六星连珠服务：玄学运气加成服务，大幅提升发现高价值宝物的概率。">
+                    <span class="service-name"><i class="fas fa-star service-icon"></i> 六星连珠</span>
                     <span class="service-price">28.8元/单</span>
                 </div>
-                <div class="service-item" data-name="臭鞋子" data-price="3.99元/单">
-                    <span class="service-name">臭鞋子</span>
+                <div class="service-item" data-name="臭鞋子" data-price="3.99" data-description="臭鞋子服务：战术干扰道具，有效影响对手移动和侦查效率，为团队创造优势。">
+                    <span class="service-name"><i class="fas fa-shoe-prints service-icon"></i> 臭鞋子</span>
                     <span class="service-price">3.99元/单</span>
                 </div>
-                <div class="service-item" data-name="升级版臭鞋子" data-price="9.99元/单">
-                    <span class="service-name">升级版臭鞋子</span>
+                <div class="service-item" data-name="升级版臭鞋子" data-price="9.99" data-description="升级版臭鞋子服务：强化干扰效果，大幅降低对手操作效率，战术压制利器。">
+                    <span class="service-name"><i class="fas fa-shoe-prints service-icon"></i> 升级版臭鞋子</span>
                     <span class="service-price">9.99元/单</span>
                 </div>
             </div>
             
             <!-- 第三类：屠龙、堵命等 -->
             <div class="service-card">
-                <div class="category-title">战斗与策略</div>
-                <div class="service-item" data-name="屠龙" data-price="9元/单">
-                    <span class="service-name">屠龙</span>
+                <div class="category-title"><i class="fas fa-fist-raised"></i> 战斗与策略</div>
+                <div class="service-item" data-name="屠龙" data-price="9" data-description="屠龙服务：承诺击杀指定精英怪物或BOSS，为团队扫清威胁，保证任务顺利进行。">
+                    <span class="service-name"><i class="fas fa-dragon service-icon"></i> 屠龙</span>
                     <span class="service-price">9元/单</span>
                 </div>
-                <div class="service-item" data-name="堵命" data-price="8元/单">
-                    <span class="service-name">堵命</span>
+                <div class="service-item" data-name="堵命" data-price="8" data-description="堵命服务：在撤离点或关键路口断后，确保队友安全撤离，牺牲自我成就团队。">
+                    <span class="service-name"><i class="fas fa-shield-alt service-icon"></i> 堵命</span>
                     <span class="service-price">8元/单</span>
                 </div>
-                <div class="service-item" data-name="金棺尿壶" data-price="6.6元/单">
-                    <span class="service-name">金棺尿壶</span>
+                <div class="service-item" data-name="金棺尿壶" data-price="6.6" data-description="金棺尿壶服务：独特的趣味互动玩法，增加游戏欢乐气氛，缓解紧张游戏节奏。">
+                    <span class="service-name"><i class="fas fa-gem service-icon"></i> 金棺尿壶</span>
                     <span class="service-price">6.6元/单</span>
                 </div>
-                <div class="service-item" data-name="玉扳指" data-price="4元/单">
-                    <span class="service-name">玉扳指</span>
+                <div class="service-item" data-name="玉扳指" data-price="4" data-description="玉扳指服务：趣味互动套餐的一部分，增加游戏乐趣和社交体验。">
+                    <span class="service-name"><i class="fas fa-ring service-icon"></i> 玉扳指</span>
                     <span class="service-price">4元/单</span>
                 </div>
-                <div class="service-item" data-name="比大小" data-price="6.6元/单">
-                    <span class="service-name">比大小</span>
+                <div class="service-item" data-name="比大小" data-price="6.6" data-description="比大小服务：与队友进行趣味点数博弈，增加游戏内社交乐趣和随机性体验。">
+                    <span class="service-name"><i class="fas fa-dice service-icon"></i> 比大小</span>
                     <span class="service-price">6.6元/单</span>
                 </div>
             </div>
             
-            <!-- 第四类：永动机系列（包含原专属保护内容） -->
-            <div class="service-card" style="grid-column: 1 / 3;">
-                <div class="category-title">永动机系列</div>
-                <div class="service-item" data-name="雪莲永动机" data-price="8.8元/单">
-                    <span class="service-name">雪莲永动机</span>
+            <!-- 第四类：永动机系列 -->
+            <div class="service-card">
+                <div class="category-title"><i class="fas fa-infinity"></i> 永动机系列</div>
+                <div class="service-item" data-name="雪莲永动机" data-price="8.8" data-description="雪莲永动机服务：在昆仑秘境等地图提供持续治疗支持，确保团队生存能力。">
+                    <span class="service-name"><i class="fas fa-snowflake service-icon"></i> 雪莲永动机</span>
                     <span class="service-price">8.8元/单</span>
                 </div>
-                <div class="service-item" data-name="魔芋永动机" data-price="6.6元/单">
-                    <span class="service-name">魔芋永动机</span>
+                <div class="service-item" data-name="魔芋永动机" data-price="6.6" data-description="魔芋永动机服务：提供持续状态恢复，有效应对地图环境伤害，保持最佳状态。">
+                    <span class="service-name"><i class="fas fa-leaf service-icon"></i> 魔芋永动机</span>
                     <span class="service-price">6.6元/单</span>
                 </div>
-                <div class="service-item" data-name="摇一摇" data-price="8.88元/单">
-                    <span class="service-name">摇一摇</span>
+                <div class="service-item" data-name="摇一摇" data-price="8.88" data-description="摇一摇服务：随机获得未知趣味服务或小型资源包，增加游戏惊喜感。">
+                    <span class="service-name"><i class="fas fa-dice service-icon"></i> 摇一摇</span>
                     <span class="service-price">8.88元/单</span>
                 </div>
-                <div class="service-item" data-name="保护老板" data-price="9.9元/单">
-                    <span class="service-name">保护老板</span>
+                <div class="service-item" data-name="保护老板" data-price="9.9" data-description="保护老板服务：指定一位队友全程重点保护，直至安全撤离，VIP级护航体验。">
+                    <span class="service-name"><i class="fas fa-user-shield service-icon"></i> 保护老板</span>
                     <span class="service-price">9.9元/单</span>
                 </div>
-                <div class="service-item" data-name="保护老板（昆仑）" data-price="+2元/单">
-                    <span class="service-name">保护老板（昆仑）</span>
+                <div class="service-item" data-name="保护老板（昆仑）" data-price="2" data-description="保护老板（昆仑）服务：在昆仑地图提供专属保护服务，难度增加，需要更高技巧。">
+                    <span class="service-name"><i class="fas fa-mountain service-icon"></i> 保护老板（昆仑）</span>
                     <span class="service-price">+2元/单</span>
                 </div>
             </div>
         </div>
         
-        <!-- 付款入口区域（移至页面最下方） -->
-        <div class="payment-section">
-            <div class="category-title">付款入口</div>
-            <div class="payment-content">
-                <a href="https://qr.alipay.com/fkx17600htsv037dteago15" class="payment-link" target="_blank">支付宝付款</a>
-                <div class="payment-note">扫码或点击付款</div>
+        <!-- 订单和支付区域 -->
+        <div class="order-section">
+            <div class="order-title"><i class="fas fa-shopping-cart"></i> 我的订单</div>
+            <div class="order-summary">
+                <div id="selectedServicesList" class="selected-services">
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>您还没有选择任何服务<br>点击上方服务项添加到订单</p>
+                    </div>
+                </div>
+                <div class="total-price">
+                    <span>总计：</span>
+                    <span id="totalAmount">0.00 元</span>
+                </div>
+            </div>
+            
+            <div class="payment-buttons">
+                <a href="https://qr.alipay.com/fkx17600htsv037dteago15" class="payment-link alipay" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-alipay payment-icon"></i>
+                    <span class="payment-text">支付宝付款</span>
+                </a>
+                <div class="payment-link" id="wechatPayment">
+                    <i class="fab fa-weixin payment-icon"></i>
+                    <span class="payment-text">微信付款</span>
+                </div>
+            </div>
+            <div class="payment-note">
+                付款时请备注您的游戏ID和选择的服务<br>
+                付款后请联系客服确认订单，客服QQ：12345678<br>
+                服务时间：每日 10:00 - 次日 02:00
             </div>
         </div>
         
         <div class="footer">
-            puppy俱乐部 · 专业陪玩服务
+            <div>puppy俱乐部 · 专业陪玩服务 · 版权所有 © 2023</div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-qq"></i>
+                    <span>客服QQ：12345678</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <span>服务时间：10:00 - 次日 02:00</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-gamepad"></i>
+                    <span>支持游戏：永劫无间、APEX等</span>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- 弹窗容器（每个小分类有自己的弹窗） -->
+    <!-- 弹窗容器 -->
     <div id="modalContainer"></div>
+    
+    <!-- 通知消息 -->
+    <div class="notification" id="notification">
+        <div class="notification-content">
+            <i class="fas fa-check-circle notification-icon"></i>
+            <div class="notification-text" id="notificationText">服务已添加到订单</div>
+        </div>
+    </div>
 
     <!-- 引入粒子效果库 -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
@@ -439,7 +833,7 @@
         particlesJS('particles-js', {
             "particles": {
                 "number": {
-                    "value": 70,
+                    "value": 80,
                     "density": {
                         "enable": true,
                         "value_area": 800
@@ -456,7 +850,7 @@
                     }
                 },
                 "opacity": {
-                    "value": 0.6,
+                    "value": 0.7,
                     "random": true,
                     "anim": {
                         "enable": true,
@@ -477,14 +871,14 @@
                 },
                 "line_linked": {
                     "enable": true,
-                    "distance": 130,
+                    "distance": 150,
                     "color": "#ffffff",
                     "opacity": 0.2,
                     "width": 1
                 },
                 "move": {
                     "enable": true,
-                    "speed": 2,
+                    "speed": 2.5,
                     "direction": "none",
                     "random": true,
                     "straight": false,
@@ -512,7 +906,7 @@
                 },
                 "modes": {
                     "grab": {
-                        "distance": 160,
+                        "distance": 180,
                         "line_linked": {
                             "opacity": 0.6
                         }
@@ -525,7 +919,7 @@
                         "speed": 3
                     },
                     "repulse": {
-                        "distance": 100,
+                        "distance": 120,
                         "duration": 0.4
                     },
                     "push": {
@@ -539,8 +933,15 @@
             "retina_detect": true
         });
         
-        // 添加卡片悬停效果增强
+        // 购物车数据
+        let cart = [];
+        
+        // 初始化应用
         document.addEventListener('DOMContentLoaded', function() {
+            // 从本地存储加载购物车
+            loadCartFromStorage();
+            
+            // 添加卡片悬停效果
             const cards = document.querySelectorAll('.service-card');
             
             cards.forEach(card => {
@@ -555,94 +956,257 @@
                 });
             });
             
-            // 为每个小分类创建独立的弹窗
+            // 为每个小分类添加点击事件
             const serviceItems = document.querySelectorAll('.service-item');
             const modalContainer = document.getElementById('modalContainer');
             
-            // 每个小分类的详细内容
-            const serviceDetails = {
-                '迷你': '迷你胃袋服务详情：提供基础资源补给，确保前期平稳过渡。',
-                '小': '小胃袋服务详情：中等资源补给，适合常规游戏需求。',
-                '中': '中胃袋服务详情：大量资源补给，提供显著游戏优势。',
-                '大': '大胃袋服务详情：顶级资源补给，极大提升游戏体验。',
-                '六星连珠': '六星连珠服务详情：玄学运气加成服务，提升发现高价值宝物概率。',
-                '臭鞋子': '臭鞋子服务详情：战术干扰道具，影响对手移动和侦查效率。',
-                '升级版臭鞋子': '升级版臭鞋子服务详情：强化干扰效果，大幅降低对手效率。',
-                '屠龙': '屠龙服务详情：承诺击杀指定精英怪物或BOSS，为团队扫清威胁。',
-                '堵命': '堵命服务详情：在撤离点或关键路口断后，确保队友安全撤离。',
-                '金棺尿壶': '金棺尿壶服务详情：独特的趣味互动玩法，增加游戏欢乐气氛。',
-                '玉扳指': '玉扳指服务详情：趣味互动套餐的一部分，增加游戏乐趣。',
-                '比大小': '比大小服务详情：与队友进行趣味点数博弈，增加游戏内社交乐趣。',
-                '雪莲永动机': '雪莲永动机服务详情：在昆仑秘境等地图提供持续治疗支持。',
-                '魔芋永动机': '魔芋永动机服务详情：提供持续状态恢复，应对地图环境伤害。',
-                '摇一摇': '摇一摇服务详情：随机获得未知趣味服务或小型资源包。',
-                '保护老板': '保护老板服务详情：指定一位队友全程重点保护，直至安全撤离。',
-                '保护老板（昆仑）': '保护老板（昆仑）服务详情：在昆仑地图提供专属保护服务，难度增加。'
-            };
-            
-            // 为每个小分类添加点击事件
             serviceItems.forEach(item => {
                 item.addEventListener('click', function() {
                     const serviceName = this.getAttribute('data-name');
-                    const servicePrice = this.getAttribute('data-price');
+                    const servicePrice = parseFloat(this.getAttribute('data-price'));
+                    const serviceDescription = this.getAttribute('data-description');
                     
-                    // 创建弹窗HTML
-                    const modalId = 'modal-' + serviceName.replace(/\s+/g, '-');
-                    
-                    const modalHTML = `
-                        <div class="modal-overlay" id="${modalId}">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h2 class="modal-title">${serviceName} - 服务详情</h2>
-                                    <button class="modal-close" onclick="closeModal('${modalId}')">&times;</button>
-                                </div>
-                                <div class="modal-body">
-                                    <div style="margin-bottom: 20px; font-size: 1.4rem; color: #4ecdc4;">
-                                        价格: ${servicePrice}
-                                    </div>
-                                    <div style="margin-bottom: 20px; text-align: left;">
-                                        ${serviceDetails[serviceName] || '服务详情：123'}
-                                    </div>
-                                    <div style="font-style: italic; color: #a0a0c0; margin-top: 20px;">
-                                        点击弹窗外区域或按ESC键关闭
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    
-                    // 将弹窗添加到容器
-                    modalContainer.innerHTML = modalHTML;
-                    
-                    // 显示弹窗
-                    const modal = document.getElementById(modalId);
-                    modal.style.display = 'flex';
-                    
-                    // 点击弹窗外部关闭
-                    modal.addEventListener('click', function(e) {
-                        if (e.target === modal) {
-                            modal.style.display = 'none';
-                        }
-                    });
-                    
-                    // 按ESC键关闭弹窗
-                    document.addEventListener('keydown', function closeOnEsc(e) {
-                        if (e.key === 'Escape') {
-                            modal.style.display = 'none';
-                            document.removeEventListener('keydown', closeOnEsc);
-                        }
-                    });
+                    // 显示服务详情弹窗
+                    showServiceModal(serviceName, servicePrice, serviceDescription);
                 });
             });
             
-            // 全局关闭弹窗函数
-            window.closeModal = function(modalId) {
-                const modal = document.getElementById(modalId);
-                if (modal) {
+            // 微信付款按钮点击事件
+            document.getElementById('wechatPayment').addEventListener('click', function() {
+                showNotification('微信付款功能即将上线，请暂时使用支付宝付款');
+            });
+        });
+        
+        // 显示服务详情弹窗
+        function showServiceModal(name, price, description) {
+            const modalId = 'modal-' + name.replace(/\s+/g, '-');
+            
+            const modalHTML = `
+                <div class="modal-overlay" id="${modalId}">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title"><i class="fas fa-info-circle"></i> ${name} - 服务详情</h2>
+                            <button class="modal-close" onclick="closeModal('${modalId}')">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="modal-price">${price} 元/单</div>
+                            <div style="text-align: left; margin-bottom: 25px; line-height: 1.7;">
+                                ${description}
+                            </div>
+                            <div class="modal-buttons">
+                                <button class="modal-btn primary" onclick="addToCart('${name}', ${price}, '${description.replace(/'/g, "\\'")}'); closeModal('${modalId}')">
+                                    <i class="fas fa-cart-plus"></i> 加入订单
+                                </button>
+                                <button class="modal-btn secondary" onclick="closeModal('${modalId}')">
+                                    取消
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // 将弹窗添加到容器
+            const modalContainer = document.getElementById('modalContainer');
+            modalContainer.innerHTML = modalHTML;
+            
+            // 显示弹窗
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'flex';
+            
+            // 点击弹窗外部关闭
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
                     modal.style.display = 'none';
                 }
-            };
-        });
+            });
+            
+            // 按ESC键关闭弹窗
+            document.addEventListener('keydown', function closeOnEsc(e) {
+                if (e.key === 'Escape') {
+                    modal.style.display = 'none';
+                    document.removeEventListener('keydown', closeOnEsc);
+                }
+            });
+        }
+        
+        // 关闭弹窗
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        // 添加到购物车
+        function addToCart(name, price, description) {
+            // 检查是否已存在
+            const existingItemIndex = cart.findIndex(item => item.name === name);
+            
+            if (existingItemIndex >= 0) {
+                // 已存在，增加数量
+                cart[existingItemIndex].quantity += 1;
+            } else {
+                // 新项目
+                cart.push({
+                    name: name,
+                    price: price,
+                    description: description,
+                    quantity: 1
+                });
+            }
+            
+            // 保存到本地存储
+            saveCartToStorage();
+            
+            // 更新购物车显示
+            updateCartDisplay();
+            
+            // 显示通知
+            showNotification(`"${name}" 已添加到订单`);
+        }
+        
+        // 从购物车移除项目
+        function removeFromCart(index) {
+            if (index >= 0 && index < cart.length) {
+                const itemName = cart[index].name;
+                cart.splice(index, 1);
+                
+                // 保存到本地存储
+                saveCartToStorage();
+                
+                // 更新购物车显示
+                updateCartDisplay();
+                
+                // 显示通知
+                showNotification(`"${itemName}" 已从订单移除`);
+            }
+        }
+        
+        // 更新购物车数量
+        function updateCartItemQuantity(index, change) {
+            if (index >= 0 && index < cart.length) {
+                cart[index].quantity += change;
+                
+                // 确保数量至少为1
+                if (cart[index].quantity < 1) {
+                    cart[index].quantity = 1;
+                }
+                
+                // 保存到本地存储
+                saveCartToStorage();
+                
+                // 更新购物车显示
+                updateCartDisplay();
+            }
+        }
+        
+        // 更新购物车显示
+        function updateCartDisplay() {
+            const cartList = document.getElementById('selectedServicesList');
+            const totalAmountElement = document.getElementById('totalAmount');
+            
+            if (cart.length === 0) {
+                cartList.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>您还没有选择任何服务<br>点击上方服务项添加到订单</p>
+                    </div>
+                `;
+                totalAmountElement.textContent = '0.00 元';
+                return;
+            }
+            
+            // 计算总价
+            let total = 0;
+            let cartHTML = '';
+            
+            cart.forEach((item, index) => {
+                total += item.price * item.quantity;
+                
+                cartHTML += `
+                    <div class="selected-service-item">
+                        <div>
+                            <div style="font-weight: 600; margin-bottom: 5px;">${item.name}</div>
+                            <div style="font-size: 0.9rem; color: #a0a0c0;">${item.description.substring(0, 50)}...</div>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <div class="service-quantity">
+                                <button class="quantity-btn" onclick="updateCartItemQuantity(${index}, -1)">-</button>
+                                <span class="quantity-value">${item.quantity}</span>
+                                <button class="quantity-btn" onclick="updateCartItemQuantity(${index}, 1)">+</button>
+                            </div>
+                            <div style="font-weight: 700; color: #4ecdc4; margin-left: 20px; min-width: 80px; text-align: right;">
+                                ${(item.price * item.quantity).toFixed(2)} 元
+                            </div>
+                            <button class="remove-btn" onclick="removeFromCart(${index})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            cartList.innerHTML = cartHTML;
+            totalAmountElement.textContent = total.toFixed(2) + ' 元';
+            
+            // 更新服务项的选中状态
+            updateServiceSelection();
+        }
+        
+        // 更新服务项的选中状态
+        function updateServiceSelection() {
+            const serviceItems = document.querySelectorAll('.service-item');
+            
+            serviceItems.forEach(item => {
+                const serviceName = item.getAttribute('data-name');
+                const isInCart = cart.some(item => item.name === serviceName);
+                
+                if (isInCart) {
+                    item.classList.add('selected');
+                } else {
+                    item.classList.remove('selected');
+                }
+            });
+        }
+        
+        // 显示通知
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+            
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            // 3秒后自动隐藏
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // 保存购物车到本地存储
+        function saveCartToStorage() {
+            localStorage.setItem('puppyClubCart', JSON.stringify(cart));
+        }
+        
+        // 从本地存储加载购物车
+        function loadCartFromStorage() {
+            const savedCart = localStorage.getItem('puppyClubCart');
+            if (savedCart) {
+                try {
+                    cart = JSON.parse(savedCart);
+                    updateCartDisplay();
+                } catch (e) {
+                    console.error('加载购物车数据失败:', e);
+                }
+            }
+        }
+        
+        // 全局函数
+        window.closeModal = closeModal;
+        window.addToCart = addToCart;
+        window.removeFromCart = removeFromCart;
+        window.updateCartItemQuantity = updateCartItemQuantity;
     </script>
 </body>
 </html>
