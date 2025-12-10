@@ -419,7 +419,157 @@
             color: #4ecdc4;
         }
         
-        /* 弹窗样式 */
+        /* iOS风格菜单样式 */
+        .ios-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: flex-end;
+            align-items: flex-end;
+            flex-direction: column;
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .ios-menu-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(40, 40, 60, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px 20px 0 0;
+            overflow: hidden;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .ios-menu-container.show {
+            transform: translateY(0);
+        }
+        
+        .ios-menu-header {
+            padding: 25px 20px 15px;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .ios-menu-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 8px;
+        }
+        
+        .ios-menu-subtitle {
+            font-size: 1.1rem;
+            color: #4ecdc4;
+            font-weight: 700;
+        }
+        
+        .ios-menu-body {
+            padding: 20px;
+            max-height: 50vh;
+            overflow-y: auto;
+        }
+        
+        .ios-menu-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #e0e0ff;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .ios-menu-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .ios-menu-btn {
+            padding: 18px 20px;
+            border-radius: 14px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .ios-menu-btn.primary {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .ios-menu-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        .ios-menu-btn.secondary {
+            background: rgba(255, 255, 255, 0.08);
+            color: #f0f0f0;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .ios-menu-btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+        
+        .ios-menu-btn.destructive {
+            background: rgba(255, 107, 107, 0.1);
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 107, 107, 0.2);
+        }
+        
+        .ios-menu-btn.destructive:hover {
+            background: rgba(255, 107, 107, 0.15);
+        }
+        
+        .ios-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #a0a0c0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+        
+        .ios-menu-close:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ff6b6b;
+        }
+        
+        /* 微信支付弹窗（保持原样） */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -433,11 +583,6 @@
             align-items: center;
             z-index: 2000;
             animation: fadeIn 0.3s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
         
         .modal-content {
@@ -593,6 +738,11 @@
                 flex-direction: column;
                 gap: 15px;
             }
+            
+            .ios-menu-container {
+                max-width: 100%;
+                border-radius: 16px 16px 0 0;
+            }
         }
         
         @media (max-width: 480px) {
@@ -667,6 +817,20 @@
             
             .modal-btn {
                 width: 100%;
+            }
+            
+            .ios-menu-header {
+                padding: 20px 15px 12px;
+            }
+            
+            .ios-menu-body {
+                padding: 15px;
+                max-height: 60vh;
+            }
+            
+            .ios-menu-btn {
+                padding: 16px 18px;
+                font-size: 1rem;
             }
         }
         
@@ -881,7 +1045,31 @@
         </div>
     </div>
 
-    <!-- 弹窗容器 -->
+    <!-- iOS风格菜单容器 -->
+    <div class="ios-menu-overlay" id="iosMenuOverlay">
+        <div class="ios-menu-container" id="iosMenuContainer">
+            <button class="ios-menu-close" id="iosMenuClose">&times;</button>
+            <div class="ios-menu-header">
+                <div class="ios-menu-title" id="iosMenuTitle">服务详情</div>
+                <div class="ios-menu-subtitle" id="iosMenuSubtitle">0.00 元/单</div>
+            </div>
+            <div class="ios-menu-body">
+                <div class="ios-menu-description" id="iosMenuDescription">
+                    请选择一项服务查看详情
+                </div>
+                <div class="ios-menu-actions">
+                    <button class="ios-menu-btn primary" id="iosMenuAddBtn">
+                        <i class="fas fa-cart-plus"></i> 加入订单
+                    </button>
+                    <button class="ios-menu-btn secondary" id="iosMenuCancelBtn">
+                        <i class="fas fa-times"></i> 取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 弹窗容器（用于微信支付） -->
     <div id="modalContainer"></div>
     
     <!-- 通知消息 -->
@@ -1001,6 +1189,8 @@
         
         // 购物车数据
         let cart = [];
+        // 当前选中的服务
+        let currentService = null;
         
         // 初始化应用
         document.addEventListener('DOMContentLoaded', function() {
@@ -1031,12 +1221,12 @@
                     const servicePrice = parseFloat(this.getAttribute('data-price'));
                     const serviceDescription = this.getAttribute('data-description');
                     
-                    // 显示服务详情弹窗
-                    showServiceModal(serviceName, servicePrice, serviceDescription);
+                    // 显示iOS风格菜单
+                    showIosMenu(serviceName, servicePrice, serviceDescription);
                 });
             });
             
-            // 微信付款按钮点击事件 - 修改为显示二维码弹窗
+            // 微信付款按钮点击事件 - 显示二维码弹窗
             document.getElementById('wechatPayment').addEventListener('click', function() {
                 showWechatQrModal();
             });
@@ -1054,7 +1244,73 @@
                 // 动态生成支付宝链接
                 this.href = generateAlipayLink(totalAmount);
             });
+            
+            // iOS菜单按钮事件
+            document.getElementById('iosMenuAddBtn').addEventListener('click', function() {
+                if (currentService) {
+                    addToCart(currentService.name, currentService.price, currentService.description);
+                    hideIosMenu();
+                }
+            });
+            
+            document.getElementById('iosMenuCancelBtn').addEventListener('click', function() {
+                hideIosMenu();
+            });
+            
+            document.getElementById('iosMenuClose').addEventListener('click', function() {
+                hideIosMenu();
+            });
+            
+            // 点击遮罩层关闭菜单
+            document.getElementById('iosMenuOverlay').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    hideIosMenu();
+                }
+            });
         });
+        
+        // 显示iOS风格菜单
+        function showIosMenu(name, price, description) {
+            currentService = {
+                name: name,
+                price: price,
+                description: description
+            };
+            
+            // 更新菜单内容
+            document.getElementById('iosMenuTitle').textContent = name;
+            document.getElementById('iosMenuSubtitle').textContent = price + ' 元/单';
+            document.getElementById('iosMenuDescription').textContent = description;
+            
+            // 显示菜单
+            const overlay = document.getElementById('iosMenuOverlay');
+            const container = document.getElementById('iosMenuContainer');
+            
+            overlay.style.display = 'flex';
+            
+            // 延迟添加show类以触发动画
+            setTimeout(() => {
+                container.classList.add('show');
+            }, 10);
+            
+            // 阻止背景滚动
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // 隐藏iOS风格菜单
+        function hideIosMenu() {
+            const container = document.getElementById('iosMenuContainer');
+            const overlay = document.getElementById('iosMenuOverlay');
+            
+            container.classList.remove('show');
+            
+            // 等待动画完成后再隐藏
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                // 恢复背景滚动
+                document.body.style.overflow = 'auto';
+            }, 400);
+        }
         
         // 计算总金额
         function getTotalAmount() {
@@ -1068,11 +1324,6 @@
         // 生成支付宝链接
         function generateAlipayLink(amount) {
             // 注意：这里需要替换为你自己的支付宝收款链接
-            // 支付宝收款链接通常需要特定的格式，这里只是一个示例
-            // 金额需要转换为以分为单位，或者根据支付宝要求处理
-            
-            // 注意：实际支付宝收款链接需要从支付宝商家平台获取
-            // 以下是示例格式，请替换为您的实际收款链接
             const baseUrl = 'https://qr.alipay.com/fkx17600htsv037dteago15';
             
             // 生成服务描述
@@ -1086,7 +1337,6 @@
             const gameId = '用户游戏ID';
             
             // 构建支付宝链接参数
-            // 注意：实际支付宝链接参数格式可能不同，请根据您的支付宝收款方式调整
             return `${baseUrl}?amount=${amount}&desc=puppy俱乐部-游戏陪玩服务&gameId=${encodeURIComponent(gameId)}&services=${encodeURIComponent(serviceDesc)}`;
         }
         
@@ -1197,59 +1447,6 @@
             document.body.removeChild(link);
             
             showNotification('二维码图片保存成功！请打开微信扫一扫');
-        }
-        
-        // 显示服务详情弹窗
-        function showServiceModal(name, price, description) {
-            const modalId = 'modal-' + name.replace(/\s+/g, '-');
-            
-            const modalHTML = `
-                <div class="modal-overlay" id="${modalId}">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title"><i class="fas fa-info-circle"></i> ${name} - 服务详情</h2>
-                            <button class="modal-close" onclick="closeModal('${modalId}')">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="modal-price">${price} 元/单</div>
-                            <div style="text-align: left; margin-bottom: 25px; line-height: 1.7;">
-                                ${description}
-                            </div>
-                            <div class="modal-buttons">
-                                <button class="modal-btn primary" onclick="addToCart('${name}', ${price}, '${description.replace(/'/g, "\\'")}'); closeModal('${modalId}')">
-                                    <i class="fas fa-cart-plus"></i> 加入订单
-                                </button>
-                                <button class="modal-btn secondary" onclick="closeModal('${modalId}')">
-                                    取消
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            // 将弹窗添加到容器
-            const modalContainer = document.getElementById('modalContainer');
-            modalContainer.innerHTML = modalHTML;
-            
-            // 显示弹窗
-            const modal = document.getElementById(modalId);
-            modal.style.display = 'flex';
-            
-            // 点击弹窗外部关闭
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-            
-            // 按ESC键关闭弹窗
-            document.addEventListener('keydown', function closeOnEsc(e) {
-                if (e.key === 'Escape') {
-                    modal.style.display = 'none';
-                    document.removeEventListener('keydown', closeOnEsc);
-                }
-            });
         }
         
         // 关闭弹窗
