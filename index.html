@@ -59,6 +59,56 @@
             letter-spacing: 2px;
         }
         
+        /* 顶部入口样式 */
+        .entrance-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+        
+        .entrance-card {
+            background: rgba(30, 30, 50, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(100, 100, 150, 0.3);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+        
+        .entrance-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 107, 107, 0.5);
+        }
+        
+        .entrance-card a {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #4ecdc4;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(78, 205, 196, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .entrance-card a:hover {
+            background: rgba(78, 205, 196, 0.2);
+            transform: scale(1.05);
+        }
+        
+        .entrance-note {
+            font-size: 0.8rem;
+            color: #a0a0c0;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        /* 服务分类网格 */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -118,6 +168,22 @@
             white-space: nowrap;
         }
         
+        .detail-link {
+            font-size: 0.75rem;
+            color: #ff6b6b;
+            text-decoration: none;
+            margin-left: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(255, 107, 107, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .detail-link:hover {
+            background: rgba(255, 107, 107, 0.2);
+            text-decoration: underline;
+        }
+        
         .category-title {
             font-size: 1.2rem;
             color: #ff6b6b;
@@ -126,12 +192,28 @@
             border-bottom: 2px solid rgba(255, 107, 107, 0.2);
             display: flex;
             align-items: center;
+            justify-content: space-between;
         }
         
         .category-title::before {
             content: '✦';
             margin-right: 8px;
             font-size: 1rem;
+        }
+        
+        .category-detail-link {
+            font-size: 0.8rem;
+            color: #a0a0c0;
+            text-decoration: none;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: rgba(160, 160, 192, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .category-detail-link:hover {
+            background: rgba(160, 160, 192, 0.2);
+            text-decoration: underline;
         }
         
         .footer {
@@ -150,6 +232,7 @@
                 font-size: 2.2rem;
             }
             
+            .entrance-grid,
             .services-grid {
                 grid-template-columns: 1fr;
                 gap: 16px;
@@ -180,6 +263,10 @@
             .service-price {
                 font-size: 1rem;
             }
+            
+            .detail-link {
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
@@ -194,97 +281,145 @@
             <div class="subtitle">专业陪玩服务</div>
         </div>
         
+        <!-- 顶部入口区域 -->
+        <div class="entrance-grid">
+            <div class="entrance-card">
+                <!-- 接待入口链接（请自行替换链接） -->
+                <a href="#YOUR_RECEPTION_LINK_HERE" target="_blank">接待入口</a>
+                <div class="entrance-note">请将#YOUR_RECEPTION_LINK_HERE替换为您的实际接待链接</div>
+            </div>
+            
+            <div class="entrance-card">
+                <!-- 付款入口链接（请自行替换链接） -->
+                <a href="#YOUR_PAYMENT_LINK_HERE" target="_blank">付款入口</a>
+                <div class="entrance-note">请将#YOUR_PAYMENT_LINK_HERE替换为您的实际付款链接</div>
+            </div>
+        </div>
+        
+        <!-- 服务分类区域 -->
         <div class="services-grid">
             <!-- 第一类：胃袋相关 -->
             <div class="service-card">
-                <div class="category-title">胃袋服务</div>
+                <div class="category-title">
+                    胃袋服务
+                    <a href="#DETAIL_CODE_FOR_胃袋服务" class="category-detail-link">点击查看分类详细代码</a>
+                </div>
                 <div class="service-item">
                     <span class="service-name">迷你</span>
                     <span class="service-price">3.9元/单</span>
+                    <a href="#DETAIL_CODE_FOR_迷你" class="detail-link">查看代码</a>
                 </div>
                 <div class="service-item">
                     <span class="service-name">小</span>
                     <span class="service-price">8.8元/单</span>
+                    <a href="#DETAIL_CODE_FOR_小" class="detail-link">查看代码</a>
                 </div>
                 <div class="service-item">
                     <span class="service-name">中</span>
                     <span class="service-price">22元/单</span>
+                    <a href="#DETAIL_CODE_FOR_中" class="detail-link">查看代码</a>
                 </div>
                 <div class="service-item">
                     <span class="service-name">大</span>
                     <span class="service-price">68元/单</span>
+                    <a href="#DETAIL_CODE_FOR_大" class="detail-link">查看代码</a>
                 </div>
             </div>
             
             <!-- 第二类：六星连珠、臭鞋子 -->
             <div class="service-card">
-                <div class="category-title">连珠与干扰</div>
+                <div class="category-title">
+                    连珠与干扰
+                    <a href="#DETAIL_CODE_FOR_连珠与干扰" class="category-detail-link">点击查看分类详细代码</a>
+                </div>
                 <div class="service-item">
                     <span class="service-name">六星连珠</span>
                     <span class="service-price">28.8元/单</span>
+                    <a href="#DETAIL_CODE_FOR_六星连珠" class="detail-link">查看代码</a>
                 </div>
                 <div class="service-item">
                     <span class="service-name">臭鞋子</span>
                     <span class="service-price">3.99元/单</span>
+                    <a href="#DETAIL_CODE_FOR_臭鞋子" class="detail-link">查看代码</a>
                 </div>
                 <div class="service-item">
                     <span class="service-name">升级版臭鞋子</span>
                     <span class="service-price">9.99元/单</span>
+                    <a href="#DETAIL_CODE_FOR_升级版臭鞋子" class="detail-link">查看代码</a>
                 </div>
             </div>
             
             <!-- 第三类：屠龙、堵命等 -->
             <div class="service-card">
-                <div class="category-title">战斗与策略</div>
+                <div class="category-title">
+                    战斗与策略
+                    <a href="#DETAIL_CODE_FOR_战斗与策略" class="category-detail-link">点击查看分类详细代码</a>
+                </div>
                 <div class="service-item">
                     <span class="service-name">屠龙</span>
                     <span class="service-price">9元/单</span>
+                    <a href="#DETAIL_CODE_FOR_屠龙" class="detail-link">查看代码</a>
                 </div>
                 <div class="service-item">
                     <span class="service-name">堵命</span>
                     <span class="service-price">8元/单</span>
+                    <a href="#DETAIL_CODE_FOR_堵命" class="detail-link">查看代码</a>
                 </div>
                 <div class="service-item">
                     <span class="service-name">金棺尿壶</span>
                     <span class="service-price">6.6元/单</span>
+                    <a href="#DETAIL_CODE_FOR_金棺尿壶" class="detail-link">查看代码</a>
                 </div>
                 <div class="service-item">
                     <span class="service-name">玉扳指</span>
                     <span class="service-price">4元/单</span>
+                    <a href="#DETAIL_CODE_FOR_玉扳指" class="detail-link">查看代码</a>
                 </div>
                 <div class="service-item">
                     <span class="service-name">比大小</span>
                     <span class="service-price">6.6元/单</span>
+                    <a href="#DETAIL_CODE_FOR_比大小" class="detail-link">查看代码</a>
                 </div>
             </div>
             
             <!-- 第四类：永动机系列 -->
             <div class="service-card">
-                <div class="category-title">永动机系列</div>
+                <div class="category-title">
+                    永动机系列
+                    <a href="#DETAIL_CODE_FOR_永动机系列" class="category-detail-link">点击查看分类详细代码</a>
+                </div>
                 <div class="service-item">
                     <span class="service-name">雪莲永动机</span>
                     <span class="service-price">8.8元/单</span>
+                    <a href="#DETAIL_CODE_FOR_雪莲永动机" class="detail-link">查看代码</a>
                 </div>
                 <div class="service-item">
                     <span class="service-name">魔芋永动机</span>
                     <span class="service-price">6.6元/单</span>
+                    <a href="#DETAIL_CODE_FOR_魔芋永动机" class="detail-link">查看代码</a>
                 </div>
                 <div class="service-item">
                     <span class="service-name">摇一摇</span>
                     <span class="service-price">8.88元/单</span>
+                    <a href="#DETAIL_CODE_FOR_摇一摇" class="detail-link">查看代码</a>
                 </div>
             </div>
             
             <!-- 第五类：保护老板 -->
             <div class="service-card" style="grid-column: 1 / 3;">
-                <div class="category-title">专属保护</div>
+                <div class="category-title">
+                    专属保护
+                    <a href="#DETAIL_CODE_FOR_专属保护" class="category-detail-link">点击查看分类详细代码</a>
+                </div>
                 <div class="service-item">
                     <span class="service-name">保护老板</span>
                     <span class="service-price">9.9元/单</span>
+                    <a href="#DETAIL_CODE_FOR_保护老板" class="detail-link">查看代码</a>
                 </div>
                 <div class="service-item">
                     <span class="service-name">保护老板（昆仑）</span>
                     <span class="service-price">+2元/单</span>
+                    <a href="#DETAIL_CODE_FOR_保护老板昆仑" class="detail-link">查看代码</a>
                 </div>
             </div>
         </div>
