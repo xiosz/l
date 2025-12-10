@@ -78,23 +78,12 @@
             font-weight: 300;
         }
         
-        /* 服务分类网格 - 修改为左右两个排列 */
+        /* 恢复原始布局：第一行两个，第二行两个，第三行一个（永动机系列占两列） */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
+            gap: 22px;
             margin-bottom: 30px;
-        }
-        
-        /* 第一行左右两个，第二行左右两个 */
-        .service-card:nth-child(1),
-        .service-card:nth-child(2) {
-            grid-row: 1;
-        }
-        
-        .service-card:nth-child(3),
-        .service-card:nth-child(4) {
-            grid-row: 2;
         }
         
         .service-card {
@@ -107,9 +96,6 @@
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
-            min-height: 320px;
-            display: flex;
-            flex-direction: column;
         }
         
         .service-card::before {
@@ -132,6 +118,11 @@
         
         .service-card:hover::before {
             transform: scaleX(1);
+        }
+        
+        /* 永动机系列卡片占两列 */
+        .service-card:nth-child(4) {
+            grid-column: 1 / span 2;
         }
         
         .service-item {
@@ -217,7 +208,7 @@
             font-size: 1.2rem;
         }
         
-        /* 购物车和订单区域 - 简化显示 */
+        /* 购物车和订单区域 */
         .order-section {
             margin-top: 40px;
             padding: 25px;
@@ -550,20 +541,6 @@
         }
         
         /* 响应式设计 */
-        @media (max-width: 992px) {
-            .services-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .service-card:nth-child(1),
-            .service-card:nth-child(2),
-            .service-card:nth-child(3),
-            .service-card:nth-child(4) {
-                grid-row: auto;
-            }
-        }
-        
         @media (max-width: 768px) {
             .logo {
                 font-size: 2.5rem;
@@ -572,6 +549,11 @@
             .services-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
+            }
+            
+            /* 在移动设备上，永动机系列不再跨列 */
+            .service-card:nth-child(4) {
+                grid-column: 1;
             }
             
             .service-card {
@@ -682,18 +664,6 @@
             font-size: 1rem;
             color: #f0f0f0;
         }
-        
-        /* 简化购物车项目显示 */
-        .cart-item-name {
-            font-weight: 600;
-            color: #e0e0ff;
-        }
-        
-        .cart-item-price {
-            font-weight: 700;
-            color: #4ecdc4;
-            white-space: nowrap;
-        }
     </style>
 </head>
 <body>
@@ -707,9 +677,9 @@
             <div class="subtitle">专业游戏陪玩 · 定制化服务 · 极致游戏体验</div>
         </div>
         
-        <!-- 服务分类区域 - 修改为左右两个排列 -->
+        <!-- 服务分类区域 - 恢复原始布局 -->
         <div class="services-grid">
-            <!-- 第一类：胃袋相关 - 左上 -->
+            <!-- 第一类：胃袋相关 -->
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-utensils"></i> 胃袋服务</div>
                 <div class="service-item" data-name="迷你" data-price="3.9" data-description="迷你胃袋服务：提供基础资源补给，适合快速游戏或新手入门。">
@@ -730,7 +700,7 @@
                 </div>
             </div>
             
-            <!-- 第二类：六星连珠、臭鞋子 - 右上 -->
+            <!-- 第二类：六星连珠、臭鞋子 -->
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-meteor"></i> 连珠与干扰</div>
                 <div class="service-item" data-name="六星连珠" data-price="28.8" data-description="六星连珠服务：玄学运气加成服务，大幅提升发现高价值宝物的概率。">
@@ -747,7 +717,7 @@
                 </div>
             </div>
             
-            <!-- 第三类：屠龙、堵命等 - 左下 -->
+            <!-- 第三类：屠龙、堵命等 -->
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-fist-raised"></i> 战斗与策略</div>
                 <div class="service-item" data-name="屠龙" data-price="9" data-description="屠龙服务：承诺击杀指定精英怪物或BOSS，为团队扫清威胁，保证任务顺利进行。">
@@ -772,7 +742,7 @@
                 </div>
             </div>
             
-            <!-- 第四类：永动机系列 - 右下 -->
+            <!-- 第四类：永动机系列（恢复原始布局：占两列） -->
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-infinity"></i> 永动机系列</div>
                 <div class="service-item" data-name="雪莲永动机" data-price="8.8" data-description="雪莲永动机服务：在昆仑秘境等地图提供持续治疗支持，确保团队生存能力。">
@@ -1161,14 +1131,14 @@
                 
                 cartHTML += `
                     <div class="selected-service-item">
-                        <div class="cart-item-name">${item.name}</div>
+                        <div style="font-weight: 600; color: #e0e0ff;">${item.name}</div>
                         <div style="display: flex; align-items: center;">
                             <div class="service-quantity">
                                 <button class="quantity-btn" onclick="updateCartItemQuantity(${index}, -1)">-</button>
                                 <span class="quantity-value">${item.quantity}</span>
                                 <button class="quantity-btn" onclick="updateCartItemQuantity(${index}, 1)">+</button>
                             </div>
-                            <div class="cart-item-price" style="margin-left: 20px; min-width: 80px; text-align: right;">
+                            <div style="font-weight: 700; color: #4ecdc4; margin-left: 20px; min-width: 80px; text-align: right;">
                                 ${(item.price * item.quantity).toFixed(2)} 元
                             </div>
                             <button class="remove-btn" onclick="removeFromCart(${index})">
