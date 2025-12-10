@@ -59,84 +59,6 @@
             letter-spacing: 2px;
         }
         
-        /* 入口大分类网格 */
-        .entrance-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
-            margin-bottom: 25px;
-        }
-        
-        .entrance-card {
-            background: rgba(20, 20, 35, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 10px;
-            padding: 18px;
-            border: 1px solid rgba(100, 100, 150, 0.2);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
-        
-        .entrance-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
-            border-color: rgba(255, 107, 107, 0.4);
-        }
-        
-        .entrance-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
-        }
-        
-        .entrance-title {
-            font-size: 1.2rem;
-            color: #ff6b6b;
-            margin-bottom: 15px;
-            padding-bottom: 6px;
-            border-bottom: 2px solid rgba(255, 107, 107, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .entrance-title::before {
-            content: '✦';
-            margin-right: 8px;
-            font-size: 1rem;
-        }
-        
-        .entrance-link {
-            display: block;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #4ecdc4;
-            text-decoration: none;
-            padding: 12px;
-            border-radius: 8px;
-            background: rgba(78, 205, 196, 0.1);
-            transition: all 0.3s ease;
-            margin-bottom: 8px;
-        }
-        
-        .entrance-link:hover {
-            background: rgba(78, 205, 196, 0.2);
-            transform: scale(1.05);
-        }
-        
-        .entrance-note {
-            font-size: 0.9rem;
-            color: #a0a0c0;
-            margin-top: 5px;
-        }
-        
         /* 服务分类网格 */
         .services-grid {
             display: grid;
@@ -224,8 +146,8 @@
             font-size: 1rem;
         }
         
-        /* 接待入口区域（移至底部） */
-        .reception-section {
+        /* 付款入口区域（移至底部） */
+        .payment-section {
             margin-top: 35px;
             padding: 20px;
             background: rgba(20, 20, 35, 0.7);
@@ -237,7 +159,7 @@
             overflow: hidden;
         }
         
-        .reception-section::before {
+        .payment-section::before {
             content: '';
             position: absolute;
             top: 0;
@@ -247,17 +169,17 @@
             background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
         }
         
-        .reception-section .category-title {
+        .payment-section .category-title {
             text-align: center;
             justify-content: center;
         }
         
-        .reception-content {
+        .payment-content {
             text-align: center;
             padding: 20px 0;
         }
         
-        .reception-link {
+        .payment-link {
             display: inline-block;
             font-size: 1.4rem;
             font-weight: 700;
@@ -270,12 +192,12 @@
             margin-bottom: 10px;
         }
         
-        .reception-link:hover {
+        .payment-link:hover {
             background: rgba(78, 205, 196, 0.2);
             transform: scale(1.05);
         }
         
-        .reception-note {
+        .payment-note {
             font-size: 1rem;
             color: #a0a0c0;
             margin-top: 10px;
@@ -358,14 +280,12 @@
                 font-size: 2.2rem;
             }
             
-            .entrance-grid,
             .services-grid {
                 grid-template-columns: 1fr;
                 gap: 16px;
             }
             
-            .service-card,
-            .entrance-card {
+            .service-card {
                 padding: 16px;
             }
         }
@@ -390,11 +310,6 @@
             .service-price {
                 font-size: 1rem;
             }
-            
-            .entrance-link {
-                font-size: 1.2rem;
-                padding: 10px;
-            }
         }
     </style>
 </head>
@@ -407,16 +322,6 @@
         <div class="header">
             <h1 class="logo">puppy俱乐部</h1>
             <div class="subtitle">专业陪玩服务</div>
-        </div>
-        
-        <!-- 入口大分类区域（仅保留付款入口） -->
-        <div class="entrance-grid">
-            <!-- 付款入口大分类 -->
-            <div class="entrance-card">
-                <div class="entrance-title">付款入口</div>
-                <a href="https://qr.alipay.com/fkx17600htsv037dteago15" class="entrance-link" target="_blank">支付宝付款</a>
-                <div class="entrance-note">扫码或点击付款</div>
-            </div>
         </div>
         
         <!-- 服务分类区域 -->
@@ -484,8 +389,8 @@
                 </div>
             </div>
             
-            <!-- 第四类：永动机系列 -->
-            <div class="service-card">
+            <!-- 第四类：永动机系列（包含原专属保护内容） -->
+            <div class="service-card" style="grid-column: 1 / 3;">
                 <div class="category-title">永动机系列</div>
                 <div class="service-item" data-name="雪莲永动机" data-price="8.8元/单">
                     <span class="service-name">雪莲永动机</span>
@@ -499,11 +404,6 @@
                     <span class="service-name">摇一摇</span>
                     <span class="service-price">8.88元/单</span>
                 </div>
-            </div>
-            
-            <!-- 第五类：保护老板 -->
-            <div class="service-card" style="grid-column: 1 / 3;">
-                <div class="category-title">专属保护</div>
                 <div class="service-item" data-name="保护老板" data-price="9.9元/单">
                     <span class="service-name">保护老板</span>
                     <span class="service-price">9.9元/单</span>
@@ -515,12 +415,12 @@
             </div>
         </div>
         
-        <!-- 接待入口区域（移至页面最下方） -->
-        <div class="reception-section">
-            <div class="category-title">接待入口</div>
-            <div class="reception-content">
-                <a href="#YOUR_RECEPTION_LINK_HERE" class="reception-link" target="_blank">联系客服</a>
-                <div class="reception-note">点击联系客服进行咨询和预约</div>
+        <!-- 付款入口区域（移至页面最下方） -->
+        <div class="payment-section">
+            <div class="category-title">付款入口</div>
+            <div class="payment-content">
+                <a href="https://qr.alipay.com/fkx17600htsv037dteago15" class="payment-link" target="_blank">支付宝付款</a>
+                <div class="payment-note">扫码或点击付款</div>
             </div>
         </div>
         
@@ -641,7 +541,7 @@
         
         // 添加卡片悬停效果增强
         document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.service-card, .entrance-card');
+            const cards = document.querySelectorAll('.service-card');
             
             cards.forEach(card => {
                 card.addEventListener('mouseenter', function() {
