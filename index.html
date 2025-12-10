@@ -179,6 +179,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .service-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-left: -10px;
+            margin-right: -10px;
+            border-radius: 6px;
         }
         
         .service-item:last-child {
@@ -213,6 +224,63 @@
             font-size: 1rem;
         }
         
+        /* 接待入口区域（移至底部） */
+        .reception-section {
+            margin-top: 35px;
+            padding: 20px;
+            background: rgba(20, 20, 35, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 1px solid rgba(100, 100, 150, 0.2);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .reception-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+        }
+        
+        .reception-section .category-title {
+            text-align: center;
+            justify-content: center;
+        }
+        
+        .reception-content {
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .reception-link {
+            display: inline-block;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #4ecdc4;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            background: rgba(78, 205, 196, 0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+        
+        .reception-link:hover {
+            background: rgba(78, 205, 196, 0.2);
+            transform: scale(1.05);
+        }
+        
+        .reception-note {
+            font-size: 1rem;
+            color: #a0a0c0;
+            margin-top: 10px;
+        }
+        
         .footer {
             text-align: center;
             margin-top: 35px;
@@ -221,6 +289,67 @@
             font-size: 0.8rem;
             letter-spacing: 1px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* 弹窗样式 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background: rgba(20, 20, 35, 0.95);
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 107, 107, 0.2);
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            color: #ff6b6b;
+            font-weight: 700;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: #a0a0c0;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .modal-close:hover {
+            color: #ff6b6b;
+        }
+        
+        .modal-body {
+            font-size: 1.2rem;
+            color: #e0e0ff;
+            text-align: center;
+            padding: 20px 0;
         }
         
         /* 响应式设计 */
@@ -280,15 +409,8 @@
             <div class="subtitle">专业陪玩服务</div>
         </div>
         
-        <!-- 入口大分类区域 -->
+        <!-- 入口大分类区域（仅保留付款入口） -->
         <div class="entrance-grid">
-            <!-- 接待入口大分类 -->
-            <div class="entrance-card">
-                <div class="entrance-title">接待入口</div>
-                <a href="#YOUR_RECEPTION_LINK_HERE" class="entrance-link" target="_blank">接待客服</a>
-                <div class="entrance-note">点击联系客服</div>
-            </div>
-            
             <!-- 付款入口大分类 -->
             <div class="entrance-card">
                 <div class="entrance-title">付款入口</div>
@@ -302,19 +424,19 @@
             <!-- 第一类：胃袋相关 -->
             <div class="service-card">
                 <div class="category-title">胃袋服务</div>
-                <div class="service-item">
+                <div class="service-item" data-name="迷你">
                     <span class="service-name">迷你</span>
                     <span class="service-price">3.9元/单</span>
                 </div>
-                <div class="service-item">
+                <div class="service-item" data-name="小">
                     <span class="service-name">小</span>
                     <span class="service-price">8.8元/单</span>
                 </div>
-                <div class="service-item">
+                <div class="service-item" data-name="中">
                     <span class="service-name">中</span>
                     <span class="service-price">22元/单</span>
                 </div>
-                <div class="service-item">
+                <div class="service-item" data-name="大">
                     <span class="service-name">大</span>
                     <span class="service-price">68元/单</span>
                 </div>
@@ -323,15 +445,15 @@
             <!-- 第二类：六星连珠、臭鞋子 -->
             <div class="service-card">
                 <div class="category-title">连珠与干扰</div>
-                <div class="service-item">
+                <div class="service-item" data-name="六星连珠">
                     <span class="service-name">六星连珠</span>
                     <span class="service-price">28.8元/单</span>
                 </div>
-                <div class="service-item">
+                <div class="service-item" data-name="臭鞋子">
                     <span class="service-name">臭鞋子</span>
                     <span class="service-price">3.99元/单</span>
                 </div>
-                <div class="service-item">
+                <div class="service-item" data-name="升级版臭鞋子">
                     <span class="service-name">升级版臭鞋子</span>
                     <span class="service-price">9.99元/单</span>
                 </div>
@@ -340,23 +462,23 @@
             <!-- 第三类：屠龙、堵命等 -->
             <div class="service-card">
                 <div class="category-title">战斗与策略</div>
-                <div class="service-item">
+                <div class="service-item" data-name="屠龙">
                     <span class="service-name">屠龙</span>
                     <span class="service-price">9元/单</span>
                 </div>
-                <div class="service-item">
+                <div class="service-item" data-name="堵命">
                     <span class="service-name">堵命</span>
                     <span class="service-price">8元/单</span>
                 </div>
-                <div class="service-item">
+                <div class="service-item" data-name="金棺尿壶">
                     <span class="service-name">金棺尿壶</span>
                     <span class="service-price">6.6元/单</span>
                 </div>
-                <div class="service-item">
+                <div class="service-item" data-name="玉扳指">
                     <span class="service-name">玉扳指</span>
                     <span class="service-price">4元/单</span>
                 </div>
-                <div class="service-item">
+                <div class="service-item" data-name="比大小">
                     <span class="service-name">比大小</span>
                     <span class="service-price">6.6元/单</span>
                 </div>
@@ -365,15 +487,15 @@
             <!-- 第四类：永动机系列 -->
             <div class="service-card">
                 <div class="category-title">永动机系列</div>
-                <div class="service-item">
+                <div class="service-item" data-name="雪莲永动机">
                     <span class="service-name">雪莲永动机</span>
                     <span class="service-price">8.8元/单</span>
                 </div>
-                <div class="service-item">
+                <div class="service-item" data-name="魔芋永动机">
                     <span class="service-name">魔芋永动机</span>
                     <span class="service-price">6.6元/单</span>
                 </div>
-                <div class="service-item">
+                <div class="service-item" data-name="摇一摇">
                     <span class="service-name">摇一摇</span>
                     <span class="service-price">8.88元/单</span>
                 </div>
@@ -382,19 +504,41 @@
             <!-- 第五类：保护老板 -->
             <div class="service-card" style="grid-column: 1 / 3;">
                 <div class="category-title">专属保护</div>
-                <div class="service-item">
+                <div class="service-item" data-name="保护老板">
                     <span class="service-name">保护老板</span>
                     <span class="service-price">9.9元/单</span>
                 </div>
-                <div class="service-item">
+                <div class="service-item" data-name="保护老板（昆仑）">
                     <span class="service-name">保护老板（昆仑）</span>
                     <span class="service-price">+2元/单</span>
                 </div>
             </div>
         </div>
         
+        <!-- 接待入口区域（移至页面最下方） -->
+        <div class="reception-section">
+            <div class="category-title">接待入口</div>
+            <div class="reception-content">
+                <a href="#YOUR_RECEPTION_LINK_HERE" class="reception-link" target="_blank">联系客服</a>
+                <div class="reception-note">点击联系客服进行咨询和预约</div>
+            </div>
+        </div>
+        
         <div class="footer">
             puppy俱乐部 · 专业陪玩服务
+        </div>
+    </div>
+
+    <!-- 弹窗 -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">服务详情</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                123
+            </div>
         </div>
     </div>
 
@@ -519,6 +663,45 @@
                 card.addEventListener('mouseleave', function() {
                     this.style.borderColor = 'rgba(100, 100, 150, 0.2)';
                 });
+            });
+            
+            // 弹窗功能
+            const modalOverlay = document.getElementById('modalOverlay');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            const modalClose = document.getElementById('modalClose');
+            
+            // 为所有小分类添加点击事件
+            const serviceItems = document.querySelectorAll('.service-item');
+            
+            serviceItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const serviceName = this.getAttribute('data-name');
+                    modalTitle.textContent = serviceName + ' - 服务详情';
+                    modalBody.textContent = '123';
+                    
+                    // 显示弹窗
+                    modalOverlay.style.display = 'flex';
+                });
+            });
+            
+            // 关闭弹窗
+            modalClose.addEventListener('click', function() {
+                modalOverlay.style.display = 'none';
+            });
+            
+            // 点击弹窗外部关闭
+            modalOverlay.addEventListener('click', function(e) {
+                if (e.target === modalOverlay) {
+                    modalOverlay.style.display = 'none';
+                }
+            });
+            
+            // 按ESC键关闭弹窗
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    modalOverlay.style.display = 'none';
+                }
             });
         });
     </script>
