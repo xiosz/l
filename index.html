@@ -1325,9 +1325,6 @@
                 </div>
                 
                 <div class="modal-actions">
-                    <button class="modal-btn primary" id="saveToAlbumBtn">
-                        <i class="fas fa-camera"></i> 保存到相册
-                    </button>
                     <button class="modal-btn secondary" id="closeWechatModalBtn">
                         <i class="fas fa-times"></i> 关闭
                     </button>
@@ -1561,11 +1558,6 @@
                 if (e.target === this) {
                     hideWechatModal();
                 }
-            });
-            
-            // 保存到相册按钮事件
-            document.getElementById('saveToAlbumBtn').addEventListener('click', function() {
-                saveQrCodeToAlbum();
             });
             
             // 初始化微信弹窗触摸事件
