@@ -78,7 +78,7 @@
             font-weight: 300;
         }
         
-        /* 恢复原始布局：第一行两个，第二行两个，第三行一个（永动机系列占两列） */
+        /* 服务分类网格 - 四个卡片统一为左右排列，每行两个 */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -118,11 +118,6 @@
         
         .service-card:hover::before {
             transform: scaleX(1);
-        }
-        
-        /* 永动机系列卡片占两列 */
-        .service-card:nth-child(4) {
-            grid-column: 1 / span 2;
         }
         
         .service-item {
@@ -208,10 +203,10 @@
             font-size: 1.2rem;
         }
         
-        /* 购物车和订单区域 */
+        /* 订单和支付区域 - 缩小版 */
         .order-section {
-            margin-top: 40px;
-            padding: 25px;
+            margin-top: 35px;
+            padding: 20px;
             background: rgba(20, 20, 35, 0.8);
             backdrop-filter: blur(15px);
             border-radius: 12px;
@@ -232,34 +227,36 @@
         }
         
         .order-title {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: #ff6b6b;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
         }
         
         .order-title i {
-            margin-right: 12px;
+            margin-right: 10px;
         }
         
         .order-summary {
             background: rgba(0, 0, 0, 0.2);
             border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 25px;
+            padding: 15px;
+            margin-bottom: 20px;
         }
         
         .selected-services {
             list-style: none;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            max-height: 150px;
+            overflow-y: auto;
         }
         
         .selected-service-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
+            padding: 10px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.07);
         }
         
@@ -276,11 +273,11 @@
             background: rgba(255, 255, 255, 0.1);
             border: none;
             color: white;
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -292,7 +289,7 @@
         }
         
         .quantity-value {
-            margin: 0 15px;
+            margin: 0 12px;
             font-weight: 600;
             min-width: 20px;
             text-align: center;
@@ -302,12 +299,12 @@
             background: rgba(255, 107, 107, 0.2);
             border: none;
             color: #ff6b6b;
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: background 0.3s;
-            margin-left: 15px;
+            margin-left: 12px;
         }
         
         .remove-btn:hover {
@@ -317,17 +314,18 @@
         .total-price {
             display: flex;
             justify-content: space-between;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: #4ecdc4;
-            padding-top: 15px;
+            padding-top: 12px;
             border-top: 2px solid rgba(255, 255, 255, 0.1);
         }
         
+        /* 支付按钮区域 - 左右排列 */
         .payment-buttons {
             display: flex;
-            justify-content: center;
-            gap: 25px;
+            justify-content: space-between;
+            gap: 20px;
             flex-wrap: wrap;
         }
         
@@ -337,11 +335,12 @@
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            padding: 18px 30px;
+            padding: 15px 25px;
             border-radius: 12px;
             background: rgba(78, 205, 196, 0.1);
             transition: all 0.3s ease;
-            min-width: 180px;
+            flex: 1;
+            min-height: 90px;
             border: 1px solid rgba(78, 205, 196, 0.3);
         }
         
@@ -365,31 +364,31 @@
         }
         
         .payment-icon {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: #4ecdc4;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .payment-text {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: #f0f0f0;
         }
         
         .payment-note {
             text-align: center;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #a0a0c0;
-            margin-top: 15px;
+            margin-top: 12px;
             line-height: 1.5;
         }
         
         .footer {
             text-align: center;
-            margin-top: 45px;
-            padding: 20px;
+            margin-top: 35px;
+            padding: 18px;
             color: #8888aa;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             letter-spacing: 1px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
@@ -400,8 +399,8 @@
         .contact-info {
             display: flex;
             gap: 25px;
-            margin-top: 15px;
-            font-size: 1rem;
+            margin-top: 12px;
+            font-size: 0.95rem;
         }
         
         .contact-item {
@@ -438,8 +437,8 @@
         .modal-content {
             background: rgba(20, 20, 35, 0.95);
             border-radius: 15px;
-            padding: 35px;
-            max-width: 550px;
+            padding: 30px;
+            max-width: 500px;
             width: 90%;
             border: 1px solid rgba(255, 107, 107, 0.4);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
@@ -456,13 +455,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 18px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
             border-bottom: 2px solid rgba(255, 107, 107, 0.3);
         }
         
         .modal-title {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             color: #ff6b6b;
             font-weight: 700;
             display: flex;
@@ -477,11 +476,11 @@
             background: none;
             border: none;
             color: #a0a0c0;
-            font-size: 2rem;
+            font-size: 1.8rem;
             cursor: pointer;
             transition: color 0.3s;
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -494,34 +493,34 @@
         }
         
         .modal-body {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: #e0e0ff;
             padding: 15px 0;
             text-align: center;
         }
         
         .modal-price {
-            font-size: 1.8rem;
+            font-size: 1.7rem;
             color: #4ecdc4;
             font-weight: 700;
-            margin: 20px 0;
+            margin: 18px 0;
         }
         
         .modal-buttons {
             display: flex;
             gap: 15px;
             justify-content: center;
-            margin-top: 25px;
+            margin-top: 20px;
         }
         
         .modal-btn {
-            padding: 12px 25px;
+            padding: 10px 22px;
             border-radius: 8px;
             border: none;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 1.05rem;
+            font-size: 1rem;
         }
         
         .modal-btn.primary {
@@ -551,23 +550,17 @@
                 gap: 20px;
             }
             
-            /* 在移动设备上，永动机系列不再跨列 */
-            .service-card:nth-child(4) {
-                grid-column: 1;
-            }
-            
             .service-card {
                 padding: 20px;
             }
             
             .payment-buttons {
                 flex-direction: column;
-                align-items: center;
+                gap: 15px;
             }
             
             .payment-link {
                 width: 100%;
-                max-width: 300px;
             }
             
             .contact-info {
@@ -597,6 +590,10 @@
                 font-size: 1.05rem;
             }
             
+            .order-section {
+                padding: 15px;
+            }
+            
             .modal-content {
                 padding: 25px 20px;
             }
@@ -613,13 +610,13 @@
         /* 空购物车提示 */
         .empty-cart {
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px 20px;
             color: #8888aa;
         }
         
         .empty-cart i {
-            font-size: 3rem;
-            margin-bottom: 20px;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
             color: #4ecdc4;
             opacity: 0.5;
         }
@@ -627,17 +624,17 @@
         /* 提示信息 */
         .notification {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 25px;
+            right: 25px;
             background: rgba(20, 20, 35, 0.95);
             border-left: 4px solid #4ecdc4;
-            padding: 15px 25px;
+            padding: 12px 20px;
             border-radius: 8px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
             z-index: 1000;
             display: none;
             animation: slideInRight 0.3s ease;
-            max-width: 350px;
+            max-width: 320px;
         }
         
         @keyframes slideInRight {
@@ -652,16 +649,16 @@
         .notification-content {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
         
         .notification-icon {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: #4ecdc4;
         }
         
         .notification-text {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: #f0f0f0;
         }
     </style>
@@ -677,9 +674,9 @@
             <div class="subtitle">专业游戏陪玩 · 定制化服务 · 极致游戏体验</div>
         </div>
         
-        <!-- 服务分类区域 - 恢复原始布局 -->
+        <!-- 服务分类区域 - 四个卡片统一为左右排列，每行两个 -->
         <div class="services-grid">
-            <!-- 第一类：胃袋相关 -->
+            <!-- 第一行：胃袋服务（左）和连珠与干扰（右） -->
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-utensils"></i> 胃袋服务</div>
                 <div class="service-item" data-name="迷你" data-price="3.9" data-description="迷你胃袋服务：提供基础资源补给，适合快速游戏或新手入门。">
@@ -700,7 +697,6 @@
                 </div>
             </div>
             
-            <!-- 第二类：六星连珠、臭鞋子 -->
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-meteor"></i> 连珠与干扰</div>
                 <div class="service-item" data-name="六星连珠" data-price="28.8" data-description="六星连珠服务：玄学运气加成服务，大幅提升发现高价值宝物的概率。">
@@ -717,7 +713,7 @@
                 </div>
             </div>
             
-            <!-- 第三类：屠龙、堵命等 -->
+            <!-- 第二行：战斗与策略（左）和永动机系列（右） -->
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-fist-raised"></i> 战斗与策略</div>
                 <div class="service-item" data-name="屠龙" data-price="9" data-description="屠龙服务：承诺击杀指定精英怪物或BOSS，为团队扫清威胁，保证任务顺利进行。">
@@ -742,7 +738,6 @@
                 </div>
             </div>
             
-            <!-- 第四类：永动机系列（恢复原始布局：占两列） -->
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-infinity"></i> 永动机系列</div>
                 <div class="service-item" data-name="雪莲永动机" data-price="8.8" data-description="雪莲永动机服务：在昆仑秘境等地图提供持续治疗支持，确保团队生存能力。">
@@ -768,7 +763,7 @@
             </div>
         </div>
         
-        <!-- 订单和支付区域 -->
+        <!-- 订单和支付区域（缩小版） -->
         <div class="order-section">
             <div class="order-title"><i class="fas fa-shopping-cart"></i> 我的订单</div>
             <div class="order-summary">
@@ -784,6 +779,7 @@
                 </div>
             </div>
             
+            <!-- 支付按钮区域 - 左右排列 -->
             <div class="payment-buttons">
                 <a href="https://qr.alipay.com/fkx17600htsv037dteago15" class="payment-link alipay" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-alipay payment-icon"></i>
