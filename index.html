@@ -3,777 +3,424 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>puppy俱乐部 - 《超自然行动组》专业陪玩</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+    <title>puppy俱乐部 - 陪玩服务</title>
     <style>
-        /* ===== 基础样式重置与变量定义 ===== */
-        :root {
-            --color-primary: #4a6fa5; /* 主蓝色 */
-            --color-secondary: #6d9dc5; /* 浅蓝色 */
-            --color-accent: #ff7e5f; /* 强调色珊瑚橙 */
-            --color-dark: #f8f9fa; /* 浅灰背景 */
-            --color-darker: #e9ecef; /* 稍深灰 */
-            --color-light: #343a40; /* 深灰文字 */
-            --color-gray: #6c757d;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            font-family: 'Noto Sans SC', sans-serif;
-            background-color: var(--color-dark);
-            color: var(--color-light);
-            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0f;
+            color: #f0f0f0;
             min-height: 100vh;
+            overflow-x: hidden;
         }
-        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        section { padding: 80px 0; }
-        h1, h2, h3 { font-weight: 700; }
-        a { color: inherit; text-decoration: none; transition: all 0.3s ease; }
-        ul { list-style: none; }
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: linear-gradient(135deg, var(--color-primary), #3a5985);
-            color: white;
-            border-radius: 8px;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(74, 111, 165, 0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(74, 111, 165, 0.3); }
-
-        /* ===== 导航栏 ===== */
-        header {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        
+        #particles-js {
             position: fixed;
             width: 100%;
+            height: 100%;
             top: 0;
-            z-index: 1000;
-            padding: 15px 0;
-        }
-        nav .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo {
-            font-family: 'Ma Shan Zheng', cursive;
-            font-size: 1.8rem;
-            color: var(--color-primary);
-            display: flex;
-            align-items: center;
-        }
-        .logo i { margin-right: 10px; color: var(--color-accent); }
-        .game-tag {
-            background: var(--color-darker);
-            color: var(--color-accent);
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            margin-left: 10px;
-            border: 1px solid var(--color-accent);
-        }
-        .nav-links { display: flex; }
-        .nav-links li { margin-left: 35px; }
-        .nav-links a {
-            font-weight: 500;
-            font-size: 1.05rem;
-            position: relative;
-            color: var(--color-light);
-        }
-        .nav-links a:hover { color: var(--color-primary); }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
             left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--color-primary);
-            transition: width 0.3s;
+            z-index: -1;
         }
-        .nav-links a:hover::after { width: 100%; }
-        .mobile-menu-btn { display: none; font-size: 1.5rem; background: none; border: none; color: var(--color-light); cursor: pointer; }
-
-        /* ===== 英雄区域 (头部横幅) ===== */
-        .hero {
-            padding-top: 180px;
-            padding-bottom: 100px;
-            text-align: center;
-            background: linear-gradient(rgba(248, 249, 250, 0.95), rgba(248, 249, 250, 0.98)), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            margin-top: 60px;
-        }
-        .hero h1 {
-            font-size: 3.2rem;
-            margin-bottom: 15px;
-            color: var(--color-primary);
-            text-shadow: none;
-        }
-        .hero h1 span { color: var(--color-accent); }
-        .game-subtitle {
-            font-size: 1.8rem;
-            color: var(--color-secondary);
-            margin-bottom: 25px;
-            font-weight: 500;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 40px;
-            color: var(--color-gray);
-        }
-        .hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
-
-        /* ===== 通用标题样式 ===== */
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--color-primary);
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
             position: relative;
-            padding-bottom: 15px;
+            z-index: 1;
         }
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: var(--color-accent);
-            margin: 10px auto 0;
-            border-radius: 2px;
-        }
-        .section-subtitle {
+        
+        .header {
             text-align: center;
-            color: var(--color-gray);
-            max-width: 700px;
-            margin: 0 auto 60px;
-            font-size: 1.1rem;
+            margin-bottom: 40px;
+            padding-top: 20px;
         }
-
-        /* ===== 服务项目区 - 核心部分 ===== */
-        .services-intro {
-            background-color: white;
-            padding: 40px;
-            border-radius: 10px;
-            border-left: 5px solid var(--color-secondary);
-            margin-bottom: 60px;
-            font-size: 1.1rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(79, 192, 210, 0.3);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
         }
-        .services-intro p { margin-bottom: 15px; }
-        .services-intro i { color: var(--color-primary); margin-right: 10px; }
-
-        /* 服务项目网格布局 */
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a0a0c0;
+            letter-spacing: 3px;
+            margin-top: 10px;
+        }
+        
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 25px;
+            margin-top: 40px;
         }
-        .service-category {
-            margin-bottom: 50px;
-        }
-        .category-title {
-            font-size: 1.8rem;
-            color: var(--color-primary);
-            border-bottom: 2px solid var(--color-secondary);
-            padding-bottom: 10px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-        }
-        .category-title i { margin-right: 15px; color: var(--color-accent); }
-
-        /* 单个服务卡片样式 */
-        .service-item {
-            background: white;
-            border-radius: 12px;
+        
+        .service-card {
+            background: rgba(20, 20, 35, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
             padding: 25px;
-            border: 1px solid rgba(109, 157, 197, 0.2);
-            transition: all 0.4s ease;
+            border: 1px solid rgba(100, 100, 150, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
-        .service-item:hover {
+        
+        .service-card:hover {
             transform: translateY(-10px);
-            border-color: var(--color-primary);
-            box-shadow: 0 15px 30px rgba(74, 111, 165, 0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 107, 107, 0.4);
         }
-        .service-item::before {
+        
+        .service-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--color-primary), var(--color-secondary));
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
         }
-        .service-header {
+        
+        .service-item {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 1.1rem;
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
+            align-items: center;
         }
+        
+        .service-item:last-child {
+            border-bottom: none;
+        }
+        
         .service-name {
-            font-size: 1.4rem;
-            color: var(--color-primary);
             font-weight: 600;
-            line-height: 1.3;
+            color: #e0e0ff;
         }
+        
         .service-price {
-            font-size: 1.8rem;
             font-weight: 700;
-            color: var(--color-accent);
-            white-space: nowrap;
-        }
-        .service-price small {
-            font-size: 1rem;
-            color: var(--color-gray);
-        }
-        .service-desc {
-            color: var(--color-gray);
-            font-size: 0.95rem;
-            flex-grow: 1;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-        .service-tag {
-            display: inline-block;
-            background-color: rgba(255, 126, 95, 0.1);
-            color: var(--color-accent);
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            margin-top: 10px;
-            border: 1px solid rgba(255, 126, 95, 0.2);
-        }
-        .service-footer {
-            margin-top: auto;
-            padding-top: 15px;
-            border-top: 1px dashed rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .service-id { font-size: 0.8rem; color: var(--color-gray); font-family: monospace; }
-
-        /* ===== 流程部分 ===== */
-        #process {
-            background-color: var(--color-darker);
-        }
-        .process-steps {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            margin-top: 50px;
-        }
-        .step {
-            text-align: center;
-            flex: 1;
-            min-width: 200px;
-            padding: 0 20px;
-            margin-bottom: 30px;
-        }
-        .step-icon {
-            width: 80px;
-            height: 80px;
-            line-height: 80px;
-            background: white;
-            color: var(--color-primary);
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            font-size: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        }
-        .step h3 {
-            color: var(--color-primary);
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-        }
-        .step p {
-            color: var(--color-gray);
-        }
-
-        /* ===== 新增：社区交流区（替代原预约区）===== */
-        #community {
-            background-color: white;
-        }
-        .community-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 50px;
-            margin-top: 30px;
-        }
-        .community-info h3 {
-            color: var(--color-primary);
-            margin-bottom: 25px;
-            font-size: 1.8rem;
-        }
-        .community-info p {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-        .community-info i {
-            color: var(--color-accent);
-            margin-right: 15px;
+            color: #4ecdc4;
             font-size: 1.2rem;
-            width: 20px;
         }
-        .discord-preview {
-            background: linear-gradient(135deg, #7289da, #5a6fb5);
-            color: white;
-            padding: 30px;
-            border-radius: 12px;
-            margin-top: 30px;
-        }
-        .discord-preview h4 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-        .discord-preview h4 i {
-            margin-right: 10px;
-        }
-
-        /* ===== 页脚 ===== */
-        footer {
-            background-color: #343a40;
-            color: #adb5bd;
-            padding: 70px 0 30px;
-        }
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-        .footer-logo {
-            font-family: 'Ma Shan Zheng', cursive;
-            font-size: 2rem;
-            color: white;
+        
+        .category-title {
+            font-size: 1.4rem;
+            color: #ff6b6b;
             margin-bottom: 20px;
-        }
-        .footer-links h3 {
-            color: white;
-            margin-bottom: 25px;
-            font-size: 1.3rem;
-            position: relative;
             padding-bottom: 10px;
-        }
-        .footer-links h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background-color: var(--color-accent);
-        }
-        .footer-links li { margin-bottom: 12px; }
-        .footer-links a { color: #adb5bd; }
-        .footer-links a:hover { color: var(--color-accent); padding-left: 5px; }
-        .social-icons {
+            border-bottom: 2px solid rgba(255, 107, 107, 0.3);
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        .social-icons a {
-            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: #495057;
-            border-radius: 50%;
-            color: white;
-            transition: all 0.3s;
         }
-        .social-icons a:hover {
-            background-color: var(--color-accent);
-            transform: translateY(-5px);
+        
+        .category-title::before {
+            content: '✦';
+            margin-right: 10px;
+            font-size: 1.2rem;
         }
-        .copyright {
+        
+        .footer {
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid #495057;
-            color: #6c757d;
+            margin-top: 60px;
+            padding: 20px;
+            color: #8888aa;
             font-size: 0.9rem;
+            letter-spacing: 1px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
-
-        /* ===== 响应式设计 ===== */
-        @media (max-width: 992px) {
-            .hero h1 { font-size: 2.5rem; }
-            .section-title { font-size: 2.2rem; }
-            .process-steps { justify-content: center; }
-            .step { flex: 0 0 45%; }
-        }
+        
+        /* 响应式设计 */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: white;
-                flex-direction: column;
-                padding: 20px;
-                border-top: 1px solid rgba(0, 0, 0, 0.1);
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            .logo {
+                font-size: 2.5rem;
             }
-            .nav-links.active { display: flex; }
-            .nav-links li { margin: 15px 0; margin-left: 0; }
-            .mobile-menu-btn { display: block; }
-            .hero { padding-top: 150px; padding-bottom: 80px; }
-            .hero h1 { font-size: 2rem; }
-            .game-subtitle { font-size: 1.4rem; }
-            .hero p { font-size: 1rem; }
-            .step { flex: 0 0 100%; }
-            .services-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .service-card {
+                padding: 20px;
+            }
         }
+        
         @media (max-width: 480px) {
-            .hero h1 { font-size: 1.8rem; }
-            .section-title { font-size: 1.8rem; }
-            .service-item { padding: 20px; }
-            .service-name { font-size: 1.2rem; }
-            .service-price { font-size: 1.5rem; }
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .service-item {
+                font-size: 1rem;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .service-price {
+                margin-top: 5px;
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
-    <header>
-        <nav class="container">
-            <div class="logo">
-                <i class="fas fa-paw"></i>
-                puppy俱乐部
-                <span class="game-tag">超自然行动组</span>
-            </div>
-            <button class="mobile-menu-btn" id="menuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home">探灵首页</a></li>
-                <li><a href="#services">服务项目</a></li>
-                <li><a href="#process">流程简介</a></li>
-                <li><a href="#community">社区交流</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- 英雄区域/横幅 -->
-    <section class="hero" id="home">
-        <div class="container">
-            <h1>专业的<span>《超自然行动组》</span>陪玩俱乐部</h1>
-            <p class="game-subtitle">组队探险 · 分工协作 · 寻宝撤离</p>
-            <p>"一人玩是密室逃脱，四人玩是喜剧现场。" 我们深谙游戏"搜打撤"精髓，提供从"胃袋"到"保护老板"的全套专业陪玩服务。告别团灭，高效摸金，与资深导师一起征服古墓，带宝平安归来。</p>
-            <div class="hero-btns">
-                <a href="#services" class="btn"><i class="fas fa-gem"></i> 查看服务项目</a>
-                <a href="#community" class="btn"><i class="fas fa-users"></i> 加入社区</a>
-            </div>
+    <!-- 粒子背景容器 -->
+    <div id="particles-js"></div>
+    
+    <!-- 主要内容区域 -->
+    <div class="container">
+        <div class="header">
+            <h1 class="logo">puppy俱乐部</h1>
+            <div class="subtitle">专业陪玩服务 · 明码标价</div>
         </div>
-    </section>
-
-    <!-- 服务项目区 -->
-    <section id="services">
-        <div class="container">
-            <h2 class="section-title">摸金服务清单</h2>
-            <p class="section-subtitle">明码标价，专业可靠。所有服务均以游戏内"铲铲币"或实际货币结算，由对应段位的导师执行，确保任务成功率。</p>
-
-            <div class="services-intro">
-                <p><i class="fas fa-info-circle"></i> 《超自然行动组》是一款4人PVE合作生存手游，核心是"搜索、战斗、撤离"。在古墓中，你们既是队友，也是彼此的依靠。</p>
-                <p><i class="fas fa-handshake"></i> 选择puppy俱乐部，就是选择了一位精通地图机制、怪物特性和撤离路线的资深"工友"，让你每次下墓都收益最大化。</p>
-            </div>
-
-            <!-- 服务项目分类列表 -->
-            <div class="service-category">
-                <h3 class="category-title"><i class="fas fa-archive"></i> 基础保障 & 资源服务</h3>
-                <div class="services-grid">
-                    <!-- 服务项目卡片示例：胃袋 -->
-                    <div class="service-item">
-                        <div class="service-header">
-                            <h4 class="service-name">胃袋</h4>
-                            <div class="service-price">3.9<small>/单起</small></div>
-                        </div>
-                        <p class="service-desc">确保你在单局游戏中获得基础资源补给，平稳渡过前期搜索阶段。</p>
-                        <span class="service-tag">新手必备</span>
-                        <div class="service-footer">
-                            <span>迷你: 3.9 | 小: 8.8 | 中: 22 | 大: 68</span>
-                        </div>
-                    </div>
-                    <!-- 臭鞋子 -->
-                    <div class="service-item">
-                        <div class="service-header">
-                            <h4 class="service-name">臭鞋子</h4>
-                            <div class="service-price">3.99<small>/单</small></div>
-                        </div>
-                        <p class="service-desc">向指定对手投掷干扰道具，影响其移动或侦查效率。</p>
-                        <span class="service-tag">战术干扰</span>
-                        <div class="service-footer">
-                            <span>升级版: 9.99</span>
-                        </div>
-                    </div>
-                    <!-- 雪莲永动机 -->
-                    <div class="service-item">
-                        <div class="service-header">
-                            <h4 class="service-name">雪莲永动机</h4>
-                            <div class="service-price">8.8<small>/单</small></div>
-                        </div>
-                        <p class="service-desc">在探险"昆仑秘境"等地图时，提供持续的治疗支持，化身团队医疗兵。</p>
-                        <span class="service-tag">高难地图</span>
-                    </div>
-                    <!-- 魔芋永动机 -->
-                    <div class="service-item">
-                        <div class="service-header">
-                            <h4 class="service-name">魔芋永动机</h4>
-                            <div class="service-price">6.6<small>/单</small></div>
-                        </div>
-                        <p class="service-desc">提供持续的状态恢复支持，应对地图中的各类环境伤害。</p>
-                        <span class="service-tag">状态维持</span>
-                    </div>
+        
+        <div class="services-grid">
+            <!-- 第一类：胃袋相关 -->
+            <div class="service-card">
+                <div class="category-title">胃袋服务</div>
+                <div class="service-item">
+                    <span class="service-name">迷你</span>
+                    <span class="service-price">3.9</span>
+                </div>
+                <div class="service-item">
+                    <span class="service-name">小</span>
+                    <span class="service-price">8.8</span>
+                </div>
+                <div class="service-item">
+                    <span class="service-name">中</span>
+                    <span class="service-price">22</span>
+                </div>
+                <div class="service-item">
+                    <span class="service-name">大</span>
+                    <span class="service-price">68</span>
                 </div>
             </div>
-
-            <div class="service-category">
-                <h3 class="category-title"><i class="fas fa-fighter-jet"></i> 战斗 & 竞技服务</h3>
-                <div class="services-grid">
-                    <!-- 屠龙 -->
-                    <div class="service-item">
-                        <div class="service-header">
-                            <h4 class="service-name">屠龙</h4>
-                            <div class="service-price">9<small>/单</small></div>
-                        </div>
-                        <p class="service-desc">承诺击杀局内指定的精英怪物或BOSS（如"鬼新娘"），为团队扫清最大威胁。</p>
-                        <span class="service-tag">暴力输出</span>
-                    </div>
-                    <!-- 堵命 -->
-                    <div class="service-item">
-                        <div class="service-header">
-                            <h4 class="service-name">堵命</h4>
-                            <div class="service-price">8<small>/单</small></div>
-                        </div>
-                        <p class="service-desc">在撤离点或关键路口进行断后，抵挡怪物追击，确保队友安全撤离。</p>
-                        <span class="service-tag">团队牺牲</span>
-                    </div>
-                    <!-- 保护老板 -->
-                    <div class="service-item">
-                        <div class="service-header">
-                            <h4 class="service-name">保护老板</h4>
-                            <div class="service-price">9.9<small>/单</small></div>
-                        </div>
-                        <p class="service-desc">指定一位队友为"老板"，全程重点保护，直至其携带宝物安全撤离。"昆仑地图+2"。</p>
-                        <span class="service-tag">核心服务</span>
-                    </div>
+            
+            <!-- 第二类：六星连珠、臭鞋子 -->
+            <div class="service-card">
+                <div class="category-title">连珠与干扰</div>
+                <div class="service-item">
+                    <span class="service-name">六星连珠</span>
+                    <span class="service-price">28.8</span>
+                </div>
+                <div class="service-item">
+                    <span class="service-name">臭鞋子</span>
+                    <span class="service-price">3.99</span>
+                </div>
+                <div class="service-item">
+                    <span class="service-name">升级版臭鞋子</span>
+                    <span class="service-price">9.99</span>
                 </div>
             </div>
-
-            <div class="service-category">
-                <h3 class="category-title"><i class="fas fa-dice"></i> 娱乐 & 惊喜服务</h3>
-                <div class="services-grid">
-                    <!-- 六星连珠 -->
-                    <div class="service-item">
-                        <div class="service-header">
-                            <h4 class="service-name">六星连珠</h4>
-                            <div class="service-price">28.8<small>/单</small></div>
-                        </div>
-                        <p class="service-desc">玄学服务！旨在为当局游戏带来极佳运气，更容易发现"圣杯、雪莲、龙珠"等高价值宝物。</p>
-                        <span class="service-tag">运气加成</span>
-                    </div>
-                    <!-- 金棺尿壶 & 玉扳指 -->
-                    <div class="service-item">
-                        <div class="service-header">
-                            <h4 class="service-name">金棺尿壶</h4>
-                            <div class="service-price">6.6<small>/单</small></div>
-                        </div>
-                        <p class="service-desc">一种独特的趣味互动玩法，增加游戏欢乐气氛。</p>
-                        <span class="service-tag">玉扳指套餐: 4</span>
-                    </div>
-                    <!-- 比大小 -->
-                    <div class="service-item">
-                        <div class="service-header">
-                            <h4 class="service-name">比大小</h4>
-                            <div class="service-price">6.6<small>/单</small></div>
-                        </div>
-                        <p class="service-desc">与队友或导师进行趣味点数博弈，增加游戏内社交乐趣。</p>
-                        <span class="service-tag">欢乐互动</span>
-                    </div>
-                    <!-- 摇一摇 -->
-                    <div class="service-item">
-                        <div class="service-header">
-                            <h4 class="service-name">摇一摇</h4>
-                            <div class="service-price">8.88<small>/单</small></div>
-                        </div>
-                        <p class="service-desc">随机获得一项未知的趣味服务或小型资源包，惊喜感十足。</p>
-                        <span class="service-tag">随机乐趣</span>
-                    </div>
+            
+            <!-- 第三类：屠龙、堵命等 -->
+            <div class="service-card">
+                <div class="category-title">战斗与策略</div>
+                <div class="service-item">
+                    <span class="service-name">屠龙</span>
+                    <span class="service-price">9</span>
+                </div>
+                <div class="service-item">
+                    <span class="service-name">堵命</span>
+                    <span class="service-price">8</span>
+                </div>
+                <div class="service-item">
+                    <span class="service-name">金棺尿壶</span>
+                    <span class="service-price">6.6</span>
+                </div>
+                <div class="service-item">
+                    <span class="service-name">玉扳指</span>
+                    <span class="service-price">4</span>
+                </div>
+                <div class="service-item">
+                    <span class="service-name">比大小</span>
+                    <span class="service-price">6.6</span>
+                </div>
+            </div>
+            
+            <!-- 第四类：永动机系列 -->
+            <div class="service-card">
+                <div class="category-title">永动机系列</div>
+                <div class="service-item">
+                    <span class="service-name">雪莲永动机</span>
+                    <span class="service-price">8.8</span>
+                </div>
+                <div class="service-item">
+                    <span class="service-name">魔芋永动机</span>
+                    <span class="service-price">6.6</span>
+                </div>
+                <div class="service-item">
+                    <span class="service-name">摇一摇</span>
+                    <span class="service-price">8.88</span>
+                </div>
+            </div>
+            
+            <!-- 第五类：保护老板 -->
+            <div class="service-card">
+                <div class="category-title">专属保护</div>
+                <div class="service-item">
+                    <span class="service-name">保护老板</span>
+                    <span class="service-price">9.9</span>
+                </div>
+                <div class="service-item">
+                    <span class="service-name">保护老板（昆仑）</span>
+                    <span class="service-price">+2</span>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- 流程部分 -->
-    <section id="process">
-        <div class="container">
-            <h2 class="section-title">合作流程</h2>
-            <p class="section-subtitle">简单四步，开启你的专业摸金之旅</p>
-            <div class="process-steps">
-                <div class="step">
-                    <div class="step-icon"><i class="fas fa-comments"></i></div>
-                    <h3>需求沟通</h3>
-                    <p>了解你的游戏目标（上分/娱乐/特定服务）和可用时间。</p>
-                </div>
-                <div class="step">
-                    <div class="step-icon"><i class="fas fa-user-friends"></i></div>
-                    <h3>导师匹配</h3>
-                    <p>根据需求，匹配最擅长相应地图和服务的明星导师。</p>
-                </div>
-                <div class="step">
-                    <div class="step-icon"><i class="fas fa-gamepad"></i></div>
-                    <h3>服务执行</h3>
-                    <p>导师组队入局，提供约定的专业陪玩服务，实时沟通。</p>
-                </div>
-                <div class="step">
-                    <div class="step-icon"><i class="fas fa-flag-checkered"></i></div>
-                    <h3>安全撤离</h3>
-                    <p>达成目标，带宝撤离，确认服务完成并结算。</p>
-                </div>
-            </div>
+        
+        <div class="footer">
+            puppy俱乐部 · 专业陪玩服务
         </div>
-    </section>
+    </div>
 
-    <!-- 社区交流区（替代原预约区） -->
-    <section id="community">
-        <div class="container">
-            <h2 class="section-title">加入游戏社区</h2>
-            <p class="section-subtitle">与更多玩家交流心得，获取最新攻略，组队开黑不孤单</p>
-            <div class="community-container">
-                <div>
-                    <div class="community-info">
-                        <h3>玩家交流平台</h3>
-                        <p><i class="fab fa-qq"></i> QQ群：123456789 (2000人活跃群)</p>
-                        <p><i class="fab fa-weixin"></i> 微信群：puppy-gameclub (添加客服邀请)</p>
-                        <p><i class="fab fa-discord"></i> Discord：discord.gg/puppyclub (国际玩家)</p>
-                        <p><i class="fas fa-users"></i> 社区人数：5000+ 活跃玩家</p>
-                        <p><i class="fas fa-newspaper"></i> 每日更新：地图攻略、怪物弱点、版本更新</p>
-                    </div>
-                    <div class="discord-preview">
-                        <h4><i class="fab fa-discord"></i> Discord社区特色</h4>
-                        <p>• 专属语音频道开黑</p>
-                        <p>• 国际玩家交流区</p>
-                        <p>• 实时更新游戏资讯</p>
-                        <p>• 每周组织社区比赛</p>
-                    </div>
-                </div>
-                <div>
-                    <div style="background: #f8f9fa; padding: 30px; border-radius: 12px; height: 100%;">
-                        <h3 style="color: var(--color-primary); margin-bottom: 20px;">社区活动预告</h3>
-                        <div style="margin-bottom: 25px;">
-                            <h4 style="color: var(--color-accent); margin-bottom: 10px;">周末开黑活动</h4>
-                            <p>每周五、六晚上8点，组织新手-导师组队活动，帮助新人快速上手。</p>
-                        </div>
-                        <div style="margin-bottom: 25px;">
-                            <h4 style="color: var(--color-accent); margin-bottom: 10px;">攻略征集大赛</h4>
-                            <p>分享你的独家技巧，有机会获得游戏点卡、周边等奖励。</p>
-                        </div>
-                        <div style="margin-bottom: 25px;">
-                            <h4 style="color: var(--color-accent); margin-bottom: 10px;">版本更新讨论会</h4>
-                            <p>每次游戏大更新后，组织线上讨论会，解析新内容。</p>
-                        </div>
-                        <div style="margin-top: 30px; padding: 15px; background: rgba(74, 111, 165, 0.1); border-radius: 8px;">
-                            <p><i class="fas fa-exclamation-circle"></i> 社区完全免费加入，旨在为玩家提供更好的交流环境，禁止任何形式的广告和欺诈行为。</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 页脚 -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div>
-                    <div class="footer-logo">puppy俱乐部</div>
-                    <p>专注《超自然行动组》深度陪玩。我们相信，专业的配合能将"带着目标的紧张"转化为满载而归的喜悦。</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-qq"></i></a>
-                        <a href="#"><i class="fab fa-weixin"></i></a>
-                        <a href="#"><i class="fab fa-bilibili"></i></a>
-                        <a href="#"><i class="fab fa-douyin"></i></a>
-                    </div>
-                </div>
-                <div class="footer-links">
-                    <h3>核心服务</h3>
-                    <ul>
-                        <li><a href="#services">战斗保障服务</a></li>
-                        <li><a href="#services">资源运营服务</a></li>
-                        <li><a href="#services">娱乐趣味服务</a></li>
-                        <li><a href="#services">全案定制服务</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h3>游戏攻略</h3>
-                    <ul>
-                        <li><a href="#">"搜打撤"机制详解</a></li>
-                        <li><a href="#">各地图撤离点指南</a></li>
-                        <li><a href="#">高价值道具图鉴</a></li>
-                        <li><a href="#">怪物应对手册</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h3>俱乐部条款</h3>
-                    <ul>
-                        <li><a href="#">服务协议</a></li>
-                        <li><a href="#">隐私保护</a></li>
-                        <li><a href="#">免责声明</a></li>
-                        <li><a href="#">社区准则</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>© 2025 puppy俱乐部. 《超自然行动组》是NIGHT STUDIOS工作室开发、巨人网络运营的游戏。本网站为玩家社群自发组建的陪玩服务平台，与游戏官方无关。</p>
-                <p style="margin-top: 10px; font-size: 0.8em;">游戏乐趣在于探索与协作，请健康游戏，适度消费。</p>
-            </div>
-        </div>
-    </footer>
-
+    <!-- 引入粒子效果库 -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // 移动端菜单切换
-        const mobileMenuBtn = document.getElementById('menuBtn');
-        const navLinks = document.getElementById('navLinks');
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-        });
-        // 平滑滚动与菜单关闭
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    navLinks.classList.remove('active');
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
+        // 初始化粒子效果
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": ["#ff6b6b", "#4ecdc4", "#45b7d1", "#96ceb4", "#feca57"]
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    }
+                },
+                "opacity": {
+                    "value": 0.6,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1,
+                        "opacity_min": 0.2,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 5,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 3,
+                        "size_min": 0.5,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.3,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 3,
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
                 }
-            });
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 200,
+                        "line_linked": {
+                            "opacity": 0.8
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 100,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
         });
-        // 导航栏滚动效果
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            header.style.boxShadow = window.scrollY > 50 ? '0 2px 15px rgba(0, 0, 0, 0.1)' : '0 2px 10px rgba(0, 0, 0, 0.05)';
+        
+        // 添加卡片悬停效果增强
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.service-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#feca57'];
+                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                    this.style.borderColor = randomColor + '60';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.borderColor = 'rgba(100, 100, 150, 0.2)';
+                });
+            });
         });
     </script>
 </body>
