@@ -78,10 +78,11 @@
             font-weight: 300;
         }
         
-        /* 服务分类网格 - 四个卡片统一为左右排列，每行两个 */
+        /* 修复服务分类网格 - 确保2×2排列 */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, auto);
             gap: 22px;
             margin-bottom: 30px;
         }
@@ -118,6 +119,27 @@
         
         .service-card:hover::before {
             transform: scaleX(1);
+        }
+        
+        /* 确保四个卡片正确排列在2×2网格中 */
+        .service-card:nth-child(1) {
+            grid-column: 1;
+            grid-row: 1;
+        }
+        
+        .service-card:nth-child(2) {
+            grid-column: 2;
+            grid-row: 1;
+        }
+        
+        .service-card:nth-child(3) {
+            grid-column: 1;
+            grid-row: 2;
+        }
+        
+        .service-card:nth-child(4) {
+            grid-column: 2;
+            grid-row: 2;
         }
         
         .service-item {
@@ -545,9 +567,18 @@
                 font-size: 2.5rem;
             }
             
+            /* 在移动端改为1列排列 */
             .services-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                grid-template-rows: repeat(4, auto);
+            }
+            
+            .service-card:nth-child(1),
+            .service-card:nth-child(2),
+            .service-card:nth-child(3),
+            .service-card:nth-child(4) {
+                grid-column: 1;
+                grid-row: auto;
             }
             
             .service-card {
@@ -674,9 +705,9 @@
             <div class="subtitle">专业游戏陪玩 · 定制化服务 · 极致游戏体验</div>
         </div>
         
-        <!-- 服务分类区域 - 四个卡片统一为左右排列，每行两个 -->
+        <!-- 服务分类区域 - 修复为2×2排列 -->
         <div class="services-grid">
-            <!-- 第一行：胃袋服务（左）和连珠与干扰（右） -->
+            <!-- 第一行左：胃袋服务 -->
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-utensils"></i> 胃袋服务</div>
                 <div class="service-item" data-name="迷你" data-price="3.9" data-description="迷你胃袋服务：提供基础资源补给，适合快速游戏或新手入门。">
@@ -697,6 +728,7 @@
                 </div>
             </div>
             
+            <!-- 第一行右：连珠与干扰 -->
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-meteor"></i> 连珠与干扰</div>
                 <div class="service-item" data-name="六星连珠" data-price="28.8" data-description="六星连珠服务：玄学运气加成服务，大幅提升发现高价值宝物的概率。">
@@ -713,7 +745,7 @@
                 </div>
             </div>
             
-            <!-- 第二行：战斗与策略（左）和永动机系列（右） -->
+            <!-- 第二行左：战斗与策略 -->
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-fist-raised"></i> 战斗与策略</div>
                 <div class="service-item" data-name="屠龙" data-price="9" data-description="屠龙服务：承诺击杀指定精英怪物或BOSS，为团队扫清威胁，保证任务顺利进行。">
@@ -738,6 +770,7 @@
                 </div>
             </div>
             
+            <!-- 第二行右：永动机系列 -->
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-infinity"></i> 永动机系列</div>
                 <div class="service-item" data-name="雪莲永动机" data-price="8.8" data-description="雪莲永动机服务：在昆仑秘境等地图提供持续治疗支持，确保团队生存能力。">
