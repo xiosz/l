@@ -188,7 +188,7 @@
         .service-price {
             font-weight: 700;
             color: #4ecdc4;
-            font-size: 0.9rem; /* 减小价格字体大小 */
+            font-size: 0.9rem;
             white-space: nowrap;
         }
         
@@ -207,7 +207,7 @@
             font-size: 1rem;
         }
         
-        /* 订单和支付区域 */
+        /* 订单和支付区域 - 修改订单服务卡片大小 */
         .order-section {
             margin-top: 35px;
             padding: 20px;
@@ -256,12 +256,14 @@
             overflow-y: auto;
         }
         
+        /* 修改订单服务卡片大小 */
         .selected-service-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
+            padding: 8px 0; /* 减小内边距 */
             border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            font-size: 0.9rem; /* 减小字体大小 */
         }
         
         .selected-service-item:last-child {
@@ -277,11 +279,11 @@
             background: rgba(255, 255, 255, 0.1);
             border: none;
             color: white;
-            width: 28px;
-            height: 28px;
+            width: 24px; /* 减小按钮大小 */
+            height: 24px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 0.9rem; /* 减小字体大小 */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -293,22 +295,23 @@
         }
         
         .quantity-value {
-            margin: 0 12px;
+            margin: 0 8px; /* 减小间距 */
             font-weight: 600;
             min-width: 20px;
             text-align: center;
+            font-size: 0.9rem; /* 减小字体大小 */
         }
         
         .remove-btn {
             background: rgba(255, 107, 107, 0.2);
             border: none;
             color: #ff6b6b;
-            padding: 4px 10px;
+            padding: 3px 8px; /* 减小内边距 */
             border-radius: 4px;
             cursor: pointer;
-            font-size: 0.85rem;
+            font-size: 0.8rem; /* 减小字体大小 */
             transition: background 0.3s;
-            margin-left: 12px;
+            margin-left: 8px; /* 减小左边距 */
         }
         
         .remove-btn:hover {
@@ -325,7 +328,7 @@
             border-top: 2px solid rgba(255, 255, 255, 0.1);
         }
         
-        /* 支付按钮区域 */
+        /* 支付按钮区域 - 保持左右排列 */
         .payment-buttons {
             display: flex;
             justify-content: space-between;
@@ -573,16 +576,19 @@
             }
             
             .service-price {
-                font-size: 0.85rem; /* 移动端减小价格字体大小 */
+                font-size: 0.85rem;
             }
             
+            /* 修改：移动端支付方式也保持左右排列 */
             .payment-buttons {
-                flex-direction: column;
+                flex-direction: row; /* 修改：从column改为row */
                 gap: 15px;
             }
             
             .payment-link {
-                width: 100%;
+                flex: 1;
+                min-height: 80px; /* 稍微减小高度 */
+                padding: 12px 20px; /* 调整内边距 */
             }
             
             .contact-info {
@@ -628,7 +634,26 @@
             }
             
             .service-price {
-                font-size: 0.8rem; /* 小屏幕进一步减小价格字体大小 */
+                font-size: 0.8rem;
+            }
+            
+            /* 修改：超小屏幕也保持左右排列，但可以调整间距 */
+            .payment-buttons {
+                flex-direction: row; /* 保持左右排列 */
+                gap: 10px; /* 减小间距 */
+            }
+            
+            .payment-link {
+                min-height: 75px;
+                padding: 10px 15px;
+            }
+            
+            .payment-icon {
+                font-size: 1.8rem;
+            }
+            
+            .payment-text {
+                font-size: 1rem;
             }
             
             .order-section {
