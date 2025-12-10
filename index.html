@@ -59,20 +59,34 @@
             letter-spacing: 2px;
         }
         
-        /* 联系与付款大分类 */
-        .contact-payment-card {
+        /* 入口大分类网格 */
+        .entrance-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+        
+        .entrance-card {
             background: rgba(20, 20, 35, 0.7);
             backdrop-filter: blur(10px);
             border-radius: 10px;
             padding: 18px;
             border: 1px solid rgba(100, 100, 150, 0.2);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
-            margin-bottom: 25px;
+            text-align: center;
         }
         
-        .contact-payment-card::before {
+        .entrance-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+            border-color: rgba(255, 107, 107, 0.4);
+        }
+        
+        .entrance-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -82,53 +96,45 @@
             background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
         }
         
-        .contact-payment-card .category-title {
-            margin-bottom: 18px;
-        }
-        
-        /* 联系与付款内部小分类 - 左右排列 */
-        .contact-payment-row {
-            display: flex;
-            gap: 18px;
-        }
-        
-        .contact-item {
-            flex: 1;
-            background: rgba(30, 30, 50, 0.8);
-            border-radius: 8px;
-            padding: 16px;
-            border: 1px solid rgba(100, 100, 150, 0.3);
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .contact-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            border-color: rgba(255, 107, 107, 0.5);
-        }
-        
-        .contact-link {
-            display: block;
+        .entrance-title {
             font-size: 1.2rem;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid rgba(255, 107, 107, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .entrance-title::before {
+            content: '✦';
+            margin-right: 8px;
+            font-size: 1rem;
+        }
+        
+        .entrance-link {
+            display: block;
+            font-size: 1.3rem;
             font-weight: 700;
             color: #4ecdc4;
             text-decoration: none;
-            padding: 10px;
-            border-radius: 6px;
+            padding: 12px;
+            border-radius: 8px;
             background: rgba(78, 205, 196, 0.1);
             transition: all 0.3s ease;
             margin-bottom: 8px;
         }
         
-        .contact-link:hover {
+        .entrance-link:hover {
             background: rgba(78, 205, 196, 0.2);
             transform: scale(1.05);
         }
         
-        .contact-note {
-            font-size: 0.8rem;
+        .entrance-note {
+            font-size: 0.9rem;
             color: #a0a0c0;
+            margin-top: 5px;
         }
         
         /* 服务分类网格 */
@@ -194,6 +200,7 @@
         .category-title {
             font-size: 1.2rem;
             color: #ff6b6b;
+            margin-bottom: 12px;
             padding-bottom: 6px;
             border-bottom: 2px solid rgba(255, 107, 107, 0.2);
             display: flex;
@@ -222,17 +229,14 @@
                 font-size: 2.2rem;
             }
             
-            .contact-payment-row {
-                flex-direction: column;
-                gap: 16px;
-            }
-            
+            .entrance-grid,
             .services-grid {
                 grid-template-columns: 1fr;
                 gap: 16px;
             }
             
-            .service-card {
+            .service-card,
+            .entrance-card {
                 padding: 16px;
             }
         }
@@ -257,6 +261,11 @@
             .service-price {
                 font-size: 1rem;
             }
+            
+            .entrance-link {
+                font-size: 1.2rem;
+                padding: 10px;
+            }
         }
     </style>
 </head>
@@ -271,21 +280,20 @@
             <div class="subtitle">专业陪玩服务</div>
         </div>
         
-        <!-- 联系与付款大分类 -->
-        <div class="contact-payment-card">
-            <div class="category-title">联系与付款</div>
-            <div class="contact-payment-row">
-                <!-- 接待入口小分类 -->
-                <div class="contact-item">
-                    <a href="#YOUR_RECEPTION_LINK_HERE" class="contact-link" target="_blank">接待入口</a>
-                    <div class="contact-note">接待客服</div>
-                </div>
-                
-                <!-- 付款入口小分类 -->
-                <div class="contact-item">
-                    <a href="https://qr.alipay.com/fkx17600htsv037dteago15" class="contact-link" target="_blank">付款入口</a>
-                    <div class="contact-note">支付宝付款</div>
-                </div>
+        <!-- 入口大分类区域 -->
+        <div class="entrance-grid">
+            <!-- 接待入口大分类 -->
+            <div class="entrance-card">
+                <div class="entrance-title">接待入口</div>
+                <a href="#YOUR_RECEPTION_LINK_HERE" class="entrance-link" target="_blank">接待客服</a>
+                <div class="entrance-note">点击联系客服</div>
+            </div>
+            
+            <!-- 付款入口大分类 -->
+            <div class="entrance-card">
+                <div class="entrance-title">付款入口</div>
+                <a href="https://qr.alipay.com/fkx17600htsv037dteago15" class="entrance-link" target="_blank">支付宝付款</a>
+                <div class="entrance-note">扫码或点击付款</div>
             </div>
         </div>
         
@@ -499,7 +507,7 @@
         
         // 添加卡片悬停效果增强
         document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.service-card');
+            const cards = document.querySelectorAll('.service-card, .entrance-card');
             
             cards.forEach(card => {
                 card.addEventListener('mouseenter', function() {
@@ -510,19 +518,6 @@
                 
                 card.addEventListener('mouseleave', function() {
                     this.style.borderColor = 'rgba(100, 100, 150, 0.2)';
-                });
-            });
-            
-            // 为联系与付款小分类添加悬停效果
-            const contactItems = document.querySelectorAll('.contact-item');
-            
-            contactItems.forEach(item => {
-                item.addEventListener('mouseenter', function() {
-                    this.style.borderColor = 'rgba(255, 107, 107, 0.5)';
-                });
-                
-                item.addEventListener('mouseleave', function() {
-                    this.style.borderColor = 'rgba(100, 100, 150, 0.3)';
                 });
             });
         });
