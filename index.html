@@ -86,14 +86,14 @@
             margin-bottom: 18px;
         }
         
-        /* 联系与付款内部小分类网格 */
-        .contact-payment-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+        /* 联系与付款内部小分类 - 左右排列 */
+        .contact-payment-row {
+            display: flex;
             gap: 18px;
         }
         
         .contact-item {
+            flex: 1;
             background: rgba(30, 30, 50, 0.8);
             border-radius: 8px;
             padding: 16px;
@@ -222,7 +222,11 @@
                 font-size: 2.2rem;
             }
             
-            .contact-payment-grid,
+            .contact-payment-row {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
             .services-grid {
                 grid-template-columns: 1fr;
                 gap: 16px;
@@ -270,7 +274,7 @@
         <!-- 联系与付款大分类 -->
         <div class="contact-payment-card">
             <div class="category-title">联系与付款</div>
-            <div class="contact-payment-grid">
+            <div class="contact-payment-row">
                 <!-- 接待入口小分类 -->
                 <div class="contact-item">
                     <a href="#YOUR_RECEPTION_LINK_HERE" class="contact-link" target="_blank">接待入口</a>
