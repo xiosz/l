@@ -6,19 +6,593 @@
     <title>puppy俱乐部 - 专业游戏陪玩服务</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ... 保持原有样式不变 ... */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         
-        /* 新增：可滑动微信支付弹窗样式 */
-        .modal-overlay.wechat-modal {
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0f;
+            color: #f0f0f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 25px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding-top: 15px;
+        }
+        
+        .logo {
+            font-size: 3.2rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(79, 192, 210, 0.4);
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: #a0a0c0;
+            letter-spacing: 2px;
+            margin-top: 20px;
+            font-weight: 300;
+        }
+        
+        /* 服务分类网格 */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: auto;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .service-card {
+            background: rgba(20, 20, 35, 0.85);
+            backdrop-filter: blur(15px);
+            border-radius: 12px;
+            padding: 18px 16px;
+            border: 1px solid rgba(100, 100, 150, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 107, 107, 0.5);
+        }
+        
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .service-item {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 6px;
+            position: relative;
+            line-height: 1.5;
+            margin-bottom: 2px;
+        }
+        
+        .service-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: linear-gradient(180deg, #ff6b6b, #4ecdc4);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .service-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            padding-left: 12px;
+            padding-right: 12px;
+            margin-left: -8px;
+            margin-right: -8px;
+        }
+        
+        .service-item:hover::before {
+            opacity: 1;
+        }
+        
+        .service-item.selected {
+            background: rgba(78, 205, 196, 0.1);
+            border-left: 2px solid #4ecdc4;
+            padding-left: 12px;
+            margin-left: -8px;
+        }
+        
+        .service-item:last-child {
+            border-bottom: none;
+        }
+        
+        .service-name {
+            font-weight: 600;
+            color: #e0e0ff;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+        
+        .service-icon {
+            margin-right: 8px;
+            font-size: 0.95rem;
+            color: #ff6b6b;
+        }
+        
+        .service-price {
+            font-weight: 700;
+            color: #4ecdc4;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        .category-title {
+            font-size: 1.2rem;
+            color: #ff6b6b;
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(255, 107, 107, 0.2);
+            display: flex;
+            align-items: center;
+        }
+        
+        .category-title i {
+            margin-right: 10px;
+            font-size: 1rem;
+        }
+        
+        /* 订单和支付区域 */
+        .order-section {
+            margin-top: 35px;
+            padding: 20px;
+            background: rgba(20, 20, 35, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 12px;
+            border: 1px solid rgba(100, 100, 150, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .order-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+        }
+        
+        .order-title {
+            font-size: 1.4rem;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .order-title i {
+            margin-right: 10px;
+        }
+        
+        .order-summary {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .selected-services {
+            list-style: none;
+            margin-bottom: 15px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        
+        .selected-service-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            font-size: 0.9rem;
+        }
+        
+        .selected-service-item:last-child {
+            border-bottom: none;
+        }
+        
+        .service-quantity {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+        
+        .quantity-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .quantity-value {
+            margin: 0 8px;
+            font-weight: 600;
+            min-width: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .remove-btn {
+            background: rgba(255, 107, 107, 0.2);
+            border: none;
+            color: #ff6b6b;
+            padding: 3px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.3s;
+            margin-left: 8px;
+        }
+        
+        .remove-btn:hover {
+            background: rgba(255, 107, 107, 0.3);
+        }
+        
+        .total-price {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #4ecdc4;
+            padding-top: 12px;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 支付按钮区域 */
+        .payment-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .payment-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            padding: 15px 25px;
+            border-radius: 12px;
+            background: rgba(78, 205, 196, 0.1);
+            transition: all 0.3s ease;
+            flex: 1;
+            min-height: 90px;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+        }
+        
+        .payment-link.alipay {
+            background: rgba(24, 119, 242, 0.1);
+            border-color: rgba(24, 119, 242, 0.3);
+        }
+        
+        .payment-link.alipay .payment-icon {
+            color: #1877f2;
+        }
+        
+        .payment-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            background: rgba(78, 205, 196, 0.2);
+        }
+        
+        .payment-link.alipay:hover {
+            background: rgba(24, 119, 242, 0.2);
+        }
+        
+        .payment-icon {
+            font-size: 2.2rem;
+            color: #4ecdc4;
+            margin-bottom: 8px;
+        }
+        
+        .payment-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #f0f0f0;
+        }
+        
+        .payment-note {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #a0a0c0;
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 35px;
+            padding: 18px;
+            color: #8888aa;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .contact-info {
+            display: flex;
+            gap: 25px;
+            margin-top: 12px;
+            font-size: 0.95rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .contact-item i {
+            color: #4ecdc4;
+        }
+        
+        /* iOS风格菜单样式 */
+        .ios-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: flex-end;
+            align-items: flex-end;
+            flex-direction: column;
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .ios-menu-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(40, 40, 60, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px 20px 0 0;
+            overflow: hidden;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .ios-menu-container.show {
+            transform: translateY(0);
+        }
+        
+        .ios-menu-header {
+            padding: 25px 20px 15px;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .ios-menu-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 8px;
+        }
+        
+        .ios-menu-subtitle {
+            font-size: 1.1rem;
+            color: #4ecdc4;
+            font-weight: 700;
+        }
+        
+        .ios-menu-body {
+            padding: 20px;
+            max-height: 50vh;
+            overflow-y: auto;
+        }
+        
+        .ios-menu-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #e0e0ff;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .ios-menu-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .ios-menu-btn {
+            padding: 18px 20px;
+            border-radius: 14px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .ios-menu-btn.primary {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .ios-menu-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        .ios-menu-btn.secondary {
+            background: rgba(255, 255, 255, 0.08);
+            color: #f0f0f0;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .ios-menu-btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+        
+        .ios-menu-btn.destructive {
+            background: rgba(255, 107, 107, 0.1);
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 107, 107, 0.2);
+        }
+        
+        .ios-menu-btn.destructive:hover {
+            background: rgba(255, 107, 107, 0.15);
+        }
+        
+        .ios-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #a0a0c0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+        
+        .ios-menu-close:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ff6b6b;
+        }
+        
+        /* 微信支付弹窗（可滑动版本） */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
             display: none;
             justify-content: center;
             align-items: center;
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+            overflow-y: auto;
             padding: 20px;
         }
         
-        .wechat-modal-content {
+        .modal-overlay.show {
+            display: flex;
+        }
+        
+        .modal-content {
             background: rgba(20, 20, 35, 0.95);
-            backdrop-filter: blur(20px);
             border-radius: 20px;
             width: 100%;
             max-width: 420px;
@@ -28,22 +602,22 @@
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 107, 107, 0.3);
             overflow: hidden;
-            animation: modalAppear 0.4s ease-out;
+            animation: slideUp 0.4s ease;
         }
         
-        @keyframes modalAppear {
-            0% { transform: scale(0.9); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
         
-        .wechat-modal-header {
+        .modal-header {
             padding: 22px 25px 18px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
             flex-shrink: 0;
         }
         
-        .wechat-modal-title {
+        .modal-title {
             display: flex;
             align-items: center;
             font-size: 1.4rem;
@@ -51,12 +625,12 @@
             color: #ff6b6b;
         }
         
-        .wechat-modal-title i {
+        .modal-title i {
             margin-right: 12px;
             font-size: 1.5rem;
         }
         
-        .wechat-modal-close {
+        .modal-close {
             position: absolute;
             top: 22px;
             right: 25px;
@@ -75,12 +649,12 @@
             z-index: 10;
         }
         
-        .wechat-modal-close:hover {
+        .modal-close:hover {
             background: rgba(255, 107, 107, 0.2);
             color: #ff6b6b;
         }
         
-        .wechat-modal-body {
+        .modal-body {
             padding: 0 25px;
             overflow-y: auto;
             flex: 1;
@@ -88,21 +662,21 @@
             scrollbar-color: #4ecdc4 rgba(255, 255, 255, 0.05);
         }
         
-        .wechat-modal-body::-webkit-scrollbar {
+        .modal-body::-webkit-scrollbar {
             width: 6px;
         }
         
-        .wechat-modal-body::-webkit-scrollbar-track {
+        .modal-body::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
         }
         
-        .wechat-modal-body::-webkit-scrollbar-thumb {
+        .modal-body::-webkit-scrollbar-thumb {
             background: #4ecdc4;
             border-radius: 10px;
         }
         
-        .wechat-modal-body::-webkit-scrollbar-thumb:hover {
+        .modal-body::-webkit-scrollbar-thumb:hover {
             background: #3db8b0;
         }
         
@@ -201,14 +775,14 @@
             margin-top: 2px;
         }
         
-        .wechat-modal-actions {
+        .modal-actions {
             display: flex;
             gap: 15px;
             margin: 20px 0 30px;
             flex-shrink: 0;
         }
         
-        .wechat-modal-btn {
+        .modal-btn {
             flex: 1;
             padding: 16px 20px;
             border-radius: 12px;
@@ -223,25 +797,26 @@
             gap: 10px;
         }
         
-        .wechat-modal-btn.primary {
+        .modal-btn.primary {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .modal-btn.primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        .modal-btn.secondary {
             background: linear-gradient(135deg, #4ecdc4, #3db8b0);
             color: white;
             box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
         }
         
-        .wechat-modal-btn.primary:hover {
+        .modal-btn.secondary:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(78, 205, 196, 0.4);
-        }
-        
-        .wechat-modal-btn.secondary {
-            background: rgba(255, 255, 255, 0.08);
-            color: #f0f0f0;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-        
-        .wechat-modal-btn.secondary:hover {
-            background: rgba(255, 255, 255, 0.12);
         }
         
         .contact-info-modal {
@@ -262,55 +837,7 @@
             margin-right: 8px;
         }
         
-        /* 触摸滑动优化 */
-        @media (max-width: 768px) {
-            .wechat-modal-content {
-                max-height: 90vh;
-                border-radius: 16px;
-            }
-            
-            .wechat-modal-header {
-                padding: 20px 20px 15px;
-            }
-            
-            .wechat-modal-body {
-                padding: 0 20px;
-            }
-            
-            .wechat-modal-close {
-                top: 20px;
-                right: 20px;
-            }
-            
-            .qr-code-image {
-                width: 200px;
-                height: 200px;
-            }
-            
-            .wechat-modal-actions {
-                flex-direction: column;
-                margin: 15px 0 25px;
-            }
-            
-            .wechat-modal-btn {
-                width: 100%;
-                padding: 18px 20px;
-            }
-        }
-        
-        /* 保存到相册的样式 */
-        .save-to-album-btn {
-            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
-            color: white;
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
-        }
-        
-        .save-to-album-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
-        }
-        
-        /* 新增：下拉刷新效果 */
+        /* 下拉刷新效果 */
         .pull-to-refresh {
             position: relative;
             height: 50px;
@@ -335,6 +862,241 @@
         .pull-to-refresh.pulling i {
             transform: rotate(180deg);
         }
+        
+        /* 触摸滑动优化 */
+        @media (max-width: 768px) {
+            .modal-content {
+                max-height: 90vh;
+                border-radius: 16px;
+            }
+            
+            .modal-header {
+                padding: 20px 20px 15px;
+            }
+            
+            .modal-body {
+                padding: 0 20px;
+            }
+            
+            .modal-close {
+                top: 20px;
+                right: 20px;
+            }
+            
+            .qr-code-image {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+                margin: 15px 0 25px;
+            }
+            
+            .modal-btn {
+                width: 100%;
+                padding: 18px 20px;
+            }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: auto;
+            }
+            
+            .service-card {
+                padding: 16px 14px;
+            }
+            
+            .category-title {
+                font-size: 1.1rem;
+                margin-bottom: 12px;
+            }
+            
+            .service-item {
+                font-size: 0.9rem;
+                padding: 7px 0;
+            }
+            
+            .service-name {
+                font-size: 0.9rem;
+            }
+            
+            .service-price {
+                font-size: 0.85rem;
+            }
+            
+            .payment-buttons {
+                flex-direction: row;
+                gap: 15px;
+            }
+            
+            .payment-link {
+                flex: 1;
+                min-height: 80px;
+                padding: 12px 20px;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .ios-menu-container {
+                max-width: 100%;
+                border-radius: 16px 16px 0 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .container {
+                padding: 18px 15px;
+            }
+            
+            .service-card {
+                padding: 14px 12px;
+            }
+            
+            .category-title {
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+            
+            .service-item {
+                font-size: 0.85rem;
+                padding: 6px 0;
+            }
+            
+            .service-name {
+                font-size: 0.85rem;
+            }
+            
+            .service-icon {
+                margin-right: 6px;
+                font-size: 0.85rem;
+            }
+            
+            .service-price {
+                font-size: 0.8rem;
+            }
+            
+            .payment-buttons {
+                flex-direction: row;
+                gap: 10px;
+            }
+            
+            .payment-link {
+                min-height: 75px;
+                padding: 10px 15px;
+            }
+            
+            .payment-icon {
+                font-size: 1.8rem;
+            }
+            
+            .payment-text {
+                font-size: 1rem;
+            }
+            
+            .order-section {
+                padding: 15px;
+            }
+            
+            .modal-content {
+                padding: 0;
+            }
+            
+            .modal-buttons {
+                flex-direction: column;
+            }
+            
+            .modal-btn {
+                width: 100%;
+            }
+            
+            .ios-menu-header {
+                padding: 20px 15px 12px;
+            }
+            
+            .ios-menu-body {
+                padding: 15px;
+                max-height: 60vh;
+            }
+            
+            .ios-menu-btn {
+                padding: 16px 18px;
+                font-size: 1rem;
+            }
+        }
+        
+        /* 空购物车提示 */
+        .empty-cart {
+            text-align: center;
+            padding: 30px 20px;
+            color: #8888aa;
+        }
+        
+        .empty-cart i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #4ecdc4;
+            opacity: 0.5;
+        }
+        
+        /* 提示信息 */
+        .notification {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: rgba(20, 20, 35, 0.95);
+            border-left: 4px solid #4ecdc4;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: none;
+            animation: slideInRight 0.3s ease;
+            max-width: 320px;
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .notification.show {
+            display: block;
+        }
+        
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .notification-icon {
+            font-size: 1.3rem;
+            color: #4ecdc4;
+        }
+        
+        .notification-text {
+            font-size: 0.95rem;
+            color: #f0f0f0;
+        }
     </style>
 </head>
 <body>
@@ -343,23 +1105,184 @@
     
     <!-- 主要内容区域 -->
     <div class="container">
-        <!-- ... 保持原有内容不变 ... -->
+        <div class="header">
+            <h1 class="logo">puppy俱乐部</h1>
+            <div class="subtitle">专业游戏陪玩 · 定制化服务 · 极致游戏体验</div>
+        </div>
+        
+        <!-- 服务分类区域 - 修复为2×2排列 -->
+        <div class="services-grid">
+            <!-- 第一行左：胃袋服务 -->
+            <div class="service-card">
+                <div class="category-title"><i class="fas fa-utensils"></i> 胃袋服务</div>
+                <div class="service-item" data-name="迷你胃袋" data-price="3.9" data-description="迷你胃袋服务：提供基础资源补给，适合快速游戏或新手入门。">
+                    <span class="service-name"><i class="fas fa-box service-icon"></i> 迷你胃袋</span>
+                    <span class="service-price">3.9元/单</span>
+                </div>
+                <div class="service-item" data-name="小胃袋" data-price="8.8" data-description="小胃袋服务：中等资源补给，适合常规游戏需求，性价比较高。">
+                    <span class="service-name"><i class="fas fa-box service-icon"></i> 小胃袋</span>
+                    <span class="service-price">8.8元/单</span>
+                </div>
+                <div class="service-item" data-name="中胃袋" data-price="22" data-description="中胃袋服务：大量资源补给，提供显著游戏优势，适合有一定要求的玩家。">
+                    <span class="service-name"><i class="fas fa-box service-icon"></i> 中胃袋</span>
+                    <span class="service-price">22元/单</span>
+                </div>
+                <div class="service-item" data-name="大胃袋" data-price="68" data-description="大胃袋服务：顶级资源补给，极大提升游戏体验，适合高端玩家和追求极致体验的用户。">
+                    <span class="service-name"><i class="fas fa-box service-icon"></i> 大胃袋</span>
+                    <span class="service-price">68元/单</span>
+                </div>
+            </div>
+            
+            <!-- 第一行右：连珠与干扰 -->
+            <div class="service-card">
+                <div class="category-title"><i class="fas fa-meteor"></i> 娱乐玩法</div>
+                <div class="service-item" data-name="六星连珠" data-price="28.8" data-description="六星连珠服务：玄学运气加成服务，大幅提升发现高价值宝物的概率。">
+                    <span class="service-name"><i class="fas fa-star service-icon"></i> 六星连珠</span>
+                    <span class="service-price">28.8元/单</span>
+                </div>
+                <div class="service-item" data-name="臭鞋子" data-price="3.99" data-description="臭鞋子服务：战术干扰道具，有效影响对手移动和侦查效率，为团队创造优势。">
+                    <span class="service-name"><i class="fas fa-shoe-prints service-icon"></i> 臭鞋子</span>
+                    <span class="service-price">3.99元/单</span>
+                </div>
+                <div class="service-item" data-name="升级臭鞋子" data-price="9.99" data-description="升级版臭鞋子服务：强化干扰效果，大幅降低对手操作效率，战术压制利器。">
+                    <span class="service-name"><i class="fas fa-shoe-prints service-icon"></i> 升级臭鞋子</span>
+                    <span class="service-price">9.99元/单</span>
+                </div>
+            </div>
+            
+            <!-- 第二行左：战斗与策略 -->
+            <div class="service-card">
+                <div class="category-title"><i class="fas fa-fist-raised"></i> 战斗与策略</div>
+                <div class="service-item" data-name="屠龙" data-price="9" data-description="屠龙服务：承诺击杀指定精英怪物或BOSS，为团队扫清威胁，保证任务顺利进行。">
+                    <span class="service-name"><i class="fas fa-dragon service-icon"></i> 屠龙</span>
+                    <span class="service-price">9元/单</span>
+                </div>
+                <div class="service-item" data-name="堵命" data-price="8" data-description="堵命服务：在撤离点或关键路口断后，确保队友安全撤离，牺牲自我成就团队。">
+                    <span class="service-name"><i class="fas fa-shield-alt service-icon"></i> 堵命</span>
+                    <span class="service-price">8元/单</span>
+                </div>
+                <div class="service-item" data-name="金棺尿壶" data-price="6.6" data-description="金棺尿壶服务：独特的趣味互动玩法，增加游戏欢乐气氛，缓解紧张游戏节奏。">
+                    <span class="service-name"><i class="fas fa-gem service-icon"></i> 金棺尿壶</span>
+                    <span class="service-price">6.6元/单</span>
+                </div>
+                <div class="service-item" data-name="玉扳指" data-price="4" data-description="玉扳指服务：趣味互动套餐的一部分，增加游戏乐趣和社交体验。">
+                    <span class="service-name"><i class="fas fa-ring service-icon"></i> 玉扳指</span>
+                    <span class="service-price">4元/单</span>
+                </div>
+                <div class="service-item" data-name="比大小" data-price="6.6" data-description="比大小服务：与队友进行趣味点数博弈，增加游戏内社交乐趣和随机性体验。">
+                    <span class="service-name"><i class="fas fa-dice service-icon"></i> 比大小</span>
+                    <span class="service-price">6.6元/单</span>
+                </div>
+            </div>
+            
+            <!-- 第二行右：永动机系列 -->
+            <div class="service-card">
+                <div class="category-title"><i class="fas fa-infinity"></i> 热门系列</div>
+                <div class="service-item" data-name="雪莲永动机" data-price="8.8" data-description="雪莲永动机服务：在昆仑秘境等地图提供持续治疗支持，确保团队生存能力。">
+                    <span class="service-name"><i class="fas fa-snowflake service-icon"></i> 雪莲永动机</span>
+                    <span class="service-price">8.8元/单</span>
+                </div>
+                <div class="service-item" data-name="魔芋永动机" data-price="6.6" data-description="魔芋永动机服务：提供持续状态恢复，有效应对地图环境伤害，保持最佳状态。">
+                    <span class="service-name"><i class="fas fa-leaf service-icon"></i> 魔芋永动机</span>
+                    <span class="service-price">6.6元/单</span>
+                </div>
+                <div class="service-item" data-name="摇一摇" data-price="8.88" data-description="摇一摇服务：随机获得未知趣味服务或小型资源包，增加游戏惊喜感。">
+                    <span class="service-name"><i class="fas fa-dice service-icon"></i> 摇一摇</span>
+                    <span class="service-price">8.88元/单</span>
+                </div>
+                <div class="service-item" data-name="保护老板" data-price="9.9" data-description="保护老板服务：指定一位队友全程重点保护，直至安全撤离，VIP级护航体验。">
+                    <span class="service-name"><i class="fas fa-user-shield service-icon"></i> 保护老板</span>
+                    <span class="service-price">9.9元/单</span>
+                </div>
+                <div class="service-item" data-name="保护老板（昆仑）" data-price="11.9" data-description="保护老板（昆仑）服务：在昆仑地图提供专属保护服务，难度增加，需要更高技巧。">
+                    <span class="service-name"><i class="fas fa-mountain service-icon"></i> 保护昆仑</span>
+                    <span class="service-price">11.9元/单</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 订单和支付区域 -->
+        <div class="order-section">
+            <div class="order-title"><i class="fas fa-shopping-cart"></i> 我的订单</div>
+            <div class="order-summary">
+                <div id="selectedServicesList" class="selected-services">
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>您还没有选择任何服务<br>点击上方服务项添加到订单</p>
+                    </div>
+                </div>
+                <div class="total-price">
+                    <span>总计：</span>
+                    <span id="totalAmount">0.00 元</span>
+                </div>
+            </div>
+            
+            <!-- 支付按钮区域 - 修改支付宝链接为动态 -->
+            <div class="payment-buttons">
+                <a href="#" class="payment-link alipay" id="alipayPayment" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-alipay payment-icon"></i>
+                    <span class="payment-text">支付宝付款</span>
+                </a>
+                <div class="payment-link" id="wechatPayment">
+                    <i class="fab fa-weixin payment-icon"></i>
+                    <span class="payment-text">微信付款</span>
+                </div>
+            </div>
+            <div class="payment-note">
+                付款时请备注您的游戏ID和选择的服务<br>
+                付款后请联系客服确认订单，客服微信：Missuxn0917<br>
+                服务时间：每日 8:00 - 次日 00:00
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div>puppy俱乐部 · 专业陪玩服务 · 版权所有 © 2023</div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>客服邮箱：service@puppyclub.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>客服热线：400-123-4567</span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- iOS风格菜单容器 -->
     <div class="ios-menu-overlay" id="iosMenuOverlay">
-        <!-- ... 保持原有内容不变 ... -->
+        <div class="ios-menu-container" id="iosMenuContainer">
+            <button class="ios-menu-close" id="iosMenuClose">&times;</button>
+            <div class="ios-menu-header">
+                <div class="ios-menu-title" id="iosMenuTitle">服务详情</div>
+                <div class="ios-menu-subtitle" id="iosMenuSubtitle">0.00 元/单</div>
+            </div>
+            <div class="ios-menu-body">
+                <div class="ios-menu-description" id="iosMenuDescription">
+                    请选择一项服务查看详情
+                </div>
+                <div class="ios-menu-actions">
+                    <button class="ios-menu-btn primary" id="iosMenuAddBtn">
+                        <i class="fas fa-cart-plus"></i> 加入订单
+                    </button>
+                    <button class="ios-menu-btn secondary" id="iosMenuCancelBtn">
+                        <i class="fas fa-times"></i> 取消
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- 微信支付弹窗（新增可滑动版本） -->
-    <div class="modal-overlay wechat-modal" id="wechatModalOverlay">
-        <div class="wechat-modal-content">
-            <div class="wechat-modal-header">
-                <h2 class="wechat-modal-title"><i class="fab fa-weixin"></i> 微信扫码支付</h2>
-                <button class="wechat-modal-close" id="wechatModalClose">&times;</button>
+    <!-- 微信支付弹窗（新的可滑动版本） -->
+    <div class="modal-overlay" id="wechatModalOverlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fab fa-weixin"></i> 微信扫码支付</h2>
+                <button class="modal-close" id="wechatModalClose">&times;</button>
             </div>
             
-            <div class="wechat-modal-body" id="wechatModalBody">
+            <div class="modal-body" id="wechatModalBody">
                 <div class="pull-to-refresh" id="pullToRefresh">
                     <i class="fas fa-arrow-down"></i> 下拉关闭弹窗
                 </div>
@@ -392,11 +1315,11 @@
                     </div>
                 </div>
                 
-                <div class="wechat-modal-actions">
-                    <button class="wechat-modal-btn primary save-to-album-btn" id="saveToAlbumBtn">
+                <div class="modal-actions">
+                    <button class="modal-btn primary" id="saveToAlbumBtn">
                         <i class="fas fa-camera"></i> 保存到相册
                     </button>
-                    <button class="wechat-modal-btn secondary" id="closeWechatModalBtn">
+                    <button class="modal-btn secondary" id="closeWechatModalBtn">
                         <i class="fas fa-times"></i> 关闭
                     </button>
                 </div>
@@ -424,13 +1347,113 @@
     <!-- 引入粒子效果库 -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // 初始化粒子效果（保持原有代码不变）
+        // 初始化粒子效果
         particlesJS('particles-js', {
-            // ... 保持原有配置不变 ...
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": ["#ff6b6b", "#4ecdc4", "#45b7d1", "#96ceb4", "#feca57"]
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    }
+                },
+                "opacity": {
+                    "value": 0.7,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1,
+                        "opacity_min": 0.2,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 4,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 2,
+                        "size_min": 0.5,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.2,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2.5,
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 180,
+                        "line_linked": {
+                            "opacity": 0.6
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 120,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
         });
         
-        // 购物车数据（保持原有代码不变）
+        // 购物车数据
         let cart = [];
+        // 当前选中的服务
         let currentService = null;
         
         // 微信支付弹窗相关变量
@@ -441,10 +1464,10 @@
         
         // 初始化应用
         document.addEventListener('DOMContentLoaded', function() {
-            // 从本地存储加载购物车（保持原有代码不变）
+            // 从本地存储加载购物车
             loadCartFromStorage();
             
-            // 添加卡片悬停效果（保持原有代码不变）
+            // 添加卡片悬停效果
             const cards = document.querySelectorAll('.service-card');
             
             cards.forEach(card => {
@@ -459,7 +1482,7 @@
                 });
             });
             
-            // 为每个小分类添加点击事件（保持原有代码不变）
+            // 为每个小分类添加点击事件
             const serviceItems = document.querySelectorAll('.service-item');
             
             serviceItems.forEach(item => {
@@ -478,7 +1501,7 @@
                 showWechatModal();
             });
             
-            // 支付宝付款按钮点击事件（保持原有代码不变）
+            // 支付宝付款按钮点击事件 - 检查购物车是否为空
             document.getElementById('alipayPayment').addEventListener('click', function(e) {
                 const totalAmount = getTotalAmount();
                 
@@ -492,7 +1515,7 @@
                 this.href = generateAlipayLink(totalAmount);
             });
             
-            // iOS菜单按钮事件（保持原有代码不变）
+            // iOS菜单按钮事件
             document.getElementById('iosMenuAddBtn').addEventListener('click', function() {
                 if (currentService) {
                     addToCart(currentService.name, currentService.price, currentService.description);
@@ -508,7 +1531,7 @@
                 hideIosMenu();
             });
             
-            // 点击遮罩层关闭菜单（保持原有代码不变）
+            // 点击遮罩层关闭菜单
             document.getElementById('iosMenuOverlay').addEventListener('click', function(e) {
                 if (e.target === this) {
                     hideIosMenu();
@@ -547,24 +1570,75 @@
             });
         });
         
-        // 显示iOS风格菜单（保持原有代码不变）
+        // 显示iOS风格菜单
         function showIosMenu(name, price, description) {
-            // ... 保持原有代码不变 ...
+            currentService = {
+                name: name,
+                price: price,
+                description: description
+            };
+            
+            // 更新菜单内容
+            document.getElementById('iosMenuTitle').textContent = name;
+            document.getElementById('iosMenuSubtitle').textContent = price + ' 元/单';
+            document.getElementById('iosMenuDescription').textContent = description;
+            
+            // 显示菜单
+            const overlay = document.getElementById('iosMenuOverlay');
+            const container = document.getElementById('iosMenuContainer');
+            
+            overlay.style.display = 'flex';
+            
+            // 延迟添加show类以触发动画
+            setTimeout(() => {
+                container.classList.add('show');
+            }, 10);
+            
+            // 阻止背景滚动
+            document.body.style.overflow = 'hidden';
         }
         
-        // 隐藏iOS风格菜单（保持原有代码不变）
+        // 隐藏iOS风格菜单
         function hideIosMenu() {
-            // ... 保持原有代码不变 ...
+            const container = document.getElementById('iosMenuContainer');
+            const overlay = document.getElementById('iosMenuOverlay');
+            
+            container.classList.remove('show');
+            
+            // 等待动画完成后再隐藏
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                // 恢复背景滚动
+                document.body.style.overflow = 'auto';
+            }, 400);
         }
         
-        // 计算总金额（保持原有代码不变）
+        // 计算总金额
         function getTotalAmount() {
-            // ... 保持原有代码不变 ...
+            let total = 0;
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+            });
+            return parseFloat(total.toFixed(2));
         }
         
-        // 生成支付宝链接（保持原有代码不变）
+        // 生成支付宝链接
         function generateAlipayLink(amount) {
-            // ... 保持原有代码不变 ...
+            // 注意：这里需要替换为你自己的支付宝收款链接
+            const baseUrl = 'https://qr.alipay.com/fkx17600htsv037dteago15';
+            
+            // 生成服务描述
+            let serviceNames = [];
+            cart.forEach(item => {
+                serviceNames.push(item.name + '×' + item.quantity);
+            });
+            const serviceDesc = serviceNames.join(',');
+            
+            // 生成游戏ID（这里假设用户会输入，我们使用一个默认值）
+            const gameId = '用户游戏ID';
+            
+            // 构建支付宝链接参数
+            return `${baseUrl}?amount=${amount}&desc=puppy俱乐部-游戏陪玩服务&gameId=${encodeURIComponent(gameId)}&services=${encodeURIComponent(serviceDesc)}`;
         }
         
         // 显示微信支付弹窗（新的可滑动版本）
@@ -589,10 +1663,10 @@
             
             // 显示弹窗
             const modal = document.getElementById('wechatModalOverlay');
-            modal.style.display = 'flex';
+            modal.classList.add('show');
             
             // 重置弹窗位置和状态
-            const modalContent = document.querySelector('.wechat-modal-content');
+            const modalContent = document.querySelector('.modal-content');
             modalContent.style.transform = 'translateY(0)';
             
             // 阻止背景滚动
@@ -602,7 +1676,7 @@
         // 隐藏微信支付弹窗
         function hideWechatModal() {
             const modal = document.getElementById('wechatModalOverlay');
-            modal.style.display = 'none';
+            modal.classList.remove('show');
             
             // 恢复背景滚动
             document.body.style.overflow = 'auto';
@@ -637,7 +1711,7 @@
                     const pullAmount = Math.min(deltaY, maxPull);
                     
                     // 移动弹窗
-                    const modalContent = document.querySelector('.wechat-modal-content');
+                    const modalContent = document.querySelector('.modal-content');
                     modalContent.style.transform = `translateY(${pullAmount}px)`;
                     
                     // 更新下拉提示
@@ -655,7 +1729,7 @@
                 if (!isDragging) return;
                 
                 isDragging = false;
-                const modalContent = document.querySelector('.wechat-modal-content');
+                const modalContent = document.querySelector('.modal-content');
                 const deltaY = touchCurrentY - touchStartY;
                 
                 // 如果下拉足够远，则关闭弹窗
@@ -757,7 +1831,7 @@
                 link.click();
                 document.body.removeChild(link);
                 
-                showNotification('二维码已保存到相册，请打开微信扫一扫');
+                showNotification('二维码已保存，请打开微信扫一扫');
             };
             
             img.onerror = function() {
@@ -775,57 +1849,194 @@
             img.src = qrImage.src;
         }
         
-        // 添加到购物车（保持原有代码不变）
+        // 添加到购物车
         function addToCart(name, price, description) {
-            // ... 保持原有代码不变 ...
+            // 检查是否已存在
+            const existingItemIndex = cart.findIndex(item => item.name === name);
+            
+            if (existingItemIndex >= 0) {
+                // 已存在，增加数量
+                cart[existingItemIndex].quantity += 1;
+            } else {
+                // 新项目
+                cart.push({
+                    name: name,
+                    price: price,
+                    description: description,
+                    quantity: 1
+                });
+            }
+            
+            // 保存到本地存储
+            saveCartToStorage();
+            
+            // 更新购物车显示
+            updateCartDisplay();
+            
+            // 显示通知
+            showNotification(`"${name}" 已添加到订单`);
         }
         
-        // 从购物车移除项目（保持原有代码不变）
+        // 从购物车移除项目
         function removeFromCart(index) {
-            // ... 保持原有代码不变 ...
+            if (index >= 0 && index < cart.length) {
+                const itemName = cart[index].name;
+                cart.splice(index, 1);
+                
+                // 保存到本地存储
+                saveCartToStorage();
+                
+                // 更新购物车显示
+                updateCartDisplay();
+                
+                // 显示通知
+                showNotification(`"${itemName}" 已从订单移除`);
+            }
         }
         
-        // 更新购物车数量（保持原有代码不变）
+        // 更新购物车数量
         function updateCartItemQuantity(index, change) {
-            // ... 保持原有代码不变 ...
+            if (index >= 0 && index < cart.length) {
+                cart[index].quantity += change;
+                
+                // 确保数量至少为1
+                if (cart[index].quantity < 1) {
+                    cart[index].quantity = 1;
+                }
+                
+                // 保存到本地存储
+                saveCartToStorage();
+                
+                // 更新购物车显示
+                updateCartDisplay();
+            }
         }
         
-        // 更新购物车显示（保持原有代码不变）
+        // 更新购物车显示
         function updateCartDisplay() {
-            // ... 保持原有代码不变 ...
+            const cartList = document.getElementById('selectedServicesList');
+            const totalAmountElement = document.getElementById('totalAmount');
+            
+            if (cart.length === 0) {
+                cartList.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>您还没有选择任何服务<br>点击上方服务项添加到订单</p>
+                    </div>
+                `;
+                totalAmountElement.textContent = '0.00 元';
+                return;
+            }
+            
+            // 计算总价
+            let total = 0;
+            let cartHTML = '';
+            
+            cart.forEach((item, index) => {
+                total += item.price * item.quantity;
+                
+                cartHTML += `
+                    <div class="selected-service-item">
+                        <div style="font-weight: 600; color: #e0e0ff;">${item.name}</div>
+                        <div style="display: flex; align-items: center;">
+                            <div class="service-quantity">
+                                <button class="quantity-btn" onclick="updateCartItemQuantity(${index}, -1)">-</button>
+                                <span class="quantity-value">${item.quantity}</span>
+                                <button class="quantity-btn" onclick="updateCartItemQuantity(${index}, 1)">+</button>
+                            </div>
+                            <div style="font-weight: 700; color: #4ecdc4; margin-left: 20px; min-width: 80px; text-align: right;">
+                                ${(item.price * item.quantity).toFixed(2)} 元
+                            </div>
+                            <button class="remove-btn" onclick="removeFromCart(${index})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            cartList.innerHTML = cartHTML;
+            const totalAmount = total.toFixed(2);
+            totalAmountElement.textContent = totalAmount + ' 元';
+            
+            // 更新支付宝链接
+            updateAlipayLink(totalAmount);
+            
+            // 更新服务项的选中状态
+            updateServiceSelection();
         }
         
-        // 更新支付宝链接（保持原有代码不变）
+        // 更新支付宝链接
         function updateAlipayLink(amount) {
-            // ... 保持原有代码不变 ...
+            const alipayLink = document.getElementById('alipayPayment');
+            const total = parseFloat(amount);
+            
+            if (total > 0) {
+                // 生成支付宝链接
+                alipayLink.href = generateAlipayLink(total);
+            } else {
+                alipayLink.href = '#';
+            }
         }
         
-        // 更新服务项的选中状态（保持原有代码不变）
+        // 更新服务项的选中状态
         function updateServiceSelection() {
-            // ... 保持原有代码不变 ...
+            const serviceItems = document.querySelectorAll('.service-item');
+            
+            serviceItems.forEach(item => {
+                const serviceName = item.getAttribute('data-name');
+                const isInCart = cart.some(item => item.name === serviceName);
+                
+                if (isInCart) {
+                    item.classList.add('selected');
+                } else {
+                    item.classList.remove('selected');
+                }
+            });
         }
         
-        // 显示通知（保持原有代码不变）
+        // 显示通知
         function showNotification(message) {
-            // ... 保持原有代码不变 ...
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+            
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            // 3秒后自动隐藏
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
         }
         
-        // 保存购物车到本地存储（保持原有代码不变）
+        // 保存购物车到本地存储
         function saveCartToStorage() {
-            // ... 保持原有代码不变 ...
+            localStorage.setItem('puppyClubCart', JSON.stringify(cart));
         }
         
-        // 从本地存储加载购物车（保持原有代码不变）
+        // 从本地存储加载购物车
         function loadCartFromStorage() {
-            // ... 保持原有代码不变 ...
+            const savedCart = localStorage.getItem('puppyClubCart');
+            if (savedCart) {
+                try {
+                    cart = JSON.parse(savedCart);
+                    updateCartDisplay();
+                } catch (e) {
+                    console.error('加载购物车数据失败:', e);
+                }
+            }
         }
         
-        // 全局函数（保持原有代码不变）
-        window.closeModal = closeModal;
+        // 全局函数
+        window.closeModal = function(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        };
         window.addToCart = addToCart;
         window.removeFromCart = removeFromCart;
         window.updateCartItemQuantity = updateCartItemQuantity;
-        window.saveQrImage = saveQrCodeToAlbum; // 更新全局函数名
     </script>
 </body>
 </html>
