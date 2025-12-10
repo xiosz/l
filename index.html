@@ -59,34 +59,20 @@
             letter-spacing: 2px;
         }
         
-        /* 顶部入口样式 - 左右排列 */
-        .entrance-row {
-            display: flex;
-            gap: 18px;
+        /* 联系与付款大分类 */
+        .contact-payment-card {
+            background: rgba(20, 20, 35, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 18px;
+            border: 1px solid rgba(100, 100, 150, 0.2);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
             margin-bottom: 25px;
         }
         
-        .entrance-item {
-            flex: 1;
-            background: rgba(30, 30, 50, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 10px;
-            padding: 20px;
-            border: 1px solid rgba(100, 100, 150, 0.3);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .entrance-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-            border-color: rgba(255, 107, 107, 0.5);
-        }
-        
-        .entrance-item::before {
+        .contact-payment-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -96,27 +82,53 @@
             background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
         }
         
-        .entrance-link {
+        .contact-payment-card .category-title {
+            margin-bottom: 18px;
+        }
+        
+        /* 联系与付款内部小分类网格 */
+        .contact-payment-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+        
+        .contact-item {
+            background: rgba(30, 30, 50, 0.8);
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid rgba(100, 100, 150, 0.3);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 107, 107, 0.5);
+        }
+        
+        .contact-link {
             display: block;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: #4ecdc4;
             text-decoration: none;
             padding: 10px;
-            border-radius: 8px;
+            border-radius: 6px;
             background: rgba(78, 205, 196, 0.1);
             transition: all 0.3s ease;
+            margin-bottom: 8px;
         }
         
-        .entrance-link:hover {
+        .contact-link:hover {
             background: rgba(78, 205, 196, 0.2);
             transform: scale(1.05);
         }
         
-        .entrance-note {
+        .contact-note {
             font-size: 0.8rem;
             color: #a0a0c0;
-            margin-top: 10px;
         }
         
         /* 服务分类网格 */
@@ -182,7 +194,6 @@
         .category-title {
             font-size: 1.2rem;
             color: #ff6b6b;
-            margin-bottom: 12px;
             padding-bottom: 6px;
             border-bottom: 2px solid rgba(255, 107, 107, 0.2);
             display: flex;
@@ -211,11 +222,7 @@
                 font-size: 2.2rem;
             }
             
-            .entrance-row {
-                flex-direction: column;
-                gap: 16px;
-            }
-            
+            .contact-payment-grid,
             .services-grid {
                 grid-template-columns: 1fr;
                 gap: 16px;
@@ -260,18 +267,21 @@
             <div class="subtitle">专业陪玩服务</div>
         </div>
         
-        <!-- 顶部入口区域 - 左右排列 -->
-        <div class="entrance-row">
-            <div class="entrance-item">
-                <!-- 接待入口链接 -->
-                <a href="#YOUR_RECEPTION_LINK_HERE" class="entrance-link" target="_blank">接待入口</a>
-                <div class="entrance-note">接待客服</div>
-            </div>
-            
-            <div class="entrance-item">
-                <!-- 付款入口链接 -->
-                <a href="https://qr.alipay.com/fkx17600htsv037dteago15" class="entrance-link" target="_blank">付款入口</a>
-                <div class="entrance-title">支付宝付款</div>
+        <!-- 联系与付款大分类 -->
+        <div class="contact-payment-card">
+            <div class="category-title">联系与付款</div>
+            <div class="contact-payment-grid">
+                <!-- 接待入口小分类 -->
+                <div class="contact-item">
+                    <a href="#YOUR_RECEPTION_LINK_HERE" class="contact-link" target="_blank">接待入口</a>
+                    <div class="contact-note">接待客服</div>
+                </div>
+                
+                <!-- 付款入口小分类 -->
+                <div class="contact-item">
+                    <a href="https://qr.alipay.com/fkx17600htsv037dteago15" class="contact-link" target="_blank">付款入口</a>
+                    <div class="contact-note">支付宝付款</div>
+                </div>
             </div>
         </div>
         
@@ -496,6 +506,19 @@
                 
                 card.addEventListener('mouseleave', function() {
                     this.style.borderColor = 'rgba(100, 100, 150, 0.2)';
+                });
+            });
+            
+            // 为联系与付款小分类添加悬停效果
+            const contactItems = document.querySelectorAll('.contact-item');
+            
+            contactItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.borderColor = 'rgba(255, 107, 107, 0.5)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.borderColor = 'rgba(100, 100, 150, 0.3)';
                 });
             });
         });
