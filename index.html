@@ -615,7 +615,7 @@
             }
             /* 移动端取消绝对定位，恢复block流式布局 */
             .services-grid {
-                min-height: auto;
+                 grid-template-columns: repeat(2, 1fr);
             }
             .service-card {
                 position: static;
@@ -627,7 +627,7 @@
                 gap: 10px;
             }
             .status-item-actions {
-                width: 100%;
+                width: 48%;
                 justify-content: flex-end;
             }
         }
