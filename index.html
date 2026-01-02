@@ -78,18 +78,18 @@
             font-weight: 300;
         }
         
-        /* 服务分类网格 - 改为相对定位容器，用于承载四个绝对定位模块 */
+        /* 服务分类网格 - 相对定位容器，所有屏幕保持四角布局 */
         .services-grid {
             position: relative;
             width: 100%;
-            min-height: 850px; /* 必须设置足够高度，容纳四个角落模块 */
+            min-height: 900px; /* 固定最小高度，适配所有屏幕 */
             margin-bottom: 30px;
         }
         
-        /* 服务卡片通用样式 */
+        /* 服务卡片通用样式 - 所有屏幕绝对定位 */
         .service-card {
             position: absolute;
-            width: 48%; /* 宽度48%，留2%间距避免重叠 */
+            width: 48%; /* 固定宽度，留2%间距 */
             background: rgba(20, 20, 35, 0.95);
             border-radius: 12px;
             padding: 18px 16px;
@@ -608,26 +608,17 @@
             align-items: center;
         }
         
-        /* 响应式适配 - 移动端恢复流式布局 */
+        /* 响应式适配 - 仅调整文字大小，不修改布局结构 */
         @media (max-width: 768px) {
             .logo {
                 font-size: 2.5rem;
-            }
-            /* 移动端取消绝对定位，恢复block流式布局 */
-            .services-grid {
-                 grid-template-columns: repeat(2, 1fr);
-            }
-            .service-card {
-                position: static;
-                width: 48%;
-                margin-bottom: 15px;
             }
             .status-item {
                 flex-wrap: wrap;
                 gap: 10px;
             }
             .status-item-actions {
-                width: 48%;
+                width: 100%;
                 justify-content: flex-end;
             }
         }
@@ -642,6 +633,13 @@
             .status-item-name {
                 font-size: 0.9rem;
             }
+            /* 移动端可微调卡片内边距，优化显示 */
+            .service-card {
+                padding: 12px 10px;
+            }
+            .service-item {
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
@@ -653,7 +651,7 @@
             <div class="subtitle">专业游戏陪玩 · 定制化服务 · 极致游戏体验</div>
         </div>
         
-        <!-- 服务分类区域 - 四角布局 -->
+        <!-- 服务分类区域 - 所有屏幕四角布局 -->
         <div class="services-grid">
             <!-- 左上模块 -->
             <div class="service-card">
