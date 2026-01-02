@@ -18,7 +18,7 @@
             color: #f0f0f0;
             min-height: 100vh;
             overflow-x: hidden;
-            line-height: 1.6;
+            line-height: 1.5;
         }
         
         #particles-js {
@@ -33,27 +33,27 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 25px 20px;
+            padding: 20px 15px;
             position: relative;
             z-index: 1;
         }
         
         .header {
             text-align: center;
-            margin-bottom: 35px;
-            padding-top: 15px;
+            margin-bottom: 25px;
+            padding-top: 10px;
         }
         
         .logo {
-            font-size: 3.2rem;
+            font-size: 2.8rem;
             font-weight: 800;
             background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 30px rgba(79, 192, 210, 0.4);
-            letter-spacing: 2px;
-            margin-bottom: 8px;
+            text-shadow: 0 0 20px rgba(79, 192, 210, 0.4);
+            letter-spacing: 1px;
+            margin-bottom: 5px;
             display: inline-block;
             position: relative;
         }
@@ -61,38 +61,38 @@
         .logo::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -8px;
             left: 50%;
             transform: translateX(-50%);
-            width: 150px;
-            height: 3px;
+            width: 120px;
+            height: 2px;
             background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
             border-radius: 2px;
         }
         
         .subtitle {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             color: #a0a0c0;
-            letter-spacing: 2px;
-            margin-top: 20px;
+            letter-spacing: 1px;
+            margin-top: 15px;
             font-weight: 300;
         }
         
-        /* 服务分类网格 */
+        /* 服务分类网格 - 恢复2×2布局 + 缩小间距 */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(2, 2fr);
+            grid-template-columns: repeat(2, 1fr);
             grid-auto-rows: auto;
-            gap: 18px;
-            margin-bottom: 30px;
+            gap: 12px; /* 缩小板块间距 */
+            margin-bottom: 25px;
         }
         
         .service-card {
             background: rgba(20, 20, 35, 0.95);
-            border-radius: 12px;
-            padding: 18px 16px;
+            border-radius: 10px;
+            padding: 12px 10px; /* 缩小模块内边距 */
             border: 1px solid rgba(100, 100, 150, 0.2);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
@@ -104,15 +104,15 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
+            height: 3px;
             background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
             transform: scaleX(0);
             transition: transform 0.5s ease;
         }
         
         .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
             border-color: rgba(255, 107, 107, 0.5);
         }
         
@@ -120,25 +120,42 @@
             transform: scaleX(1);
         }
         
+        /* 分类标题 - 缩小文字和间距 */
+        .category-title {
+            font-size: 1rem; /* 缩小标题文字 */
+            color: #ff6b6b;
+            margin-bottom: 8px; /* 缩小标题下间距 */
+            padding-bottom: 4px; /* 缩小标题下划线间距 */
+            border-bottom: 2px solid rgba(255, 107, 107, 0.2);
+            display: flex;
+            align-items: center;
+        }
+        
+        .category-title i {
+            margin-right: 6px; /* 缩小图标和文字间距 */
+            font-size: 0.9rem; /* 缩小图标 */
+        }
+        
+        /* 服务项 - 缩小文字和间距 */
         .service-item {
-            padding: 8px 0;
+            padding: 4px 0; /* 缩小服务项上下间距 */
             border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-            font-size: 0.95rem;
+            font-size: 0.85rem; /* 缩小服务项文字 */
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            border-radius: 6px;
+            border-radius: 4px;
             position: relative;
-            line-height: 1.5;
+            line-height: 1.4;
             margin-bottom: 2px;
         }
         
         .service-item::before {
             content: '';
             position: absolute;
-            left: -8px;
+            left: -6px;
             top: 0;
             height: 100%;
             width: 2px;
@@ -149,10 +166,10 @@
         
         .service-item:hover {
             background: rgba(255, 255, 255, 0.04);
-            padding-left: 12px;
-            padding-right: 12px;
-            margin-left: -8px;
-            margin-right: -8px;
+            padding-left: 8px; /* 缩小hover内边距 */
+            padding-right: 8px;
+            margin-left: -6px; /* 缩小hover外边距 */
+            margin-right: -6px;
         }
         
         .service-item:hover::before {
@@ -162,8 +179,8 @@
         .service-item.selected {
             background: rgba(78, 205, 196, 0.1);
             border-left: 2px solid #4ecdc4;
-            padding-left: 12px;
-            margin-left: -8px;
+            padding-left: 8px;
+            margin-left: -6px;
         }
         
         .service-item:last-child {
@@ -175,35 +192,20 @@
             color: #e0e0ff;
             display: flex;
             align-items: center;
-            font-size: 0.95rem;
+            font-size: 0.85rem; /* 缩小服务名称文字 */
         }
         
         .service-icon {
-            margin-right: 8px;
-            font-size: 0.95rem;
+            margin-right: 6px; /* 缩小图标和名称间距 */
+            font-size: 0.85rem; /* 缩小服务图标 */
             color: #ff6b6b;
         }
         
         .service-price {
             font-weight: 700;
             color: #4ecdc4;
-            font-size: 0.9rem;
+            font-size: 0.8rem; /* 缩小价格文字 */
             white-space: nowrap;
-        }
-        
-        .category-title {
-            font-size: 1.2rem;
-            color: #ff6b6b;
-            margin-bottom: 14px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid rgba(255, 107, 107, 0.2);
-            display: flex;
-            align-items: center;
-        }
-        
-        .category-title i {
-            margin-right: 10px;
-            font-size: 1rem;
         }
 
         /* 进度/报单/结单 模块样式 */
@@ -306,7 +308,7 @@
             padding: 4px 8px;
             border-radius: 4px;
             border: none;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.3s ease;
             color: #fff;
@@ -407,73 +409,73 @@
         }
         
         .ios-menu-header {
-            padding: 25px 20px 15px;
+            padding: 20px 15px 12px;
             text-align: center;
             position: relative;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .ios-menu-title {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: #ff6b6b;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         
         .ios-menu-subtitle {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #4ecdc4;
             font-weight: 700;
         }
         
         .ios-menu-body {
-            padding: 20px;
+            padding: 15px;
             max-height: 50vh;
             overflow-y: auto;
         }
         
         .ios-menu-description {
-            font-size: 0.95rem;
-            line-height: 1.6;
+            font-size: 0.9rem;
+            line-height: 1.5;
             color: #e0e0ff;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: center;
         }
 
         .ios-menu-remark {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .ios-menu-remark label {
             display: block;
             color: #e0e0ff;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
         }
 
         .ios-menu-remark input {
             width: 100%;
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(78, 205, 196, 0.3);
-            border-radius: 8px;
-            padding: 10px 12px;
+            border-radius: 6px;
+            padding: 8px 10px;
             color: #f0f0f0;
-            font-size: 1rem;
+            font-size: 0.9rem;
             outline: none;
         }
         
         .ios-menu-actions {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-top: 20px;
+            gap: 10px;
+            margin-top: 15px;
         }
         
         .ios-menu-btn {
-            padding: 18px 20px;
-            border-radius: 14px;
+            padding: 15px 18px;
+            border-radius: 12px;
             border: none;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -481,7 +483,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
         }
         
         .ios-menu-btn.primary {
@@ -507,19 +509,19 @@
         
         .ios-menu-close {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 15px;
+            right: 15px;
             background: rgba(255, 255, 255, 0.1);
             border: none;
             color: #a0a0c0;
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             transition: all 0.3s;
             z-index: 10;
         }
@@ -532,17 +534,17 @@
         /* 通知消息 */
         .notification {
             position: fixed;
-            bottom: 25px;
-            right: 25px;
+            bottom: 20px;
+            right: 20px;
             background: rgba(20, 20, 35, 0.95);
             border-left: 4px solid #4ecdc4;
-            padding: 12px 20px;
-            border-radius: 8px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            padding: 10px 15px;
+            border-radius: 6px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
             z-index: 1000;
             display: none;
             animation: slideInRight 0.3s ease;
-            max-width: 320px;
+            max-width: 300px;
         }
         
         @keyframes slideInRight {
@@ -557,25 +559,25 @@
         .notification-content {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
         
         .notification-icon {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #4ecdc4;
         }
         
         .notification-text {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #f0f0f0;
         }
 
         .footer {
             text-align: center;
-            margin-top: 35px;
-            padding: 18px;
+            margin-top: 25px;
+            padding: 15px;
             color: #8888aa;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             letter-spacing: 1px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
@@ -586,14 +588,15 @@
         /* 响应式适配 */
         @media (max-width: 768px) {
             .logo {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
             }
             .services-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
             }
             .status-item {
                 flex-wrap: wrap;
-                gap: 10px;
+                gap: 8px;
             }
             .status-item-actions {
                 width: 100%;
@@ -603,16 +606,17 @@
         
         @media (max-width: 480px) {
             .logo {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             .services-grid {
                 grid-template-columns: 1fr;
+                gap: 8px;
             }
             .status-title {
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
             .status-item-name {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -625,7 +629,7 @@
             <div class="subtitle">专业游戏陪玩 · 定制化服务 · 极致游戏体验</div>
         </div>
         
-        <!-- 服务分类区域 -->
+        <!-- 服务分类区域 - 恢复2×2布局 -->
         <div class="services-grid">
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-utensils"></i> 胃袋服务</div>
@@ -980,10 +984,11 @@
             switch (type) {
                 case 'progress':
                     progressList = progressList.map(item => item.id === id ? {...item, remark} : item);
+                    saveData();
+                    renderProgressList();
+                    showNotification('备注已更新');
                     break;
             }
-            saveData();
-            showNotification('备注已更新');
         }
 
         // 移到报单
