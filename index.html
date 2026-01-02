@@ -18,7 +18,7 @@
             color: #f0f0f0;
             min-height: 100vh;
             overflow-x: hidden;
-            line-height: 1.6;
+            line-height: 1.5;
         }
         
         #particles-js {
@@ -33,27 +33,27 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 25px 20px;
+            padding: 20px 15px;
             position: relative;
             z-index: 1;
         }
         
         .header {
             text-align: center;
-            margin-bottom: 35px;
-            padding-top: 15px;
+            margin-bottom: 25px;
+            padding-top: 10px;
         }
         
         .logo {
-            font-size: 3.2rem;
+            font-size: 2.5rem; /* 缩小标题文字 */
             font-weight: 800;
             background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 30px rgba(79, 192, 210, 0.4);
-            letter-spacing: 2px;
-            margin-bottom: 8px;
+            text-shadow: 0 0 20px rgba(79, 192, 210, 0.4);
+            letter-spacing: 1px;
+            margin-bottom: 5px;
             display: inline-block;
             position: relative;
         }
@@ -61,84 +61,57 @@
         .logo::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -8px;
             left: 50%;
             transform: translateX(-50%);
-            width: 150px;
-            height: 3px;
+            width: 120px;
+            height: 2px;
             background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
             border-radius: 2px;
         }
         
         .subtitle {
-            font-size: 1.1rem;
+            font-size: 0.9rem; /* 缩小副标题 */
             color: #a0a0c0;
-            letter-spacing: 2px;
-            margin-top: 20px;
+            letter-spacing: 1px;
+            margin-top: 15px;
             font-weight: 300;
         }
         
-        /* 服务分类网格 - 相对定位容器，所有屏幕保持四角布局 */
+        /* 服务分类网格 - 自动两列排列 左右间距不变 */
         .services-grid {
-            position: relative;
-            width: 100%;
-            min-height: 900px; /* 固定最小高度，适配所有屏幕 */
-            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 固定两列 自动排列 */
+            gap: 15px; /* 左右+上下间距 保持不变 */
+            margin-bottom: 25px;
         }
         
-        /* 服务卡片通用样式 - 所有屏幕绝对定位 */
+        /* 服务卡片 - 取消绝对定位 自动流式排列 */
         .service-card {
-            position: absolute;
-            width: 48%; /* 固定宽度，留2%间距 */
             background: rgba(20, 20, 35, 0.95);
-            border-radius: 12px;
-            padding: 18px 16px;
+            border-radius: 10px;
+            padding: 12px 10px; /* 缩小模块内边距 */
             border: 1px solid rgba(100, 100, 150, 0.2);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
             transition: all 0.4s ease;
             overflow: hidden;
         }
         
-        /* 独立定位：左上 */
-        .service-card:nth-child(1) {
-            top: 0;
-            left: 0;
-        }
-        
-        /* 独立定位：右上 */
-        .service-card:nth-child(2) {
-            top: 0;
-            right: 0;
-        }
-        
-        /* 独立定位：左下 */
-        .service-card:nth-child(3) {
-            bottom: 0;
-            left: 0;
-        }
-        
-        /* 独立定位：右下 */
-        .service-card:nth-child(4) {
-            bottom: 0;
-            right: 0;
-        }
-        
-        /* 卡片悬浮效果 */
         .service-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
+            height: 3px;
             background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
             transform: scaleX(0);
             transition: transform 0.5s ease;
         }
         
         .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
             border-color: rgba(255, 107, 107, 0.5);
         }
         
@@ -146,24 +119,41 @@
             transform: scaleX(1);
         }
         
+        /* 分类标题 - 缩小文字+间距 */
+        .category-title {
+            font-size: 1rem; /* 缩小标题 */
+            color: #ff6b6b;
+            margin-bottom: 8px; /* 缩小标题下间距 */
+            padding-bottom: 4px; /* 缩小下划线间距 */
+            border-bottom: 2px solid rgba(255, 107, 107, 0.2);
+            display: flex;
+            align-items: center;
+        }
+        
+        .category-title i {
+            margin-right: 6px; /* 缩小图标间距 */
+            font-size: 0.9rem; /* 缩小图标 */
+        }
+        
+        /* 服务项 - 缩小文字+间距 */
         .service-item {
-            padding: 8px 0;
+            padding: 4px 0; /* 缩小上下间距 */
             border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-            font-size: 0.95rem;
+            font-size: 0.85rem; /* 缩小文字 */
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            border-radius: 6px;
+            border-radius: 4px;
             position: relative;
-            line-height: 1.5;
+            line-height: 1.4;
         }
         
         .service-item::before {
             content: '';
             position: absolute;
-            left: -8px;
+            left: -6px;
             top: 0;
             height: 100%;
             width: 2px;
@@ -174,10 +164,10 @@
         
         .service-item:hover {
             background: rgba(255, 255, 255, 0.04);
-            padding-left: 12px;
-            padding-right: 12px;
-            margin-left: -8px;
-            margin-right: -8px;
+            padding-left: 8px; /* 缩小hover内边距 */
+            padding-right: 8px;
+            margin-left: -6px;
+            margin-right: -6px;
         }
         
         .service-item:hover::before {
@@ -187,8 +177,8 @@
         .service-item.selected {
             background: rgba(78, 205, 196, 0.1);
             border-left: 2px solid #4ecdc4;
-            padding-left: 12px;
-            margin-left: -8px;
+            padding-left: 8px;
+            margin-left: -6px;
         }
         
         .service-item:last-child {
@@ -200,46 +190,31 @@
             color: #e0e0ff;
             display: flex;
             align-items: center;
-            font-size: 0.95rem;
+            font-size: 0.85rem; /* 缩小名称文字 */
         }
         
         .service-icon {
-            margin-right: 8px;
-            font-size: 0.95rem;
+            margin-right: 6px; /* 缩小图标间距 */
+            font-size: 0.85rem; /* 缩小图标 */
             color: #ff6b6b;
         }
         
         .service-price {
             font-weight: 700;
             color: #4ecdc4;
-            font-size: 0.9rem;
+            font-size: 0.8rem; /* 缩小价格文字 */
             white-space: nowrap;
         }
-        
-        .category-title {
-            font-size: 1.2rem;
-            color: #ff6b6b;
-            margin-bottom: 14px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid rgba(255, 107, 107, 0.2);
-            display: flex;
-            align-items: center;
-        }
-        
-        .category-title i {
-            margin-right: 10px;
-            font-size: 1rem;
-        }
 
-        /* 进度/报单/结单 模块样式 */
+        /* 进度/报单/结单 模块 - 缩小内间距 */
         .status-section {
             width: 100%;
             background: rgba(20, 20, 35, 0.95);
-            border-radius: 12px;
-            padding: 18px 16px;
+            border-radius: 10px;
+            padding: 12px 10px; /* 缩小内边距 */
             border: 1px solid rgba(100, 100, 150, 0.2);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-            margin-bottom: 20px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+            margin-bottom: 15px;
             position: relative;
             overflow: hidden;
         }
@@ -250,36 +225,36 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
+            height: 3px;
             background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
         }
 
         .status-title {
-            font-size: 1.2rem;
+            font-size: 1rem; /* 缩小标题 */
             color: #ff6b6b;
-            margin-bottom: 14px;
-            padding-bottom: 8px;
+            margin-bottom: 8px; /* 缩小间距 */
+            padding-bottom: 4px;
             border-bottom: 2px solid rgba(255, 107, 107, 0.2);
             display: flex;
             align-items: center;
         }
 
         .status-title i {
-            margin-right: 10px;
-            font-size: 1rem;
+            margin-right: 6px;
+            font-size: 0.9rem;
         }
 
         .status-list {
-            max-height: 250px;
+            max-height: 200px;
             overflow-y: auto;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .status-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 8px;
+            padding: 6px 4px; /* 缩小内间距 */
             border-bottom: 1px solid rgba(255, 255, 255, 0.07);
             transition: background 0.3s ease;
         }
@@ -295,43 +270,45 @@
         .status-item-name {
             color: #e0e0ff;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
+            font-size: 0.85rem; /* 缩小文字 */
         }
 
         .status-item-remark {
             color: #a0a0c0;
-            font-size: 0.85rem;
+            font-size: 0.8rem; /* 缩小文字 */
         }
 
         .status-item-remark input {
-            width: 180px;
+            width: 150px; /* 缩小输入框 */
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(78, 205, 196, 0.3);
             border-radius: 4px;
-            padding: 4px 8px;
+            padding: 3px 6px;
             color: #f0f0f0;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             outline: none;
         }
 
         .status-item-price {
             color: #4ecdc4;
             font-weight: 700;
-            min-width: 80px;
+            min-width: 70px;
             text-align: right;
-            margin-right: 10px;
+            margin-right: 8px;
+            font-size: 0.8rem; /* 缩小文字 */
         }
 
         .status-item-actions {
             display: flex;
-            gap: 8px;
+            gap: 6px;
         }
 
         .status-btn {
-            padding: 4px 8px;
+            padding: 3px 6px; /* 缩小按钮 */
             border-radius: 4px;
             border: none;
-            font-size: 0.8rem;
+            font-size: 0.8rem; /* 缩小文字 */
             cursor: pointer;
             transition: all 0.3s ease;
             color: #fff;
@@ -365,9 +342,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 10px;
+            padding-top: 8px;
             border-top: 2px solid rgba(255, 255, 255, 0.1);
-            font-size: 1.1rem;
+            font-size: 0.95rem; /* 缩小文字 */
             font-weight: 600;
         }
 
@@ -382,19 +359,19 @@
         /* 空列表样式 */
         .empty-list {
             text-align: center;
-            padding: 30px 20px;
+            padding: 20px 15px;
             color: #8888aa;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
 
         .empty-list i {
-            font-size: 2rem;
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
             color: #4ecdc4;
             opacity: 0.5;
         }
 
-        /* iOS风格菜单样式 */
+        /* iOS风格菜单 - 缩小内间距+文字 */
         .ios-menu-overlay {
             position: fixed;
             top: 0;
@@ -417,14 +394,14 @@
         
         .ios-menu-container {
             width: 100%;
-            max-width: 500px;
+            max-width: 450px; /* 缩小菜单宽度 */
             margin: 0 auto;
             background: rgba(40, 40, 60, 0.98);
-            border-radius: 20px 20px 0 0;
+            border-radius: 15px 15px 0 0;
             overflow: hidden;
             transform: translateY(100%);
             transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.4);
         }
         
         .ios-menu-container.show {
@@ -432,73 +409,73 @@
         }
         
         .ios-menu-header {
-            padding: 25px 20px 15px;
+            padding: 15px 12px 8px; /* 缩小内间距 */
             text-align: center;
             position: relative;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .ios-menu-title {
-            font-size: 1.3rem;
+            font-size: 1.1rem; /* 缩小文字 */
             font-weight: 700;
             color: #ff6b6b;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
         
         .ios-menu-subtitle {
-            font-size: 1.1rem;
+            font-size: 0.95rem; /* 缩小文字 */
             color: #4ecdc4;
             font-weight: 700;
         }
         
         .ios-menu-body {
-            padding: 20px;
+            padding: 12px 10px; /* 缩小内间距 */
             max-height: 50vh;
             overflow-y: auto;
         }
         
         .ios-menu-description {
-            font-size: 0.95rem;
-            line-height: 1.6;
+            font-size: 0.85rem; /* 缩小文字 */
+            line-height: 1.5;
             color: #e0e0ff;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             text-align: center;
         }
 
         .ios-menu-remark {
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
 
         .ios-menu-remark label {
             display: block;
             color: #e0e0ff;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
+            margin-bottom: 4px;
+            font-size: 0.85rem;
         }
 
         .ios-menu-remark input {
             width: 100%;
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(78, 205, 196, 0.3);
-            border-radius: 8px;
-            padding: 10px 12px;
+            border-radius: 6px;
+            padding: 6px 8px;
             color: #f0f0f0;
-            font-size: 1rem;
+            font-size: 0.85rem;
             outline: none;
         }
         
         .ios-menu-actions {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-top: 20px;
+            gap: 8px;
+            margin-top: 12px;
         }
         
         .ios-menu-btn {
-            padding: 18px 20px;
-            border-radius: 14px;
+            padding: 12px 15px; /* 缩小按钮 */
+            border-radius: 8px;
             border: none;
-            font-size: 1.1rem;
+            font-size: 0.95rem; /* 缩小文字 */
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -506,18 +483,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 6px;
         }
         
         .ios-menu-btn.primary {
             background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
             color: white;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
         }
         
         .ios-menu-btn.primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
         }
         
         .ios-menu-btn.secondary {
@@ -532,19 +509,19 @@
 
         .ios-menu-close {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 12px;
+            right: 12px;
             background: rgba(255, 255, 255, 0.1);
             border: none;
             color: #a0a0c0;
-            width: 40px;
-            height: 40px;
+            width: 30px; /* 缩小按钮 */
+            height: 30px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             transition: all 0.3s;
             z-index: 10;
         }
@@ -554,20 +531,20 @@
             color: #ff6b6b;
         }
         
-        /* 通知消息 */
+        /* 通知消息 - 缩小尺寸 */
         .notification {
             position: fixed;
-            bottom: 25px;
-            right: 25px;
+            bottom: 15px;
+            right: 15px;
             background: rgba(20, 20, 35, 0.95);
-            border-left: 4px solid #4ecdc4;
-            padding: 12px 20px;
-            border-radius: 8px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            border-left: 3px solid #4ecdc4;
+            padding: 8px 12px;
+            border-radius: 6px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
             z-index: 1000;
             display: none;
             animation: slideInRight 0.3s ease;
-            max-width: 320px;
+            max-width: 280px;
         }
         
         @keyframes slideInRight {
@@ -582,64 +559,30 @@
         .notification-content {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
         
         .notification-icon {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             color: #4ecdc4;
         }
         
         .notification-text {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: #f0f0f0;
         }
 
         .footer {
             text-align: center;
-            margin-top: 35px;
-            padding: 18px;
+            margin-top: 20px;
+            padding: 12px;
             color: #8888aa;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             letter-spacing: 1px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-        
-        /* 响应式适配 - 仅调整文字大小，不修改布局结构 */
-        @media (max-width: 768px) {
-            .logo {
-                font-size: 2.5rem;
-            }
-            .status-item {
-                flex-wrap: wrap;
-                gap: 10px;
-            }
-            .status-item-actions {
-                width: 100%;
-                justify-content: flex-end;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .logo {
-                font-size: 2rem;
-            }
-            .status-title {
-                font-size: 1.1rem;
-            }
-            .status-item-name {
-                font-size: 0.9rem;
-            }
-            /* 移动端可微调卡片内边距，优化显示 */
-            .service-card {
-                padding: 12px 10px;
-            }
-            .service-item {
-                font-size: 0.85rem;
-            }
         }
     </style>
 </head>
@@ -651,9 +594,8 @@
             <div class="subtitle">专业游戏陪玩 · 定制化服务 · 极致游戏体验</div>
         </div>
         
-        <!-- 服务分类区域 - 所有屏幕四角布局 -->
+        <!-- 服务分类区域 - 自动两列排列 -->
         <div class="services-grid">
-            <!-- 左上模块 -->
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-utensils"></i> 胃袋服务</div>
                 <div class="service-item" data-name="迷你胃袋" data-price="3.9" data-description="迷你胃袋服务：单局带出50w/不出不结单">
@@ -674,7 +616,6 @@
                 </div>
             </div>
             
-            <!-- 右上模块 -->
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-meteor"></i> 娱乐玩法</div>
                 <div class="service-item" data-name="六星连珠" data-price="28.8" data-description="六星连珠：板宝根据每把带出的物品板板自行在图中选择对应物品打勾，直到有六个物品连成一条线(横竖斜)即结单回收物按板板实际带出来的算。">
@@ -691,7 +632,6 @@
                 </div>
             </div>
             
-            <!-- 左下模块 -->
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-fist-raised"></i> 战斗与策略</div>
                 <div class="service-item" data-name="屠龙" data-price="9" data-description="屠龙服务：陪陪会进行干扰，击杀怪物，不算金额内玩法：板板选择地图，在撤离前击杀多少怪物就+多少10w，要注意板板撤离失败-20w保底，所以要注意安全哦，保底为：40w例如：板板击杀12只怪，则需要带120w+40w才算结单">
@@ -716,7 +656,6 @@
                 </div>
             </div>
             
-            <!-- 右下模块 -->
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-infinity"></i> 热门系列</div>
                 <div class="service-item" data-name="雪莲永动机" data-price="8.8" data-description="雪莲永动机服务：开一把昆仑噩梦，开完棺之后若有雪莲即接着打，直到某一局没有雪莲停止才结单陪陪玩艾伦，板子玩莉莉，不重铸">
@@ -1010,11 +949,11 @@
             switch (type) {
                 case 'progress':
                     progressList = progressList.map(item => item.id === id ? {...item, remark} : item);
+                    saveData();
+                    renderProgressList();
+                    showNotification('备注已更新');
                     break;
             }
-            saveData();
-            renderProgressList();
-            showNotification('备注已更新');
         }
 
         // 移到报单
