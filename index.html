@@ -6,7 +6,6 @@
     <title>puppy俱乐部 - 点单</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* 所有样式保持不变，未作修改 */
         * {
             margin: 0;
             padding: 0;
@@ -206,20 +205,21 @@
             margin-right: 10px;
             font-size: 1rem;
         }
-        
-        /* 订单和支付区域 */
-        .order-section {
-            margin-top: 35px;
-            padding: 20px;
+
+        /* 进度/报单/结单 模块样式 */
+        .status-section {
+            width: 100%;
             background: rgba(20, 20, 35, 0.95);
             border-radius: 12px;
+            padding: 18px 16px;
             border: 1px solid rgba(100, 100, 150, 0.2);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            margin-bottom: 20px;
             position: relative;
             overflow: hidden;
         }
-        
-        .order-section::before {
+
+        .status-section::before {
             content: '';
             position: absolute;
             top: 0;
@@ -228,197 +228,147 @@
             height: 4px;
             background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
         }
-        
-        .order-title {
-            font-size: 1.4rem;
+
+        .status-title {
+            font-size: 1.2rem;
             color: #ff6b6b;
-            margin-bottom: 15px;
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(255, 107, 107, 0.2);
             display: flex;
             align-items: center;
         }
-        
-        .order-title i {
+
+        .status-title i {
+            margin-right: 10px;
+            font-size: 1rem;
+        }
+
+        .status-list {
+            max-height: 250px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            transition: background 0.3s ease;
+        }
+
+        .status-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .status-item-left {
+            flex: 1;
+        }
+
+        .status-item-name {
+            color: #e0e0ff;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .status-item-remark {
+            color: #a0a0c0;
+            font-size: 0.85rem;
+        }
+
+        .status-item-remark input {
+            width: 180px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(78, 205, 196, 0.3);
+            border-radius: 4px;
+            padding: 4px 8px;
+            color: #f0f0f0;
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .status-item-price {
+            color: #4ecdc4;
+            font-weight: 700;
+            min-width: 80px;
+            text-align: right;
             margin-right: 10px;
         }
-        
-        .order-summary {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .selected-services {
-            list-style: none;
-            margin-bottom: 15px;
-            max-height: 150px;
-            overflow-y: auto;
-        }
-        
-        .selected-service-item {
+
+        .status-item-actions {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-            font-size: 0.9rem;
-        }
-        
-        .selected-service-item:last-child {
-            border-bottom: none;
-        }
-        
-        .service-quantity {
-            display: flex;
-            align-items: center;
-        }
-        
-        .quantity-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.3s;
-        }
-        
-        .quantity-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .quantity-value {
-            margin: 0 8px;
-            font-weight: 600;
-            min-width: 20px;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-        
-        .remove-btn {
-            background: rgba(255, 107, 107, 0.2);
-            border: none;
-            color: #ff6b6b;
-            padding: 3px 8px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: background 0.3s;
-            margin-left: 8px;
-        }
-        
-        .remove-btn:hover {
-            background: rgba(255, 107, 107, 0.3);
-        }
-        
-        .total-price {
-            display: flex;
-            justify-content: space-between;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #4ecdc4;
-            padding-top: 12px;
-            border-top: 2px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        /* 支付按钮区域 - 修改：支付宝和微信按钮样式 */
-        .payment-buttons {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .payment-link {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            padding: 15px 25px;
-            border-radius: 12px;
-            background: rgba(78, 205, 196, 0.1);
-            transition: all 0.3s ease;
-            flex: 1;
-            min-height: 90px;
-            border: 1px solid rgba(78, 205, 196, 0.3);
-            cursor: pointer;
-        }
-        
-        .payment-link.alipay {
-            background: rgba(24, 119, 242, 0.1);
-            border-color: rgba(24, 119, 242, 0.3);
-        }
-        
-        .payment-link.alipay .payment-icon {
-            color: #1877f2;
-        }
-        
-        .payment-link:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            background: rgba(78, 205, 196, 0.2);
-        }
-        
-        .payment-link.alipay:hover {
-            background: rgba(24, 119, 242, 0.2);
-        }
-        
-        .payment-icon {
-            font-size: 2.2rem;
-            color: #4ecdc4;
-            margin-bottom: 8px;
-        }
-        
-        .payment-text {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #f0f0f0;
-        }
-        
-        .payment-note {
-            text-align: center;
-            font-size: 0.9rem;
-            color: #a0a0c0;
-            margin-top: 12px;
-            line-height: 1.5;
-        }
-        
-        .footer {
-            text-align: center;
-            margin-top: 35px;
-            padding: 18px;
-            color: #8888aa;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .contact-info {
-            display: flex;
-            gap: 25px;
-            margin-top: 12px;
-            font-size: 0.95rem;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
             gap: 8px;
         }
-        
-        .contact-item i {
+
+        .status-btn {
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: none;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #fff;
+        }
+
+        .btn-edit {
+            background: rgba(78, 205, 196, 0.3);
+        }
+
+        .btn-edit:hover {
+            background: rgba(78, 205, 196, 0.5);
+        }
+
+        .btn-move {
+            background: rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-move:hover {
+            background: rgba(255, 107, 107, 0.5);
+        }
+
+        .btn-delete {
+            background: rgba(150, 150, 180, 0.3);
+        }
+
+        .btn-delete:hover {
+            background: rgba(150, 150, 180, 0.5);
+        }
+
+        .status-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 10px;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .status-total-label {
+            color: #e0e0ff;
+        }
+
+        .status-total-value {
             color: #4ecdc4;
         }
-        
+
+        /* 空列表样式 */
+        .empty-list {
+            text-align: center;
+            padding: 30px 20px;
+            color: #8888aa;
+            font-size: 0.95rem;
+        }
+
+        .empty-list i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #4ecdc4;
+            opacity: 0.5;
+        }
+
         /* iOS风格菜单样式 */
         .ios-menu-overlay {
             position: fixed;
@@ -489,6 +439,28 @@
             margin-bottom: 25px;
             text-align: center;
         }
+
+        .ios-menu-remark {
+            margin-bottom: 20px;
+        }
+
+        .ios-menu-remark label {
+            display: block;
+            color: #e0e0ff;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .ios-menu-remark input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(78, 205, 196, 0.3);
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: #f0f0f0;
+            font-size: 1rem;
+            outline: none;
+        }
         
         .ios-menu-actions {
             display: flex;
@@ -533,16 +505,6 @@
             background: rgba(255, 255, 255, 0.12);
         }
         
-        .ios-menu-btn.destructive {
-            background: rgba(255, 107, 107, 0.1);
-            color: #ff6b6b;
-            border: 1px solid rgba(255, 107, 107, 0.2);
-        }
-        
-        .ios-menu-btn.destructive:hover {
-            background: rgba(255, 107, 107, 0.15);
-        }
-        
         .ios-menu-close {
             position: absolute;
             top: 20px;
@@ -567,494 +529,7 @@
             color: #ff6b6b;
         }
         
-        /* 微信支付弹窗（可滑动版本）- 保持不变 */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            animation: fadeIn 0.3s ease;
-            overflow-y: auto;
-            padding: 20px;
-        }
-        
-        .modal-overlay.show {
-            display: flex;
-        }
-        
-        .modal-content {
-            background: rgba(20, 20, 35, 0.98);
-            border-radius: 20px;
-            width: 100%;
-            max-width: 420px;
-            max-height: 85vh;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 107, 107, 0.3);
-            overflow: hidden;
-            animation: slideUp 0.4s ease;
-        }
-        
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        .modal-header {
-            padding: 22px 25px 18px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            flex-shrink: 0;
-        }
-        
-        .modal-title {
-            display: flex;
-            align-items: center;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #ff6b6b;
-        }
-        
-        .modal-title i {
-            margin-right: 12px;
-            font-size: 1.5rem;
-        }
-        
-        .modal-close {
-            position: absolute;
-            top: 22px;
-            right: 25px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: #a0a0c0;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            transition: all 0.3s;
-            z-index: 10;
-        }
-        
-        .modal-close:hover {
-            background: rgba(255, 107, 107, 0.2);
-            color: #ff6b6b;
-        }
-        
-        .modal-body {
-            padding: 0 25px;
-            overflow-y: auto;
-            flex: 1;
-            scrollbar-width: thin;
-            scrollbar-color: #4ecdc4 rgba(255, 255, 255, 0.05);
-        }
-        
-        .modal-body::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        .modal-body::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-        }
-        
-        .modal-body::-webkit-scrollbar-thumb {
-            background: #4ecdc4;
-            border-radius: 10px;
-        }
-        
-        .modal-body::-webkit-scrollbar-thumb:hover {
-            background: #3db8b0;
-        }
-        
-        .qr-code-container {
-            text-align: center;
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        
-        .qr-code-image {
-            width: 220px;
-            height: 220px;
-            border-radius: 12px;
-            border: 2px solid #4ecdc4;
-            padding: 8px;
-            background: white;
-            margin: 0 auto 15px;
-            display: block;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-        }
-        
-        .qr-code-image:hover {
-            transform: scale(1.03);
-        }
-        
-        .qr-code-tip {
-            font-size: 0.9rem;
-            color: #a0a0c0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        
-        .order-summary-modal {
-            background: rgba(78, 205, 196, 0.1);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
-            border: 1px solid rgba(78, 205, 196, 0.2);
-        }
-        
-        .order-amount {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .amount-label {
-            color: #e0e0ff;
-            font-size: 1.1rem;
-        }
-        
-        .amount-value {
-            font-weight: 700;
-            color: #4ecdc4;
-            font-size: 1.6rem;
-            text-shadow: 0 0 10px rgba(78, 205, 196, 0.3);
-        }
-        
-        .order-services {
-            margin-bottom: 15px;
-        }
-        
-        .services-label {
-            color: #e0e0ff;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-        }
-        
-        .services-list {
-            color: #f0f0f0;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            max-height: 100px;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-        
-        .order-reminder {
-            font-size: 0.85rem;
-            color: #ff6b6b;
-            background: rgba(255, 107, 107, 0.1);
-            border-radius: 8px;
-            padding: 12px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        .order-reminder i {
-            font-size: 1rem;
-            margin-top: 2px;
-        }
-        
-        .modal-actions {
-            display: flex;
-            gap: 15px;
-            margin: 20px 0 30px;
-            flex-shrink: 0;
-        }
-        
-        .modal-btn {
-            flex: 1;
-            padding: 16px 20px;
-            border-radius: 12px;
-            border: none;
-            font-size: 1.05rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .modal-btn.primary {
-            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
-            color: white;
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
-        }
-        
-        .modal-btn.primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
-        }
-        
-        .modal-btn.secondary {
-            background: linear-gradient(135deg, #4ecdc4, #3db8b0);
-            color: white;
-            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
-        }
-        
-        .modal-btn.secondary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(78, 205, 196, 0.4);
-        }
-        
-        .contact-info-modal {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #8888aa;
-            font-size: 0.85rem;
-            line-height: 1.6;
-        }
-        
-        .contact-item-modal {
-            margin-bottom: 8px;
-        }
-        
-        .contact-item-modal i {
-            color: #4ecdc4;
-            margin-right: 8px;
-        }
-        
-        /* 下拉刷新效果 */
-        .pull-to-refresh {
-            position: relative;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #a0a0c0;
-            font-size: 0.9rem;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .pull-to-refresh.show {
-            opacity: 1;
-        }
-        
-        .pull-to-refresh i {
-            margin-right: 8px;
-            transition: transform 0.3s;
-        }
-        
-        .pull-to-refresh.pulling i {
-            transform: rotate(180deg);
-        }
-        
-        /* 触摸滑动优化 */
-        @media (max-width: 768px) {
-            .modal-content {
-                max-height: 90vh;
-                border-radius: 16px;
-            }
-            
-            .modal-header {
-                padding: 20px 20px 15px;
-            }
-            
-            .modal-body {
-                padding: 0 20px;
-            }
-            
-            .modal-close {
-                top: 20px;
-                right: 20px;
-            }
-            
-            .qr-code-image {
-                width: 200px;
-                height: 200px;
-            }
-            
-            .modal-actions {
-                flex-direction: column;
-                margin: 15px 0 25px;
-            }
-            
-            .modal-btn {
-                width: 100%;
-                padding: 18px 20px;
-            }
-        }
-        
-        /* 响应式设计 - 保持不变 */
-        @media (max-width: 768px) {
-            .logo {
-                font-size: 2.5rem;
-            }
-            
-            .services-grid {
-                grid-template-columns: repeat(2, 1fr);
-                grid-auto-rows: auto;
-            }
-            
-            .service-card {
-                padding: 16px 14px;
-            }
-            
-            .category-title {
-                font-size: 1.1rem;
-                margin-bottom: 12px;
-            }
-            
-            .service-item {
-                font-size: 0.9rem;
-                padding: 7px 0;
-            }
-            
-            .service-name {
-                font-size: 0.9rem;
-            }
-            
-            .service-price {
-                font-size: 0.85rem;
-            }
-            
-            .payment-buttons {
-                flex-direction: row;
-                gap: 15px;
-            }
-            
-            .payment-link {
-                flex: 1;
-                min-height: 80px;
-                padding: 12px 20px;
-            }
-            
-            .contact-info {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .ios-menu-container {
-                max-width: 100%;
-                border-radius: 16px 16px 0 0;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .logo {
-                font-size: 2rem;
-            }
-            
-            .subtitle {
-                font-size: 1rem;
-            }
-            
-            .container {
-                padding: 18px 15px;
-            }
-            
-            .service-card {
-                padding: 14px 12px;
-            }
-            
-            .category-title {
-                font-size: 1rem;
-                margin-bottom: 10px;
-            }
-            
-            .service-item {
-                font-size: 0.85rem;
-                padding: 6px 0;
-            }
-            
-            .service-name {
-                font-size: 0.85rem;
-            }
-            
-            .service-icon {
-                margin-right: 6px;
-                font-size: 0.85rem;
-            }
-            
-            .service-price {
-                font-size: 0.8rem;
-            }
-            
-            .payment-buttons {
-                flex-direction: row;
-                gap: 10px;
-            }
-            
-            .payment-link {
-                min-height: 75px;
-                padding: 10px 15px;
-            }
-            
-            .payment-icon {
-                font-size: 1.8rem;
-            }
-            
-            .payment-text {
-                font-size: 1rem;
-            }
-            
-            .order-section {
-                padding: 15px;
-            }
-            
-            .modal-content {
-                padding: 0;
-            }
-            
-            .modal-buttons {
-                flex-direction: column;
-            }
-            
-            .modal-btn {
-                width: 100%;
-            }
-            
-            .ios-menu-header {
-                padding: 20px 15px 12px;
-            }
-            
-            .ios-menu-body {
-                padding: 15px;
-                max-height: 60vh;
-            }
-            
-            .ios-menu-btn {
-                padding: 16px 18px;
-                font-size: 1rem;
-            }
-        }
-        
-        /* 空购物车提示 */
-        .empty-cart {
-            text-align: center;
-            padding: 30px 20px;
-            color: #8888aa;
-        }
-        
-        .empty-cart i {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: #4ecdc4;
-            opacity: 0.5;
-        }
-        
-        /* 提示信息 */
+        /* 通知消息 */
         .notification {
             position: fixed;
             bottom: 25px;
@@ -1094,49 +569,64 @@
             font-size: 0.95rem;
             color: #f0f0f0;
         }
-        
-        /* 支付宝支付弹窗样式 - 新增 */
-        .alipay-modal .modal-content {
-            border-color: rgba(24, 119, 242, 0.3);
+
+        .footer {
+            text-align: center;
+            margin-top: 35px;
+            padding: 18px;
+            color: #8888aa;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
-        .alipay-modal .modal-title {
-            color: #1877f2;
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .status-item {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .status-item-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
         }
         
-        .alipay-modal .modal-title i {
-            color: #1877f2;
-        }
-        
-        .alipay-modal .order-summary-modal {
-            background: rgba(24, 119, 242, 0.1);
-            border-color: rgba(24, 119, 242, 0.2);
-        }
-        
-        .alipay-modal .modal-btn.primary {
-            background: linear-gradient(135deg, #1877f2, #2e8bf0);
-            box-shadow: 0 5px 15px rgba(24, 119, 242, 0.3);
-        }
-        
-        .alipay-modal .modal-btn.primary:hover {
-            box-shadow: 0 8px 20px rgba(24, 119, 242, 0.4);
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2rem;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .status-title {
+                font-size: 1.1rem;
+            }
+            .status-item-name {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 粒子背景容器 -->
     <div id="particles-js"></div>
-    
-    <!-- 主要内容区域 -->
     <div class="container">
         <div class="header">
             <h1 class="logo">puppy俱乐部</h1>
             <div class="subtitle">专业游戏陪玩 · 定制化服务 · 极致游戏体验</div>
         </div>
         
-        <!-- 服务分类区域 - 修复为2×2排列 -->
+        <!-- 服务分类区域 -->
         <div class="services-grid">
-            <!-- 第一行左：胃袋服务 -->
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-utensils"></i> 胃袋服务</div>
                 <div class="service-item" data-name="迷你胃袋" data-price="3.9" data-description="迷你胃袋服务：单局带出50w/不出不结单">
@@ -1157,7 +647,6 @@
                 </div>
             </div>
             
-            <!-- 第一行右：连珠与干扰 -->
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-meteor"></i> 娱乐玩法</div>
                 <div class="service-item" data-name="六星连珠" data-price="28.8" data-description="六星连珠：板宝根据每把带出的物品板板自行在图中选择对应物品打勾，直到有六个物品连成一条线(横竖斜)即结单回收物按板板实际带出来的算。">
@@ -1174,7 +663,6 @@
                 </div>
             </div>
             
-            <!-- 第二行左：战斗与策略 -->
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-fist-raised"></i> 战斗与策略</div>
                 <div class="service-item" data-name="屠龙" data-price="9" data-description="屠龙服务：陪陪会进行干扰，击杀怪物，不算金额内玩法：板板选择地图，在撤离前击杀多少怪物就+多少10w，要注意板板撤离失败-20w保底，所以要注意安全哦，保底为：40w例如：板板击杀12只怪，则需要带120w+40w才算结单">
@@ -1199,7 +687,6 @@
                 </div>
             </div>
             
-            <!-- 第二行右：永动机系列 -->
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-infinity"></i> 热门系列</div>
                 <div class="service-item" data-name="雪莲永动机" data-price="8.8" data-description="雪莲永动机服务：开一把昆仑噩梦，开完棺之后若有雪莲即接着打，直到某一局没有雪莲停止才结单陪陪玩艾伦，板子玩莉莉，不重铸">
@@ -1210,80 +697,57 @@
                     <span class="service-name"><i class="fas fa-leaf service-icon"></i> 魔芋永动机</span>
                     <span class="service-price">6.6元/单</span>
                 </div>
-                <div class="service-item" data-name="摇一摇" data-price="8.88" data-description="摇一摇服务：摇到1昆仑噩梦三局(包装备)
-                    摇到2累计开出5个大金(8w以上算大金)要到3单局带出66w结单
-                    摇到4古城极限五局(包装备)
-                    摇到5单局带出120w(保底520w)
-                    摇到6累计带出188w结单">
+                <div class="service-item" data-name="摇一摇" data-price="8.88" data-description="摇一摇服务：摇到1昆仑噩梦三局(包装备)摇到2累计开出5个大金(8w以上算大金)要到3单局带出66w结单摇到4古城极限五局(包装备)摇到5单局带出120w(保底520w)摇到6累计带出188w结单">
                     <span class="service-name"><i class="fas fa-dice service-icon"></i> 摇一摇</span>
                     <span class="service-price">8.88元/单</span>
                 </div>
-                <div class="service-item" data-name="保护老板" data-price="9.9" data-description="保护老板服务：开一把古城极限，可以拔龙珠，不可以找连弩地刺古城外狼天王，
-                    陪陪带一腰包除颤仪，一包用完即结单，
-                    板板找怪物送死，陪陪保护老板不让老板死老板成功死一次20w，死五次100w，陪陪死一次50w。累计叠加，
-                    若老板一次没死保底50w去噩梦/古城兑换金额
-                    古城补充
-                    地刺，弓弩，摔死都不算次数喔。如果是被女王史莱姆和蛤蟆打了，导致没法复活的话，也是直接结算金额嗷。
-                    (如果是第1次死就被女王史莱姆和蛤蟆打死了，就送一把噩梦，不是第1次就不送)">
+                <div class="service-item" data-name="保护老板" data-price="9.9" data-description="保护老板服务：开一把古城极限，可以拔龙珠，不可以找连弩地刺古城外狼天王，陪陪带一腰包除颤仪，一包用完即结单，板板找怪物送死，陪陪保护老板不让老板死老板成功死一次20w，死五次100w，陪陪死一次50w。累计叠加，若老板一次没死保底50w去噩梦/古城兑换金额">
                     <span class="service-name"><i class="fas fa-user-shield service-icon"></i> 保护老板</span>
                     <span class="service-price">9.9元/单</span>
                 </div>
-                <div class="service-item" data-name="保护老板（昆仑）" data-price="11.9" data-description="保护老板（昆仑）服务：开一把古城极限，可以拔龙珠，不可以找连弩地刺古城外狼天王，
-                    陪陪带一腰包除颤仪，一包用完即结单，
-                    板板找怪物送死，陪陪保护老板不让老板死老板成功死一次20w，死五次100w，陪陪死一次50w。累计叠加，
-                    若老板一次没死保底50w去噩梦/古城兑换金额
-                    昆仑补充
-                    地刺，弓弩，摔死都不算次数，
-                    如果是被史莱姆，蛤蟆，安康鱼吞了或者被海兔吃尸体，导致无法复活，就直接结算金额。(如果老板掉到回子房间得四方坑里，可以选择即可结单或者是让陪陪回车里救，如果陪陪回去路上的死亡不算在结算金额里)
-                    (如果是第1次死就被史莱姆，蛤蟆，安康鱼吞了或海兔吃尸体，就送一把噩梦，不是第1次就不送)">
+                <div class="service-item" data-name="保护老板（昆仑）" data-price="11.9" data-description="保护老板（昆仑）服务：开一把古城极限，可以拔龙珠，不可以找连弩地刺古城外狼天王，陪陪带一腰包除颤仪，一包用完即结单，板板找怪物送死，陪陪保护老板不让老板死老板成功死一次20w，死五次100w，陪陪死一次50w。累计叠加">
                     <span class="service-name"><i class="fas fa-mountain service-icon"></i> 保护昆仑</span>
                     <span class="service-price">11.9元/单</span>
                 </div>
             </div>
         </div>
-        
-        <!-- 订单和支付区域 -->
-        <div class="order-section">
-            <div class="order-title"><i class="fas fa-shopping-cart"></i> 我的订单</div>
-            <div class="order-summary">
-                <div id="selectedServicesList" class="selected-services">
-                    <div class="empty-cart">
-                        <i class="fas fa-shopping-cart"></i>
-                        <p>您还没有选择任何服务<br>点击上方服务项添加到订单</p>
-                    </div>
-                </div>
-                <div class="total-price">
-                    <span>总计：</span>
-                    <span id="totalAmount">0.00 元</span>
-                </div>
-            </div>
-            
-            <!-- 支付按钮区域 - 修改：支付宝和微信按钮都改为弹窗样式 -->
-            <div class="payment-buttons">
-                <div class="payment-link alipay" id="alipayPayment">
-                    <i class="fab fa-alipay payment-icon"></i>
-                    <span class="payment-text">支付宝付款</span>
-                </div>
-                <div class="payment-link" id="wechatPayment">
-                    <i class="fab fa-weixin payment-icon"></i>
-                    <span class="payment-text">微信付款</span>
-                </div>
-            </div>
-            <div class="payment-note">
-                付款时请备注您的游戏ID和派单客服昵称<br>
-                付款后请联系客服确认订单，客服微信：Missuxn0917<br>
-                服务时间：每日 8:00 - 次日 00:00
+
+        <!-- 进度模块 -->
+        <div class="status-section">
+            <div class="status-title"><i class="fas fa-tasks"></i> 进度</div>
+            <div id="progressList" class="status-list"></div>
+            <div class="status-total">
+                <span class="status-total-label">进度总金额：</span>
+                <span id="progressTotal" class="status-total-value">0.00 元</span>
             </div>
         </div>
-        
+
+        <!-- 报单模块 -->
+        <div class="status-section">
+            <div class="status-title"><i class="fas fa-file-alt"></i> 报单</div>
+            <div id="reportList" class="status-list"></div>
+            <div class="status-total">
+                <span class="status-total-label">报单总金额：</span>
+                <span id="reportTotal" class="status-total-value">0.00 元</span>
+            </div>
+        </div>
+
+        <!-- 结单模块 -->
+        <div class="status-section">
+            <div class="status-title"><i class="fas fa-check-circle"></i> 结单</div>
+            <div id="settleList" class="status-list"></div>
+            <div class="status-total">
+                <span class="status-total-label">结单总金额：</span>
+                <span id="settleTotal" class="status-total-value">0.00 元</span>
+            </div>
+        </div>
+
         <div class="footer">
             <div>puppy俱乐部 · 专业陪玩服务 · 版权所有 © 2023</div>
-                </div>
-            </div>
         </div>
     </div>
 
-    <!-- iOS风格菜单容器 -->
+    <!-- iOS风格菜单 -->
     <div class="ios-menu-overlay" id="iosMenuOverlay">
         <div class="ios-menu-container" id="iosMenuContainer">
             <button class="ios-menu-close" id="iosMenuClose">&times;</button>
@@ -1295,9 +759,13 @@
                 <div class="ios-menu-description" id="iosMenuDescription">
                     请选择一项服务查看详情
                 </div>
+                <div class="ios-menu-remark">
+                    <label for="serviceRemark">备注信息（选填）</label>
+                    <input type="text" id="serviceRemark" placeholder="输入备注，例如：游戏ID、需求等">
+                </div>
                 <div class="ios-menu-actions">
                     <button class="ios-menu-btn primary" id="iosMenuAddBtn">
-                        <i class="fas fa-cart-plus"></i> 加入订单
+                        <i class="fas fa-cart-plus"></i> 加入进度
                     </button>
                     <button class="ios-menu-btn secondary" id="iosMenuCancelBtn">
                         <i class="fas fa-times"></i> 取消
@@ -1307,129 +775,6 @@
         </div>
     </div>
 
-    <!-- 微信支付弹窗（新的可滑动版本）- 保持不变 -->
-    <div class="modal-overlay" id="wechatModalOverlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title"><i class="fab fa-weixin"></i> 微信扫码支付</h2>
-                <button class="modal-close" id="wechatModalClose">&times;</button>
-            </div>
-            
-            <div class="modal-body" id="wechatModalBody">
-                <div class="pull-to-refresh" id="pullToRefresh">
-                    <i class="fas fa-arrow-down"></i> 下拉关闭弹窗
-                </div>
-                
-                <div class="qr-code-container">
-                    <!-- 重要：请将下方src的图片路径替换为你自己的微信收款二维码 -->
-                    <img id="wechatQrImage" class="qr-code-image" src="微信收款码.png.jpg" 
-                         alt="微信收款二维码">
-                    <div class="qr-code-tip">
-                        <i class="fas fa-lightbulb"></i> 请截图保存二维码，然后打开微信扫一扫
-                    </div>
-                </div>
-                
-                <div class="order-summary-modal">
-                    <div class="order-amount">
-                        <span class="amount-label">订单金额：</span>
-                        <span class="amount-value" id="modalAmount">0.00 元</span>
-                    </div>
-                    
-                    <div class="order-services">
-                        <div class="services-label">服务项目：</div>
-                        <div class="services-list" id="modalServices">
-                            请先选择服务项目
-                        </div>
-                    </div>
-                    
-                    <div class="order-reminder">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <div>付款时请截图此页面和付款截图</div>
-                    </div>
-                    
-                    <div class="order-reminder">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <div>付款后联系客服微信确认订单</div>
-                    </div>
-                </div>
-                
-                <div class="modal-actions">
-                    <button class="modal-btn secondary" id="closeWechatModalBtn">
-                        <i class="fas fa-times"></i> 关闭
-                    </button>
-                </div>
-                
-                <div class="contact-info-modal">
-                    <div class="contact-item-modal">
-                        <i class="fas fa-phone-alt"></i> 付款后请截图联系客服微信：Missuxn0917
-                    </div>
-                    <div class="contact-item-modal">
-                        <i class="fas fa-clock"></i> 客服在线时间：8:00 - 次日 02:00
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- 支付宝支付弹窗（新增，与微信弹窗样式相同但没有图片模块）- 新增 -->
-    <div class="modal-overlay alipay-modal" id="alipayModalOverlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title"><i class="fab fa-alipay"></i> 支付宝付款</h2>
-                <button class="modal-close" id="alipayModalClose">&times;</button>
-            </div>
-            
-            <div class="modal-body" id="alipayModalBody">
-                <div class="pull-to-refresh" id="alipayPullToRefresh">
-                    <i class="fas fa-arrow-down"></i> 下拉关闭弹窗
-                </div>
-                
-                <div class="order-summary-modal">
-                    <div class="order-amount">
-                        <span class="amount-label">订单金额：</span>
-                        <span class="amount-value" id="alipayModalAmount">0.00 元</span>
-                    </div>
-                    
-                    <div class="order-services">
-                        <div class="services-label">服务项目：</div>
-                        <div class="services-list" id="alipayModalServices">
-                            请先选择服务项目
-                        </div>
-                    </div>
-                    
-                    <div class="order-reminder">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <div>付款时请截图此页面和付款截图</div>
-                    </div>
-                    
-                    <div class="order-reminder">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <div>付款后联系客服微信确认订单</div>
-                    </div>
-                </div>
-                
-                <div class="modal-actions">
-                    <!-- 支付宝确认付款按钮，点击后跳转到指定链接 -->
-                    <button class="modal-btn primary" id="confirmAlipayPaymentBtn">
-                        <i class="fab fa-alipay"></i> 确认付款
-                    </button>
-                    <button class="modal-btn secondary" id="closeAlipayModalBtn">
-                        <i class="fas fa-times"></i> 关闭
-                    </button>
-                </div>
-                
-                <div class="contact-info-modal">
-                    <div class="contact-item-modal">
-                        <i class="fas fa-phone-alt"></i> 付款后请截图联系客服微信：Missuxn0917
-                    </div>
-                    <div class="contact-item-modal">
-                        <i class="fas fa-clock"></i> 客服在线时间：8:00 - 次日 02:00
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
     <!-- 通知消息 -->
     <div class="notification" id="notification">
         <div class="notification-content">
@@ -1438,714 +783,269 @@
         </div>
     </div>
 
-    <!-- 引入粒子效果库 -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // 初始化粒子效果 - 保持不变
+        // 粒子背景初始化
         particlesJS('particles-js', {
             "particles": {
-                "number": {
-                    "value": 80,
-                    "density": {
-                        "enable": true,
-                        "value_area": 800
-                    }
-                },
-                "color": {
-                    "value": ["#ff6b6b", "#4ecdc4", "#45b7d1", "#96ceb4", "#feca57"]
-                },
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
-                    }
-                },
-                "opacity": {
-                    "value": 0.7,
-                    "random": true,
-                    "anim": {
-                        "enable": true,
-                        "speed": 1,
-                        "opacity_min": 0.2,
-                        "sync": false
-                    }
-                },
-                "size": {
-                    "value": 4,
-                    "random": true,
-                    "anim": {
-                        "enable": true,
-                        "speed": 2,
-                        "size_min": 0.5,
-                        "sync": false
-                    }
-                },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#ffffff",
-                    "opacity": 0.2,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 2.5,
-                    "direction": "none",
-                    "random": true,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false,
-                    "attract": {
-                        "enable": false,
-                        "rotateX": 600,
-                        "rotateY": 1200
-                    }
-                }
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": ["#ff6b6b", "#4ecdc4", "#45b7d1", "#96ceb4", "#feca57"] },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.7, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.2 } },
+                "size": { "value": 4, "random": true, "anim": { "enable": true, "speed": 2, "size_min": 0.5 } },
+                "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.2, "width": 1 },
+                "move": { "enable": true, "speed": 2.5, "direction": "none", "random": true, "out_mode": "out" }
             },
             "interactivity": {
                 "detect_on": "canvas",
-                "events": {
-                    "onhover": {
-                        "enable": true,
-                        "mode": "grab"
-                    },
-                    "onclick": {
-                        "enable": true,
-                        "mode": "push"
-                    },
-                    "resize": true
-                },
-                "modes": {
-                    "grab": {
-                        "distance": 180,
-                        "line_linked": {
-                            "opacity": 0.6
-                        }
-                    },
-                    "bubble": {
-                        "distance": 400,
-                        "size": 40,
-                        "duration": 2,
-                        "opacity": 8,
-                        "speed": 3
-                    },
-                    "repulse": {
-                        "distance": 120,
-                        "duration": 0.4
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    },
-                    "remove": {
-                        "particles_nb": 2
-                    }
-                }
+                "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }
             },
             "retina_detect": true
         });
-        
-        // 购物车数据 - 保持不变
-        let cart = [];
-        // 当前选中的服务 - 保持不变
+
+        // 数据存储 - 进度、报单、结单列表
+        let progressList = JSON.parse(localStorage.getItem('puppyProgressList')) || [];
+        let reportList = JSON.parse(localStorage.getItem('puppyReportList')) || [];
+        let settleList = JSON.parse(localStorage.getItem('puppySettleList')) || [];
         let currentService = null;
-        
-        // 微信支付弹窗相关变量 - 保持不变
-        let touchStartY = 0;
-        let touchCurrentY = 0;
-        let isDragging = false;
-        let pullToRefreshElement = null;
-        
-        // 支付宝支付弹窗相关变量 - 新增
-        let alipayTouchStartY = 0;
-        let alipayTouchCurrentY = 0;
-        let alipayIsDragging = false;
-        let alipayPullToRefreshElement = null;
-        
-        // 初始化应用 - 修改：添加支付宝弹窗相关事件
+
+        // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', function() {
-            // 从本地存储加载购物车 - 保持不变
-            loadCartFromStorage();
-            
-            // 添加卡片悬停效果 - 保持不变
-            const cards = document.querySelectorAll('.service-card');
-            
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#feca57'];
-                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                    this.style.borderColor = randomColor + '60';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.borderColor = 'rgba(100, 100, 150, 0.2)';
-                });
-            });
-            
-            // 为每个小分类添加点击事件 - 保持不变
-            const serviceItems = document.querySelectorAll('.service-item');
-            
-            serviceItems.forEach(item => {
+            // 渲染三个列表
+            renderProgressList();
+            renderReportList();
+            renderSettleList();
+
+            // 服务项点击事件
+            document.querySelectorAll('.service-item').forEach(item => {
                 item.addEventListener('click', function() {
-                    const serviceName = this.getAttribute('data-name');
-                    const servicePrice = parseFloat(this.getAttribute('data-price'));
-                    const serviceDescription = this.getAttribute('data-description');
+                    const name = this.getAttribute('data-name');
+                    const price = parseFloat(this.getAttribute('data-price'));
+                    const desc = this.getAttribute('data-description');
                     
-                    // 显示iOS风格菜单 - 保持不变
-                    showIosMenu(serviceName, servicePrice, serviceDescription);
+                    currentService = { name, price, desc };
+                    document.getElementById('iosMenuTitle').textContent = name;
+                    document.getElementById('iosMenuSubtitle').textContent = price + ' 元/单';
+                    document.getElementById('iosMenuDescription').textContent = desc;
+                    document.getElementById('serviceRemark').value = '';
+                    
+                    showIosMenu();
                 });
             });
-            
-            // 支付宝付款按钮点击事件 - 修改：显示支付宝弹窗而不是直接跳转
-            document.getElementById('alipayPayment').addEventListener('click', function() {
-                showAlipayModal();
-            });
-            
-            // 微信付款按钮点击事件 - 保持不变
-            document.getElementById('wechatPayment').addEventListener('click', function() {
-                showWechatModal();
-            });
-            
-            // iOS菜单按钮事件 - 保持不变
-            document.getElementById('iosMenuAddBtn').addEventListener('click', function() {
-                if (currentService) {
-                    addToCart(currentService.name, currentService.price, currentService.description);
-                    hideIosMenu();
-                }
-            });
-            
-            document.getElementById('iosMenuCancelBtn').addEventListener('click', function() {
-                hideIosMenu();
-            });
-            
-            document.getElementById('iosMenuClose').addEventListener('click', function() {
-                hideIosMenu();
-            });
-            
-            // 点击遮罩层关闭菜单 - 保持不变
-            document.getElementById('iosMenuOverlay').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    hideIosMenu();
-                }
-            });
-            
-            // 微信弹窗关闭按钮事件 - 保持不变
-            document.getElementById('wechatModalClose').addEventListener('click', function() {
-                hideWechatModal();
-            });
-            
-            document.getElementById('closeWechatModalBtn').addEventListener('click', function() {
-                hideWechatModal();
-            });
-            
-            // 点击遮罩层关闭微信弹窗 - 保持不变
-            document.getElementById('wechatModalOverlay').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    hideWechatModal();
-                }
-            });
-            
-            // 支付宝弹窗关闭按钮事件 - 新增
-            document.getElementById('alipayModalClose').addEventListener('click', function() {
-                hideAlipayModal();
-            });
-            
-            document.getElementById('closeAlipayModalBtn').addEventListener('click', function() {
-                hideAlipayModal();
-            });
-            
-            // 点击遮罩层关闭支付宝弹窗 - 新增
-            document.getElementById('alipayModalOverlay').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    hideAlipayModal();
-                }
-            });
-            
-            // 支付宝确认付款按钮事件 - 新增
-            document.getElementById('confirmAlipayPaymentBtn').addEventListener('click', function() {
-                const totalAmount = getTotalAmount();
-                
-                if (totalAmount <= 0) {
-                    showNotification('请先选择服务，订单总金额不能为0');
-                    return;
-                }
-                
-                // 跳转到指定的支付宝链接 - 新增
-                window.open('https://qr.alipay.com/fkx17600htsv037dteago15', '_blank');
-                hideAlipayModal();
-            });
-            
-            // 初始化微信弹窗触摸事件 - 保持不变
-            initWechatModalTouchEvents();
-            
-            // 初始化支付宝弹窗触摸事件 - 新增
-            initAlipayModalTouchEvents();
-            
-            // 监听键盘ESC键关闭弹窗 - 修改：同时关闭微信和支付宝弹窗
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    hideWechatModal();
-                    hideAlipayModal();
-                }
+
+            // iOS菜单事件
+            document.getElementById('iosMenuAddBtn').addEventListener('click', addToProgress);
+            document.getElementById('iosMenuCancelBtn').addEventListener('click', hideIosMenu);
+            document.getElementById('iosMenuClose').addEventListener('click', hideIosMenu);
+            document.getElementById('iosMenuOverlay').addEventListener('click', e => {
+                if (e.target === this) hideIosMenu();
             });
         });
-        
-        // 显示iOS风格菜单 - 保持不变
-        function showIosMenu(name, price, description) {
-            currentService = {
-                name: name,
-                price: price,
-                description: description
-            };
-            
-            // 更新菜单内容 - 保持不变
-            document.getElementById('iosMenuTitle').textContent = name;
-            document.getElementById('iosMenuSubtitle').textContent = price + ' 元/单';
-            document.getElementById('iosMenuDescription').textContent = description;
-            
-            // 显示菜单 - 保持不变
+
+        // 显示iOS菜单
+        function showIosMenu() {
             const overlay = document.getElementById('iosMenuOverlay');
             const container = document.getElementById('iosMenuContainer');
-            
             overlay.style.display = 'flex';
-            
-            // 延迟添加show类以触发动画 - 保持不变
-            setTimeout(() => {
-                container.classList.add('show');
-            }, 10);
-            
-            // 阻止背景滚动 - 保持不变
+            setTimeout(() => container.classList.add('show'), 10);
             document.body.style.overflow = 'hidden';
         }
-        
-        // 隐藏iOS风格菜单 - 保持不变
+
+        // 隐藏iOS菜单
         function hideIosMenu() {
             const container = document.getElementById('iosMenuContainer');
             const overlay = document.getElementById('iosMenuOverlay');
-            
             container.classList.remove('show');
-            
-            // 等待动画完成后再隐藏 - 保持不变
             setTimeout(() => {
                 overlay.style.display = 'none';
-                // 恢复背景滚动 - 保持不变
                 document.body.style.overflow = 'auto';
             }, 400);
         }
-        
-        // 计算总金额 - 保持不变
-        function getTotalAmount() {
-            let total = 0;
-            cart.forEach(item => {
-                total += item.price * item.quantity;
-            });
-            return parseFloat(total.toFixed(2));
+
+        // 添加到进度列表
+        function addToProgress() {
+            if (!currentService) return;
+            const remark = document.getElementById('serviceRemark').value.trim() || '无备注';
+            const item = {
+                id: Date.now(),
+                name: currentService.name,
+                price: currentService.price,
+                remark: remark
+            };
+            progressList.push(item);
+            saveData();
+            renderProgressList();
+            showNotification(`"${currentService.name}" 已加入进度`);
+            hideIosMenu();
         }
-        
-        // 显示微信支付弹窗（新的可滑动版本）- 保持不变
-        function showWechatModal() {
-            const totalAmount = getTotalAmount();
-            
-            if (totalAmount <= 0) {
-                showNotification('请先选择服务，订单总金额不能为0');
-                return;
-            }
-            
-            // 生成服务描述 - 保持不变
-            let serviceNames = [];
-            cart.forEach(item => {
-                serviceNames.push(item.name + ' × ' + item.quantity);
-            });
-            const serviceDesc = serviceNames.join('<br>');
-            
-            // 更新弹窗内容 - 保持不变
-            document.getElementById('modalAmount').textContent = totalAmount.toFixed(2) + ' 元';
-            document.getElementById('modalServices').innerHTML = serviceDesc;
-            
-            // 显示弹窗 - 保持不变
-            const modal = document.getElementById('wechatModalOverlay');
-            modal.classList.add('show');
-            
-            // 重置弹窗位置和状态 - 保持不变
-            const modalContent = document.querySelector('.modal-content');
-            modalContent.style.transform = 'translateY(0)';
-            
-            // 阻止背景滚动 - 保持不变
-            document.body.style.overflow = 'hidden';
-        }
-        
-        // 隐藏微信支付弹窗 - 保持不变
-        function hideWechatModal() {
-            const modal = document.getElementById('wechatModalOverlay');
-            modal.classList.remove('show');
-            
-            // 恢复背景滚动 - 保持不变
-            document.body.style.overflow = 'auto';
-        }
-        
-        // 显示支付宝支付弹窗（新增）- 新增
-        function showAlipayModal() {
-            const totalAmount = getTotalAmount();
-            
-            if (totalAmount <= 0) {
-                showNotification('请先选择服务，订单总金额不能为0');
-                return;
-            }
-            
-            // 生成服务描述 - 新增
-            let serviceNames = [];
-            cart.forEach(item => {
-                serviceNames.push(item.name + ' × ' + item.quantity);
-            });
-            const serviceDesc = serviceNames.join('<br>');
-            
-            // 更新弹窗内容 - 新增
-            document.getElementById('alipayModalAmount').textContent = totalAmount.toFixed(2) + ' 元';
-            document.getElementById('alipayModalServices').innerHTML = serviceDesc;
-            
-            // 显示弹窗 - 新增
-            const modal = document.getElementById('alipayModalOverlay');
-            modal.classList.add('show');
-            
-            // 重置弹窗位置和状态 - 新增
-            const modalContent = modal.querySelector('.modal-content');
-            modalContent.style.transform = 'translateY(0)';
-            
-            // 阻止背景滚动 - 新增
-            document.body.style.overflow = 'hidden';
-        }
-        
-        // 隐藏支付宝支付弹窗 - 新增
-        function hideAlipayModal() {
-            const modal = document.getElementById('alipayModalOverlay');
-            modal.classList.remove('show');
-            
-            // 恢复背景滚动 - 新增
-            document.body.style.overflow = 'auto';
-        }
-        
-        // 初始化微信弹窗触摸事件 - 保持不变
-        function initWechatModalTouchEvents() {
-            const modalBody = document.getElementById('wechatModalBody');
-            pullToRefreshElement = document.getElementById('pullToRefresh');
-            
-            modalBody.addEventListener('touchstart', function(e) {
-                // 如果内容已经滚动到顶部，才允许下拉关闭 - 保持不变
-                if (modalBody.scrollTop === 0) {
-                    touchStartY = e.touches[0].clientY;
-                    isDragging = true;
-                    pullToRefreshElement.classList.add('show');
-                }
-            }, { passive: true });
-            
-            modalBody.addEventListener('touchmove', function(e) {
-                if (!isDragging) return;
-                
-                touchCurrentY = e.touches[0].clientY;
-                const deltaY = touchCurrentY - touchStartY;
-                
-                // 只允许下拉，不允许上拉关闭 - 保持不变
-                if (deltaY > 0) {
-                    e.preventDefault();
-                    
-                    // 限制最大下拉距离 - 保持不变
-                    const maxPull = 120;
-                    const pullAmount = Math.min(deltaY, maxPull);
-                    
-                    // 移动弹窗 - 保持不变
-                    const modalContent = document.querySelector('.modal-content');
-                    modalContent.style.transform = `translateY(${pullAmount}px)`;
-                    
-                    // 更新下拉提示 - 保持不变
-                    if (pullAmount > 60) {
-                        pullToRefreshElement.classList.add('pulling');
-                        pullToRefreshElement.innerHTML = '<i class="fas fa-arrow-down"></i> 释放关闭弹窗';
-                    } else {
-                        pullToRefreshElement.classList.remove('pulling');
-                        pullToRefreshElement.innerHTML = '<i class="fas fa-arrow-down"></i> 下拉关闭弹窗';
-                    }
-                }
-            }, { passive: false });
-            
-            modalBody.addEventListener('touchend', function() {
-                if (!isDragging) return;
-                
-                isDragging = false;
-                const modalContent = document.querySelector('.modal-content');
-                const deltaY = touchCurrentY - touchStartY;
-                
-                // 如果下拉足够远，则关闭弹窗 - 保持不变
-                if (deltaY > 60) {
-                    modalContent.style.transition = 'transform 0.3s ease';
-                    modalContent.style.transform = 'translateY(100vh)';
-                    
-                    setTimeout(() => {
-                        hideWechatModal();
-                        modalContent.style.transition = '';
-                        modalContent.style.transform = 'translateY(0)';
-                    }, 300);
-                } else {
-                    // 否则恢复原位 - 保持不变
-                    modalContent.style.transition = 'transform 0.3s ease';
-                    modalContent.style.transform = 'translateY(0)';
-                    
-                    setTimeout(() => {
-                        modalContent.style.transition = '';
-                    }, 300);
-                }
-                
-                // 隐藏下拉提示 - 保持不变
-                pullToRefreshElement.classList.remove('show', 'pulling');
-            }, { passive: true });
-        }
-        
-        // 初始化支付宝弹窗触摸事件 - 新增
-        function initAlipayModalTouchEvents() {
-            const modalBody = document.getElementById('alipayModalBody');
-            alipayPullToRefreshElement = document.getElementById('alipayPullToRefresh');
-            
-            modalBody.addEventListener('touchstart', function(e) {
-                // 如果内容已经滚动到顶部，才允许下拉关闭 - 新增
-                if (modalBody.scrollTop === 0) {
-                    alipayTouchStartY = e.touches[0].clientY;
-                    alipayIsDragging = true;
-                    alipayPullToRefreshElement.classList.add('show');
-                }
-            }, { passive: true });
-            
-            modalBody.addEventListener('touchmove', function(e) {
-                if (!alipayIsDragging) return;
-                
-                alipayTouchCurrentY = e.touches[0].clientY;
-                const deltaY = alipayTouchCurrentY - alipayTouchStartY;
-                
-                // 只允许下拉，不允许上拉关闭 - 新增
-                if (deltaY > 0) {
-                    e.preventDefault();
-                    
-                    // 限制最大下拉距离 - 新增
-                    const maxPull = 120;
-                    const pullAmount = Math.min(deltaY, maxPull);
-                    
-                    // 移动弹窗 - 新增
-                    const modalContent = document.querySelector('#alipayModalOverlay .modal-content');
-                    modalContent.style.transform = `translateY(${pullAmount}px)`;
-                    
-                    // 更新下拉提示 - 新增
-                    if (pullAmount > 60) {
-                        alipayPullToRefreshElement.classList.add('pulling');
-                        alipayPullToRefreshElement.innerHTML = '<i class="fas fa-arrow-down"></i> 释放关闭弹窗';
-                    } else {
-                        alipayPullToRefreshElement.classList.remove('pulling');
-                        alipayPullToRefreshElement.innerHTML = '<i class="fas fa-arrow-down"></i> 下拉关闭弹窗';
-                    }
-                }
-            }, { passive: false });
-            
-            modalBody.addEventListener('touchend', function() {
-                if (!alipayIsDragging) return;
-                
-                alipayIsDragging = false;
-                const modalContent = document.querySelector('#alipayModalOverlay .modal-content');
-                const deltaY = alipayTouchCurrentY - alipayTouchStartY;
-                
-                // 如果下拉足够远，则关闭弹窗 - 新增
-                if (deltaY > 60) {
-                    modalContent.style.transition = 'transform 0.3s ease';
-                    modalContent.style.transform = 'translateY(100vh)';
-                    
-                    setTimeout(() => {
-                        hideAlipayModal();
-                        modalContent.style.transition = '';
-                        modalContent.style.transform = 'translateY(0)';
-                    }, 300);
-                } else {
-                    // 否则恢复原位 - 新增
-                    modalContent.style.transition = 'transform 0.3s ease';
-                    modalContent.style.transform = 'translateY(0)';
-                    
-                    setTimeout(() => {
-                        modalContent.style.transition = '';
-                    }, 300);
-                }
-                
-                // 隐藏下拉提示 - 新增
-                alipayPullToRefreshElement.classList.remove('show', 'pulling');
-            }, { passive: true });
-        }
-        
-        // 添加到购物车 - 保持不变
-        function addToCart(name, price, description) {
-            // 检查是否已存在 - 保持不变
-            const existingItemIndex = cart.findIndex(item => item.name === name);
-            
-            if (existingItemIndex >= 0) {
-                // 已存在，增加数量 - 保持不变
-                cart[existingItemIndex].quantity += 1;
+
+        // 渲染进度列表
+        function renderProgressList() {
+            const listEl = document.getElementById('progressList');
+            if (progressList.length === 0) {
+                listEl.innerHTML = `
+                    <div class="empty-list">
+                        <i class="fas fa-tasks"></i>
+                        <p>暂无进度项目<br>点击上方服务添加</p>
+                    </div>
+                `;
             } else {
-                // 新项目 - 保持不变
-                cart.push({
-                    name: name,
-                    price: price,
-                    description: description,
-                    quantity: 1
-                });
-            }
-            
-            // 保存到本地存储 - 保持不变
-            saveCartToStorage();
-            
-            // 更新购物车显示 - 保持不变
-            updateCartDisplay();
-            
-            // 显示通知 - 保持不变
-            showNotification(`"${name}" 已添加到订单`);
-        }
-        
-        // 从购物车移除项目 - 保持不变
-        function removeFromCart(index) {
-            if (index >= 0 && index < cart.length) {
-                const itemName = cart[index].name;
-                cart.splice(index, 1);
-                
-                // 保存到本地存储 - 保持不变
-                saveCartToStorage();
-                
-                // 更新购物车显示 - 保持不变
-                updateCartDisplay();
-                
-                // 显示通知 - 保持不变
-                showNotification(`"${itemName}" 已从订单移除`);
-            }
-        }
-        
-        // 更新购物车数量 - 保持不变
-        function updateCartItemQuantity(index, change) {
-            if (index >= 0 && index < cart.length) {
-                cart[index].quantity += change;
-                
-                // 确保数量至少为1 - 保持不变
-                if (cart[index].quantity < 1) {
-                    cart[index].quantity = 1;
-                }
-                
-                // 保存到本地存储 - 保持不变
-                saveCartToStorage();
-                
-                // 更新购物车显示 - 保持不变
-                updateCartDisplay();
-            }
-        }
-        
-        // 更新购物车显示 - 保持不变
-        function updateCartDisplay() {
-            const cartList = document.getElementById('selectedServicesList');
-            const totalAmountElement = document.getElementById('totalAmount');
-            
-            if (cart.length === 0) {
-                cartList.innerHTML = `
-                    <div class="empty-cart">
-                        <i class="fas fa-shopping-cart"></i>
-                        <p>您还没有选择任何服务<br>点击上方服务项添加到订单</p>
-                    </div>
-                `;
-                totalAmountElement.textContent = '0.00 元';
-                return;
-            }
-            
-            // 计算总价 - 保持不变
-            let total = 0;
-            let cartHTML = '';
-            
-            cart.forEach((item, index) => {
-                total += item.price * item.quantity;
-                
-                cartHTML += `
-                    <div class="selected-service-item">
-                        <div style="font-weight: 600; color: #e0e0ff;">${item.name}</div>
-                        <div style="display: flex; align-items: center;">
-                            <div class="service-quantity">
-                                <button class="quantity-btn" onclick="updateCartItemQuantity(${index}, -1)">-</button>
-                                <span class="quantity-value">${item.quantity}</span>
-                                <button class="quantity-btn" onclick="updateCartItemQuantity(${index}, 1)">+</button>
+                let html = '';
+                progressList.forEach(item => {
+                    html += `
+                        <div class="status-item">
+                            <div class="status-item-left">
+                                <div class="status-item-name">${item.name}</div>
+                                <div class="status-item-remark">
+                                    备注：<input type="text" value="${item.remark}" onblur="updateRemark('progress', ${item.id}, this.value)">
+                                </div>
                             </div>
-                            <div style="font-weight: 700; color: #4ecdc4; margin-left: 20px; min-width: 80px; text-align: right;">
-                                ${(item.price * item.quantity).toFixed(2)} 元
+                            <div class="status-item-price">${item.price.toFixed(2)} 元</div>
+                            <div class="status-item-actions">
+                                <button class="status-btn btn-move" onclick="moveToReport(${item.id})">移到报单</button>
                             </div>
-                            <button class="remove-btn" onclick="removeFromCart(${index})">
-                                <i class="fas fa-trash"></i>
-                            </button>
                         </div>
+                    `;
+                });
+                listEl.innerHTML = html;
+            }
+            document.getElementById('progressTotal').textContent = calcTotal(progressList).toFixed(2) + ' 元';
+        }
+
+        // 渲染报单列表
+        function renderReportList() {
+            const listEl = document.getElementById('reportList');
+            if (reportList.length === 0) {
+                listEl.innerHTML = `
+                    <div class="empty-list">
+                        <i class="fas fa-file-alt"></i>
+                        <p>暂无报单项目<br>从进度列表移入</p>
                     </div>
                 `;
-            });
-            
-            cartList.innerHTML = cartHTML;
-            const totalAmount = total.toFixed(2);
-            totalAmountElement.textContent = totalAmount + ' 元';
-            
-            // 更新服务项的选中状态 - 保持不变
-            updateServiceSelection();
+            } else {
+                let html = '';
+                reportList.forEach(item => {
+                    html += `
+                        <div class="status-item">
+                            <div class="status-item-left">
+                                <div class="status-item-name">${item.name}</div>
+                                <div class="status-item-remark">备注：${item.remark}</div>
+                            </div>
+                            <div class="status-item-price">${item.price.toFixed(2)} 元</div>
+                            <div class="status-item-actions">
+                                <button class="status-btn btn-move" onclick="moveToSettle(${item.id})">移到结单</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                listEl.innerHTML = html;
+            }
+            document.getElementById('reportTotal').textContent = calcTotal(reportList).toFixed(2) + ' 元';
         }
-        
-        // 更新服务项的选中状态 - 保持不变
-        function updateServiceSelection() {
-            const serviceItems = document.querySelectorAll('.service-item');
-            
-            serviceItems.forEach(item => {
-                const serviceName = item.getAttribute('data-name');
-                const isInCart = cart.some(item => item.name === serviceName);
-                
-                if (isInCart) {
-                    item.classList.add('selected');
-                } else {
-                    item.classList.remove('selected');
-                }
-            });
+
+        // 渲染结单列表
+        function renderSettleList() {
+            const listEl = document.getElementById('settleList');
+            if (settleList.length === 0) {
+                listEl.innerHTML = `
+                    <div class="empty-list">
+                        <i class="fas fa-check-circle"></i>
+                        <p>暂无结单项目<br>从报单列表移入</p>
+                    </div>
+                `;
+            } else {
+                let html = '';
+                settleList.forEach(item => {
+                    html += `
+                        <div class="status-item">
+                            <div class="status-item-left">
+                                <div class="status-item-name">${item.name}</div>
+                                <div class="status-item-remark">备注：${item.remark}</div>
+                            </div>
+                            <div class="status-item-price">${item.price.toFixed(2)} 元</div>
+                            <div class="status-item-actions">
+                                <button class="status-btn btn-delete" onclick="deleteSettleItem(${item.id})">删除</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                listEl.innerHTML = html;
+            }
+            document.getElementById('settleTotal').textContent = calcTotal(settleList).toFixed(2) + ' 元';
         }
-        
-        // 显示通知 - 保持不变
+
+        // 更新备注
+        function updateRemark(type, id, value) {
+            const remark = value.trim() || '无备注';
+            switch (type) {
+                case 'progress':
+                    progressList = progressList.map(item => item.id === id ? {...item, remark} : item);
+                    break;
+            }
+            saveData();
+            showNotification('备注已更新');
+        }
+
+        // 移到报单
+        function moveToReport(id) {
+            const itemIndex = progressList.findIndex(item => item.id === id);
+            if (itemIndex === -1) return;
+            const item = progressList.splice(itemIndex, 1)[0];
+            reportList.push(item);
+            saveData();
+            renderProgressList();
+            renderReportList();
+            showNotification(`"${item.name}" 已移到报单`);
+        }
+
+        // 移到结单
+        function moveToSettle(id) {
+            const itemIndex = reportList.findIndex(item => item.id === id);
+            if (itemIndex === -1) return;
+            const item = reportList.splice(itemIndex, 1)[0];
+            settleList.push(item);
+            saveData();
+            renderReportList();
+            renderSettleList();
+            showNotification(`"${item.name}" 已移到结单`);
+        }
+
+        // 删除结单项目
+        function deleteSettleItem(id) {
+            const itemIndex = settleList.findIndex(item => item.id === id);
+            if (itemIndex === -1) return;
+            const item = settleList.splice(itemIndex, 1)[0];
+            saveData();
+            renderSettleList();
+            showNotification(`"${item.name}" 已删除`);
+        }
+
+        // 计算总金额
+        function calcTotal(list) {
+            return list.reduce((total, item) => total + item.price, 0);
+        }
+
+        // 保存数据到本地存储
+        function saveData() {
+            localStorage.setItem('puppyProgressList', JSON.stringify(progressList));
+            localStorage.setItem('puppyReportList', JSON.stringify(reportList));
+            localStorage.setItem('puppySettleList', JSON.stringify(settleList));
+        }
+
+        // 显示通知
         function showNotification(message) {
             const notification = document.getElementById('notification');
-            const notificationText = document.getElementById('notificationText');
-            
-            notificationText.textContent = message;
+            const textEl = document.getElementById('notificationText');
+            textEl.textContent = message;
             notification.classList.add('show');
-            
-            // 3秒后自动隐藏 - 保持不变
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
+            setTimeout(() => notification.classList.remove('show'), 3000);
         }
-        
-        // 保存购物车到本地存储 - 保持不变
-        function saveCartToStorage() {
-            localStorage.setItem('puppyClubCart', JSON.stringify(cart));
-        }
-        
-        // 从本地存储加载购物车 - 保持不变
-        function loadCartFromStorage() {
-            const savedCart = localStorage.getItem('puppyClubCart');
-            if (savedCart) {
-                try {
-                    cart = JSON.parse(savedCart);
-                    updateCartDisplay();
-                } catch (e) {
-                    console.error('加载购物车数据失败:', e);
-                }
-            }
-        }
-        
-        // 全局函数 - 保持不变
-        window.closeModal = function(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.style.display = 'none';
-            }
-        };
-        window.addToCart = addToCart;
-        window.removeFromCart = removeFromCart;
-        window.updateCartItemQuantity = updateCartItemQuantity;
+
+        // 全局函数挂载
+        window.updateRemark = updateRemark;
+        window.moveToReport = moveToReport;
+        window.moveToSettle = moveToSettle;
+        window.deleteSettleItem = deleteSettleItem;
     </script>
 </body>
 </html>
