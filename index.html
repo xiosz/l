@@ -206,15 +206,26 @@
             white-space: nowrap;
         }
 
-        /* 进度/报单/结单 模块 - 缩小内间距 */
+        /* ========== 底部状态模块容器 - 核心修改 ========== */
+        .status-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        /* 第三个模块独占一行 */
+        .status-section:last-child {
+            grid-column: 1 / -1;
+        }
+
+        /* 状态模块样式 - 调整间距 */
         .status-section {
-            width: 100%;
             background: rgba(20, 20, 35, 0.95);
             border-radius: 10px;
-            padding: 12px 10px; /* 缩小内边距 */
+            padding: 10px 8px; /* 进一步缩小内边距 */
             border: 1px solid rgba(100, 100, 150, 0.2);
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-            margin-bottom: 15px;
             position: relative;
             overflow: hidden;
         }
@@ -230,32 +241,33 @@
         }
 
         .status-title {
-            font-size: 1rem; /* 缩小标题 */
+            font-size: 0.95rem; /* 缩小标题 */
             color: #ff6b6b;
-            margin-bottom: 8px; /* 缩小间距 */
-            padding-bottom: 4px;
+            margin-bottom: 6px; /* 缩小标题间距 */
+            padding-bottom: 3px;
             border-bottom: 2px solid rgba(255, 107, 107, 0.2);
             display: flex;
             align-items: center;
         }
 
         .status-title i {
-            margin-right: 6px;
-            font-size: 0.9rem;
+            margin-right: 5px;
+            font-size: 0.85rem;
         }
 
         .status-list {
-            max-height: 200px;
+            max-height: 180px;
             overflow-y: auto;
-            margin-bottom: 10px;
+            margin-bottom: 8px; /* 缩小列表间距 */
+            padding: 2px 0;
         }
 
         .status-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 6px 4px; /* 缩小内间距 */
-            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            align-items: flex-start;
+            padding: 4px 2px; /* 缩小项间距 */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             transition: background 0.3s ease;
         }
 
@@ -265,50 +277,54 @@
 
         .status-item-left {
             flex: 1;
+            margin-right: 8px;
         }
 
         .status-item-name {
             color: #e0e0ff;
             font-weight: 600;
-            margin-bottom: 2px;
-            font-size: 0.85rem; /* 缩小文字 */
+            margin-bottom: 1px;
+            font-size: 0.8rem; /* 缩小文字 */
+            letter-spacing: 0.5px;
         }
 
         .status-item-remark {
             color: #a0a0c0;
-            font-size: 0.8rem; /* 缩小文字 */
+            font-size: 0.75rem; /* 缩小备注文字 */
+            margin-bottom: 2px;
         }
 
         .status-item-remark input {
-            width: 150px; /* 缩小输入框 */
+            width: 100%;
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(78, 205, 196, 0.3);
             border-radius: 4px;
-            padding: 3px 6px;
+            padding: 2px 4px;
             color: #f0f0f0;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             outline: none;
         }
 
         .status-item-price {
             color: #4ecdc4;
             font-weight: 700;
-            min-width: 70px;
+            min-width: 60px;
             text-align: right;
-            margin-right: 8px;
-            font-size: 0.8rem; /* 缩小文字 */
+            font-size: 0.75rem; /* 缩小价格文字 */
+            white-space: nowrap;
         }
 
         .status-item-actions {
             display: flex;
-            gap: 6px;
+            gap: 4px;
+            margin-left: 4px;
         }
 
         .status-btn {
-            padding: 3px 6px; /* 缩小按钮 */
+            padding: 2px 4px; /* 缩小按钮 */
             border-radius: 4px;
             border: none;
-            font-size: 0.8rem; /* 缩小文字 */
+            font-size: 0.75rem; /* 缩小按钮文字 */
             cursor: pointer;
             transition: all 0.3s ease;
             color: #fff;
@@ -342,9 +358,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 8px;
+            padding-top: 6px;
             border-top: 2px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.95rem; /* 缩小文字 */
+            font-size: 0.85rem; /* 缩小文字 */
             font-weight: 600;
         }
 
@@ -356,22 +372,15 @@
             color: #4ecdc4;
         }
 
-        /* 空列表样式 */
+        /* 空列表样式 - 移除图标 仅保留文字 */
         .empty-list {
             text-align: center;
-            padding: 20px 15px;
+            padding: 15px 10px;
             color: #8888aa;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
-        .empty-list i {
-            font-size: 1.8rem;
-            margin-bottom: 8px;
-            color: #4ecdc4;
-            opacity: 0.5;
-        }
-
-        /* iOS风格菜单 - 缩小内间距+文字 */
+        /* iOS风格菜单 - 保持原有样式 */
         .ios-menu-overlay {
             position: fixed;
             top: 0;
@@ -681,33 +690,36 @@
             </div>
         </div>
 
-        <!-- 进度模块 -->
-        <div class="status-section">
-            <div class="status-title"><i class="fas fa-tasks"></i> 进度</div>
-            <div id="progressList" class="status-list"></div>
-            <div class="status-total">
-                <span class="status-total-label">进度总金额：</span>
-                <span id="progressTotal" class="status-total-value">0.00 元</span>
+        <!-- ========== 底部状态模块 - 核心修改 ========== -->
+        <div class="status-container">
+            <!-- 进度模块 -->
+            <div class="status-section">
+                <div class="status-title"><i class="fas fa-tasks"></i> 进度</div>
+                <div id="progressList" class="status-list"></div>
+                <div class="status-total">
+                    <span class="status-total-label">进度总金额：</span>
+                    <span id="progressTotal" class="status-total-value">0.00 元</span>
+                </div>
             </div>
-        </div>
 
-        <!-- 报单模块 -->
-        <div class="status-section">
-            <div class="status-title"><i class="fas fa-file-alt"></i> 报单</div>
-            <div id="reportList" class="status-list"></div>
-            <div class="status-total">
-                <span class="status-total-label">报单总金额：</span>
-                <span id="reportTotal" class="status-total-value">0.00 元</span>
+            <!-- 报单模块 -->
+            <div class="status-section">
+                <div class="status-title"><i class="fas fa-file-alt"></i> 报单</div>
+                <div id="reportList" class="status-list"></div>
+                <div class="status-total">
+                    <span class="status-total-label">报单总金额：</span>
+                    <span id="reportTotal" class="status-total-value">0.00 元</span>
+                </div>
             </div>
-        </div>
 
-        <!-- 结单模块 -->
-        <div class="status-section">
-            <div class="status-title"><i class="fas fa-check-circle"></i> 结单</div>
-            <div id="settleList" class="status-list"></div>
-            <div class="status-total">
-                <span class="status-total-label">结单总金额：</span>
-                <span id="settleTotal" class="status-total-value">0.00 元</span>
+            <!-- 结单模块 - 独占一行 -->
+            <div class="status-section">
+                <div class="status-title"><i class="fas fa-check-circle"></i> 结单</div>
+                <div id="settleList" class="status-list"></div>
+                <div class="status-total">
+                    <span class="status-total-label">结单折后金额：</span>
+                    <span id="settleTotal" class="status-total-value">0.00 元</span>
+                </div>
             </div>
         </div>
 
@@ -854,7 +866,6 @@
             if (progressList.length === 0) {
                 listEl.innerHTML = `
                     <div class="empty-list">
-                        <i class="fas fa-tasks"></i>
                         <p>暂无进度项目<br>点击上方服务添加</p>
                     </div>
                 `;
@@ -881,13 +892,12 @@
             document.getElementById('progressTotal').textContent = calcTotal(progressList).toFixed(2) + ' 元';
         }
 
-        // 渲染报单列表
+        // 渲染报单列表 - 新增备注功能
         function renderReportList() {
             const listEl = document.getElementById('reportList');
             if (reportList.length === 0) {
                 listEl.innerHTML = `
                     <div class="empty-list">
-                        <i class="fas fa-file-alt"></i>
                         <p>暂无报单项目<br>从进度列表移入</p>
                     </div>
                 `;
@@ -898,7 +908,9 @@
                         <div class="status-item">
                             <div class="status-item-left">
                                 <div class="status-item-name">${item.name}</div>
-                                <div class="status-item-remark">备注：${item.remark}</div>
+                                <div class="status-item-remark">
+                                    备注：<input type="text" value="${item.remark}" onblur="updateRemark('report', ${item.id}, this.value)">
+                                </div>
                             </div>
                             <div class="status-item-price">${item.price.toFixed(2)} 元</div>
                             <div class="status-item-actions">
@@ -912,13 +924,12 @@
             document.getElementById('reportTotal').textContent = calcTotal(reportList).toFixed(2) + ' 元';
         }
 
-        // 渲染结单列表
+        // 渲染结单列表 - 新增备注功能 + 折后金额计算
         function renderSettleList() {
             const listEl = document.getElementById('settleList');
             if (settleList.length === 0) {
                 listEl.innerHTML = `
                     <div class="empty-list">
-                        <i class="fas fa-check-circle"></i>
                         <p>暂无结单项目<br>从报单列表移入</p>
                     </div>
                 `;
@@ -929,7 +940,9 @@
                         <div class="status-item">
                             <div class="status-item-left">
                                 <div class="status-item-name">${item.name}</div>
-                                <div class="status-item-remark">备注：${item.remark}</div>
+                                <div class="status-item-remark">
+                                    备注：<input type="text" value="${item.remark}" onblur="updateRemark('settle', ${item.id}, this.value)">
+                                </div>
                             </div>
                             <div class="status-item-price">${item.price.toFixed(2)} 元</div>
                             <div class="status-item-actions">
@@ -940,20 +953,31 @@
                 });
                 listEl.innerHTML = html;
             }
-            document.getElementById('settleTotal').textContent = calcTotal(settleList).toFixed(2) + ' 元';
+            // 计算折后金额
+            const total = calcTotal(settleList);
+            const discountTotal = total * 0.8;
+            document.getElementById('settleTotal').textContent = `共 ${total.toFixed(2)} 元 × 0.8 = ${discountTotal.toFixed(2)} 元`;
         }
 
-        // 更新备注
+        // 更新备注 - 支持三个模块
         function updateRemark(type, id, value) {
             const remark = value.trim() || '无备注';
             switch (type) {
                 case 'progress':
                     progressList = progressList.map(item => item.id === id ? {...item, remark} : item);
-                    saveData();
                     renderProgressList();
-                    showNotification('备注已更新');
+                    break;
+                case 'report':
+                    reportList = reportList.map(item => item.id === id ? {...item, remark} : item);
+                    renderReportList();
+                    break;
+                case 'settle':
+                    settleList = settleList.map(item => item.id === id ? {...item, remark} : item);
+                    renderSettleList();
                     break;
             }
+            saveData();
+            showNotification('备注已更新');
         }
 
         // 移到报单
