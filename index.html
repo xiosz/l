@@ -288,21 +288,41 @@
             letter-spacing: 0.5px;
         }
 
-        .status-item-remark {
+        .status-item-meta {
+            font-size: 0.7rem; /* 缩小比例和文字 */
             color: #a0a0c0;
-            font-size: 0.75rem; /* 缩小备注文字 */
+            display: flex;
+            align-items: center;
+            gap: 8px; /* 缩小间距 */
+            flex-wrap: wrap;
             margin-bottom: 2px;
         }
 
-        .status-item-remark input {
-            width: 100%;
+        .status-item-meta > div {
+            display: flex;
+            align-items: center;
+            gap: 4px; /* 缩小内部间距 */
+        }
+
+        .status-item-meta select,
+        .status-item-meta input {
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(78, 205, 196, 0.3);
             border-radius: 4px;
-            padding: 2px 4px;
+            padding: 1px 3px; /* 缩小输入框 */
             color: #f0f0f0;
-            font-size: 0.75rem;
+            font-size: 0.7rem; /* 缩小文字 */
             outline: none;
+            width: 60px; /* 缩小宽度 */
+        }
+
+        .remark-section {
+            cursor: pointer;
+            color: #a0a0c0;
+        }
+
+        .remark-section.empty {
+            color: #8888aa;
         }
 
         .status-item-price {
@@ -451,10 +471,14 @@
             text-align: center;
         }
 
+        .ios-menu-dispatcher,
+        .ios-menu-boss,
         .ios-menu-remark {
             margin-bottom: 12px;
         }
 
+        .ios-menu-dispatcher label,
+        .ios-menu-boss label,
         .ios-menu-remark label {
             display: block;
             color: #e0e0ff;
@@ -462,6 +486,8 @@
             font-size: 0.85rem;
         }
 
+        .ios-menu-dispatcher select,
+        .ios-menu-boss input,
         .ios-menu-remark input {
             width: 100%;
             background: rgba(255, 255, 255, 0.08);
@@ -643,7 +669,7 @@
                     <span class="service-name"><i class="fas fa-shoe-prints service-icon"></i> 臭鞋子</span>
                     <span class="service-price">3.99元/单</span>
                 </div>
-                <div class="service-item" data-name="升级臭鞋子" data-price="9.99" data-description="升级版臭鞋子：鞋子/流苏/扇子20w玉镯/玉扳指10w魔芋爽/鬼玺30w确定金额之后打古城/噩梦累计带出总金额">
+                <div class="service-item" data-name="升级臭鞋子" data-price="9.99" data-description="升级版臭鞋子：鞋子/流苏/扇子20w玉镯/玉扳指10w魔芋爽/鬼玺30w确定金额之后打古城/噩梦累计打出总金额">
                     <span class="service-name"><i class="fas fa-shoe-prints service-icon"></i> 升级臭鞋子</span>
                     <span class="service-price">9.99元/单</span>
                 </div>
@@ -764,6 +790,17 @@
                 <div class="ios-menu-description" id="iosMenuDescription">
                     请选择一项服务查看详情
                 </div>
+                <div class="ios-menu-dispatcher">
+                    <label for="serviceDispatcher">派单（必选，默认园）：</label>
+                    <select id="serviceDispatcher">
+                        <option value="园" selected>园</option>
+                        <option value="芜柒">芜柒</option>
+                    </select>
+                </div>
+                <div class="ios-menu-boss">
+                    <label for="serviceBoss">老板：</label>
+                    <input type="text" id="serviceBoss" placeholder="输入老板名称（选填）">
+                </div>
                 <div class="ios-menu-remark">
                     <label for="serviceRemark">备注信息（选填）</label>
                     <input type="text" id="serviceRemark" placeholder="输入备注，例如：游戏ID、需求等">
@@ -832,6 +869,8 @@
                     document.getElementById('iosMenuTitle').textContent = name;
                     document.getElementById('iosMenuSubtitle').textContent = price + ' 元/单';
                     document.getElementById('iosMenuDescription').textContent = desc;
+                    document.getElementById('serviceDispatcher').value = '园';
+                    document.getElementById('serviceBoss').value = '';
                     document.getElementById('serviceRemark').value = '';
                     
                     showIosMenu();
@@ -870,11 +909,15 @@
         // 添加到进度列表
         function addToProgress() {
             if (!currentService) return;
-            const remark = document.getElementById('serviceRemark').value.trim() || '无备注';
+            const dispatcher = document.getElementById('serviceDispatcher').value;
+            const boss = document.getElementById('serviceBoss').value.trim() || '';
+            const remark = document.getElementById('serviceRemark').value.trim() || '';
             const item = {
                 id: Date.now(),
                 name: currentService.name,
                 price: currentService.price,
+                dispatcher: dispatcher,
+                boss: boss,
                 remark: remark
             };
             progressList.push(item);
@@ -900,8 +943,21 @@
                         <div class="status-item">
                             <div class="status-item-left">
                                 <div class="status-item-name">${item.name}</div>
-                                <div class="status-item-remark">
-                                    备注：<input type="text" value="${item.remark}" onblur="updateRemark('progress', ${item.id}, this.value)">
+                                <div class="status-item-meta">
+                                    <div>
+                                        <span>派单：</span>
+                                        <select onchange="updateField('progress', ${item.id}, 'dispatcher', this.value)">
+                                            <option value="园" ${item.dispatcher === '园' ? 'selected' : ''}>园</option>
+                                            <option value="芜柒" ${item.dispatcher === '芜柒' ? 'selected' : ''}>芜柒</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <span>老板：</span>
+                                        <input value="${item.boss}" onblur="updateField('progress', ${item.id}, 'boss', this.value)">
+                                    </div>
+                                    <div class="remark-section ${item.remark ? '' : 'empty'}" onclick="${item.remark ? '' : `editRemark('progress', ${item.id})`}">
+                                        ${item.remark ? item.remark : '+ 添加备注'}
+                                    </div>
                                 </div>
                             </div>
                             <div class="status-item-price">${item.price.toFixed(2)} 元</div>
@@ -916,7 +972,7 @@
             document.getElementById('progressTotal').textContent = calcTotal(progressList).toFixed(2) + ' 元';
         }
 
-        // 渲染报单列表 - 新增备注功能
+        // 渲染报单列表
         function renderReportList() {
             const listEl = document.getElementById('reportList');
             if (reportList.length === 0) {
@@ -932,8 +988,21 @@
                         <div class="status-item">
                             <div class="status-item-left">
                                 <div class="status-item-name">${item.name}</div>
-                                <div class="status-item-remark">
-                                    备注：<input type="text" value="${item.remark}" onblur="updateRemark('report', ${item.id}, this.value)">
+                                <div class="status-item-meta">
+                                    <div>
+                                        <span>派单：</span>
+                                        <select onchange="updateField('report', ${item.id}, 'dispatcher', this.value)">
+                                            <option value="园" ${item.dispatcher === '园' ? 'selected' : ''}>园</option>
+                                            <option value="芜柒" ${item.dispatcher === '芜柒' ? 'selected' : ''}>芜柒</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <span>老板：</span>
+                                        <input value="${item.boss}" onblur="updateField('report', ${item.id}, 'boss', this.value)">
+                                    </div>
+                                    <div class="remark-section ${item.remark ? '' : 'empty'}" onclick="${item.remark ? '' : `editRemark('report', ${item.id})`}">
+                                        ${item.remark ? item.remark : '+ 添加备注'}
+                                    </div>
                                 </div>
                             </div>
                             <div class="status-item-price">${item.price.toFixed(2)} 元</div>
@@ -948,7 +1017,7 @@
             document.getElementById('reportTotal').textContent = calcTotal(reportList).toFixed(2) + ' 元';
         }
 
-        // 渲染结单列表 - 新增备注功能 + 折后金额计算
+        // 渲染结单列表
         function renderSettleList() {
             const listEl = document.getElementById('settleList');
             if (settleList.length === 0) {
@@ -964,8 +1033,21 @@
                         <div class="status-item">
                             <div class="status-item-left">
                                 <div class="status-item-name">${item.name}</div>
-                                <div class="status-item-remark">
-                                    备注：<input type="text" value="${item.remark}" onblur="updateRemark('settle', ${item.id}, this.value)">
+                                <div class="status-item-meta">
+                                    <div>
+                                        <span>派单：</span>
+                                        <select onchange="updateField('settle', ${item.id}, 'dispatcher', this.value)">
+                                            <option value="园" ${item.dispatcher === '园' ? 'selected' : ''}>园</option>
+                                            <option value="芜柒" ${item.dispatcher === '芜柒' ? 'selected' : ''}>芜柒</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <span>老板：</span>
+                                        <input value="${item.boss}" onblur="updateField('settle', ${item.id}, 'boss', this.value)">
+                                    </div>
+                                    <div class="remark-section ${item.remark ? '' : 'empty'}" onclick="${item.remark ? '' : `editRemark('settle', ${item.id})`}">
+                                        ${item.remark ? item.remark : '+ 添加备注'}
+                                    </div>
                                 </div>
                             </div>
                             <div class="status-item-price">${item.price.toFixed(2)} 元</div>
@@ -983,25 +1065,46 @@
             document.getElementById('settleTotal').textContent = `共 ${total.toFixed(2)} 元 × 0.8 = ${discountTotal.toFixed(2)} 元`;
         }
 
-        // 更新备注 - 支持三个模块
-        function updateRemark(type, id, value) {
-            const remark = value.trim() || '无备注';
+        // 更新字段
+        function updateField(type, id, field, value) {
+            const val = value.trim();
+            let list;
             switch (type) {
                 case 'progress':
-                    progressList = progressList.map(item => item.id === id ? {...item, remark} : item);
+                    list = progressList;
+                    break;
+                case 'report':
+                    list = reportList;
+                    break;
+                case 'settle':
+                    list = settleList;
+                    break;
+            }
+            list = list.map(item => item.id === id ? { ...item, [field]: val } : item);
+            switch (type) {
+                case 'progress':
+                    progressList = list;
                     renderProgressList();
                     break;
                 case 'report':
-                    reportList = reportList.map(item => item.id === id ? {...item, remark} : item);
+                    reportList = list;
                     renderReportList();
                     break;
                 case 'settle':
-                    settleList = settleList.map(item => item.id === id ? {...item, remark} : item);
+                    settleList = list;
                     renderSettleList();
                     break;
             }
             saveData();
-            showNotification('备注已更新');
+            showNotification('信息已更新');
+        }
+
+        // 编辑备注
+        function editRemark(type, id) {
+            const newRemark = prompt('请输入备注内容：');
+            if (newRemark !== null) {
+                updateField(type, id, 'remark', newRemark);
+            }
         }
 
         // 移到报单
@@ -1060,7 +1163,8 @@
         }
 
         // 全局函数挂载
-        window.updateRemark = updateRemark;
+        window.updateField = updateField;
+        window.editRemark = editRemark;
         window.moveToReport = moveToReport;
         window.moveToSettle = moveToSettle;
         window.deleteSettleItem = deleteSettleItem;
