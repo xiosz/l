@@ -183,7 +183,7 @@
             white-space: nowrap;
         }
 
-        /* ========== 进度/报单/结单模块 核心修改：总金额固定底部 ========== */
+        /* 进度/报单/结单模块 - 保留原布局 */
         .status-top-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -192,7 +192,6 @@
             margin-top: 10px;
         }
 
-        /* 统一所有状态模块为flex布局，实现内容滚动+底部固定总金额 */
         .status-section.top, .status-section.bottom {
             background: rgba(20, 20, 35, 0.95);
             border-radius: 12px;
@@ -203,7 +202,6 @@
             overflow: hidden;
             position: relative;
             min-height: 220px;
-            /* 关键：flex垂直布局 */
             display: flex;
             flex-direction: column;
         }
@@ -243,7 +241,6 @@
             border-bottom: 2px solid rgba(255, 107, 107, 0.2);
             display: flex;
             align-items: center;
-            /* 固定标题不滚动 */
             flex-shrink: 0;
         }
 
@@ -257,7 +254,6 @@
             overflow-y: auto;
             margin-bottom: 12px;
             padding: 6px 0;
-            /* 关键：内容区自动填充，超出滚动 */
             flex: 1;
         }
 
@@ -269,19 +265,17 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 0.65rem;
             font-weight: 600;
-            /* 关键：总金额固定在底部 */
             margin-top: auto;
             flex-shrink: 0;
         }
 
-        /* ========== 弹窗样式统一 + 背景透明 核心修改 ========== */
+        /* ========== 弹窗核心修改 ========== */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* 背景改为完全透明 */
             background: transparent;
             backdrop-filter: blur(8px);
             z-index: 3000;
@@ -290,7 +284,8 @@
             align-items: center;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), visibility 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            /* 优化弹窗过渡动画 更丝滑 */
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
         .modal-overlay.show {
@@ -298,29 +293,32 @@
             visibility: visible;
         }
 
-        /* 统一弹窗容器样式 */
+        /* 统一弹窗容器 缩小内间距+优化动画 */
         .ios-menu-container, .status-modal-container {
             width: 90%;
             max-width: 420px;
             background: rgba(40, 40, 60, 0.98);
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(100, 100, 150, 0.4);
-            transform: scale(0.9) translateY(40px);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* 取消放大 仅保留位移动画 */
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            padding: 0;
+            position: relative;
         }
 
         .modal-overlay.show .ios-menu-container,
         .modal-overlay.show .status-modal-container {
-            transform: scale(1) translateY(0);
+            transform: translateY(0);
         }
 
-        /* 统一弹窗关闭按钮 */
+        /* 弹窗关闭按钮 微调位置 */
         .ios-menu-close, .status-modal-close {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 10px;
+            right: 10px;
             background: rgba(255, 255, 255, 0.1);
             border: none;
             color: #a0a0c0;
@@ -336,34 +334,93 @@
             z-index: 10;
         }
 
-        .status-modal-close {
-            /* 状态弹窗关闭按钮位置微调 */
-            position: absolute;
-        }
-
         .ios-menu-close:hover, .status-modal-close:hover {
             background: rgba(255, 107, 107, 0.3);
             color: #ff6b6b;
             transform: rotate(90deg);
         }
 
-        /* iOS菜单内部样式微调 */
+        /* iOS菜单弹窗 缩小内间距 */
         .ios-menu-header {
-            padding: 22px 18px 15px;
+            padding: 15px 12px 8px;
             text-align: center;
             position: relative;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             background: rgba(30, 30, 50, 0.9);
         }
 
+        .ios-menu-body {
+            padding: 12px 10px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .ios-menu-description {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #e0e0ff;
+            margin-bottom: 10px;
+            text-align: center;
+            padding: 6px 8px;
+            background: rgba(78, 205, 196, 0.05);
+            border-radius: 8px;
+        }
+
+        /* 缩小表单元素间距 */
+        .ios-menu-dispatcher,
+        .ios-menu-boss,
+        .ios-menu-remark {
+            margin-bottom: 8px;
+        }
+
+        .ios-menu-dispatcher label,
+        .ios-menu-boss label,
+        .ios-menu-remark label {
+            display: block;
+            color: #e0e0ff;
+            margin-bottom: 3px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* 取消输入框聚焦放大 */
+        .ios-menu-dispatcher select,
+        .ios-menu-boss input,
+        .ios-menu-remark input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(78, 205, 196, 0.3);
+            border-radius: 8px;
+            padding: 8px 10px;
+            color: #f0f0f0;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.2s ease;
+            transform: none !important;
+        }
+
+        .ios-menu-dispatcher select:focus,
+        .ios-menu-boss input:focus,
+        .ios-menu-remark input:focus {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+            transform: none !important;
+        }
+
         .ios-menu-btn {
-            padding: 14px 18px;
+            padding: 10px 14px;
             border-radius: 12px;
             border: none;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            margin: 0 4px;
+        }
+        
+        .ios-menu-btn.primary {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
         }
         
         .ios-menu-btn.primary:hover {
@@ -371,14 +428,19 @@
             box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
         }
 
-        /* 状态弹窗内部样式微调 */
+        .ios-menu-btn.secondary {
+            background: rgba(78, 205, 196, 0.2);
+            color: #4ecdc4;
+        }
+
+        /* 状态操作弹窗 缩小内间距 */
         .status-modal-container {
-            padding: 22px;
+            padding: 15px;
             position: relative;
         }
 
         .status-modal-header {
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
 
         .status-modal-title {
@@ -388,44 +450,48 @@
         }
 
         .status-modal-form-item {
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .status-modal-form-item label {
             display: block;
             font-size: 0.8rem;
             color: #e0e0ff;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
             font-weight: 500;
         }
 
+        /* 取消输入框聚焦放大 */
         .status-modal-form-item input,
         .status-modal-form-item select {
             width: 100%;
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(78, 205, 196, 0.3);
             border-radius: 7px;
-            padding: 9px 11px;
+            padding: 7px 9px;
             color: #f0f0f0;
             font-size: 0.75rem;
             outline: none;
             transition: all 0.2s ease;
+            transform: none !important;
         }
 
         .status-modal-form-item input:focus,
         .status-modal-form-item select:focus {
             border-color: #ff6b6b;
             box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+            transform: none !important;
         }
 
         .status-modal-actions {
             display: flex;
-            gap: 10px;
+            gap: 6px;
+            margin-top: 5px;
         }
 
         .status-modal-btn {
             flex: 1;
-            padding: 8px;
+            padding: 6px;
             border-radius: 7px;
             border: none;
             font-size: 0.75rem;
@@ -449,7 +515,7 @@
             color: #a0a0c0;
         }
 
-        /* 通知弹窗样式保持 */
+        /* 通知弹窗 优化动画 */
         .notification {
             position: fixed;
             bottom: 25px;
@@ -467,7 +533,7 @@
             opacity: 0;
             visibility: hidden;
             transform: translateX(30px);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease-out 0.2s;
+            transition: all 0.3s ease;
             border: 1px solid rgba(78, 205, 196, 0.3);
         }
         
@@ -490,60 +556,6 @@
         }
 
         /* 其他基础样式 */
-        .ios-menu-body {
-            padding: 18px 15px;
-            max-height: 60vh;
-            overflow-y: auto;
-        }
-
-        .ios-menu-description {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            color: #e0e0ff;
-            margin-bottom: 20px;
-            text-align: center;
-            padding: 8px 10px;
-            background: rgba(78, 205, 196, 0.05);
-            border-radius: 8px;
-        }
-
-        .ios-menu-dispatcher,
-        .ios-menu-boss,
-        .ios-menu-remark {
-            margin-bottom: 15px;
-        }
-
-        .ios-menu-dispatcher label,
-        .ios-menu-boss label,
-        .ios-menu-remark label {
-            display: block;
-            color: #e0e0ff;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .ios-menu-dispatcher select,
-        .ios-menu-boss input,
-        .ios-menu-remark input {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(78, 205, 196, 0.3);
-            border-radius: 8px;
-            padding: 10px 12px;
-            color: #f0f0f0;
-            font-size: 0.9rem;
-            outline: none;
-            transition: all 0.2s ease;
-        }
-
-        .ios-menu-dispatcher select:focus,
-        .ios-menu-boss input:focus,
-        .ios-menu-remark input:focus {
-            border-color: #ff6b6b;
-            box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
-        }
-
         .status-item {
             display: flex;
             justify-content: space-between;
@@ -692,9 +704,7 @@
                     <span class="service-name"><i class="fas fa-shoe-prints service-icon"></i> 赌王</span>
                     <span class="service-price">8.88元/单</span>
                 </div>
-                <div class="service-item" data-name="祈愿满分" data-price="28.8" data-description="陪陪带板板玩昆仑噩梦，带出的回收物累计算分值，初始为0分，累计到一百分就结单。撤离成功+2分，陪陪原因撤离失败扣5分。分值：
-金樽/青铜当卢1分壁画/金鳞2分虎符/圣诞限定4分鬼玺/雪莲6分
-陶俑/白玉杯/神鹿8分，大剑10分，圣杯20分若板板故意不拿不交或者因为板板的原因撤离失败，回收物依旧算上分值。">
+                <div class="service-item" data-name="祈愿满分" data-price="28.8" data-description="陪陪带板板玩昆仑噩梦，带出的回收物累计算分值，初始为0分，累计到一百分就结单。撤离成功+2分，陪陪原因撤离失败扣5分。分值：金樽/青铜当卢1分壁画/金鳞2分虎符/圣诞限定4分鬼玺/雪莲6分陶俑/白玉杯/神鹿8分，大剑10分，圣杯20分若板板故意不拿不交或者因为板板的原因撤离失败，回收物依旧算上分值。">
                     <span class="service-name"><i class="fas fa-shoe-prints service-icon"></i> 祈愿满分</span>
                     <span class="service-price">28.8元/单</span>
                 </div>
@@ -757,7 +767,7 @@
             </div>
         </div>
 
-        <!-- 进度/报单模块 - 布局调整后 -->
+        <!-- 进度/报单模块 - 保持不变 -->
         <div class="status-top-grid">
             <div class="status-section top">
                 <div class="status-title top"><i class="fas fa-tasks"></i> 进度</div>
@@ -820,7 +830,7 @@
                     <label for="serviceRemark">备注信息（选填）</label>
                     <input type="text" id="serviceRemark" placeholder="输入备注，例如：游戏ID、需求等">
                 </div>
-                <div class="ios-menu-actions">
+                <div class="ios-menu-actions" style="display: flex; gap: 10px; margin-top: 15px; justify-content: center;">
                     <button class="ios-menu-btn primary" id="iosMenuAddBtn">
                         <i class="fas fa-cart-plus"></i> 加入进度
                     </button>
@@ -936,7 +946,7 @@
             });
         });
 
-        // ========== 弹窗动画函数 ==========
+        // ========== 弹窗动画函数 - 取消延迟效果 ==========
         function showIosMenu() {
             const overlay = document.getElementById('iosMenuOverlay');
             overlay.classList.add('show');
@@ -946,9 +956,8 @@
         function hideIosMenu() {
             const overlay = document.getElementById('iosMenuOverlay');
             overlay.classList.remove('show');
-            setTimeout(() => {
-                document.body.style.overflow = 'auto';
-            }, 300);
+            // 取消延迟 直接恢复滚动
+            document.body.style.overflow = 'auto';
         }
 
         function showStatusModal(type, id) {
@@ -998,9 +1007,8 @@
         function hideStatusModal() {
             const overlay = document.getElementById('statusModalOverlay');
             overlay.classList.remove('show');
-            setTimeout(() => {
-                document.body.style.overflow = 'auto';
-            }, 300);
+            // 取消延迟 直接恢复滚动
+            document.body.style.overflow = 'auto';
         }
 
         function showNotification(message) {
@@ -1008,7 +1016,7 @@
             const textEl = document.getElementById('notificationText');
             textEl.textContent = message;
             notification.classList.add('show');
-            setTimeout(() => notification.classList.remove('show'), 3500); // 延长显示时间
+            setTimeout(() => notification.classList.remove('show'), 3500);
         }
 
         // ========== 业务逻辑函数 ==========
