@@ -76,7 +76,7 @@
             font-weight: 300;
         }
         
-        /* 服务分类网格 */
+        /* 服务分类网格 - 取消顶部渐变条 */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -95,20 +95,9 @@
             position: relative;
         }
         
+        /* 取消服务卡片顶部渐变条 */
         .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
-            transform: scaleX(0);
-            transition: transform 0.5s ease;
-        }
-        
-        .service-card:hover::before {
-            transform: scaleX(1);
+            display: none;
         }
         
         .category-title {
@@ -183,7 +172,7 @@
             white-space: nowrap;
         }
 
-        /* 进度/报单/结单模块 - 保留原布局 */
+        /* 进度/报单/结单模块 - 取消顶部渐变条 */
         .status-top-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -211,26 +200,15 @@
             margin-bottom: 20px;
         }
 
+        /* 取消状态模块顶部渐变条 */
         .status-section.top::before, .status-section.bottom::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
-            transform: scaleX(0);
-            transition: transform 0.5s ease;
+            display: none;
         }
 
         .status-section.top:hover, .status-section.bottom:hover {
             transform: translateY(-3px);
             box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
             border-color: rgba(255, 107, 107, 0.5);
-        }
-
-        .status-section.top:hover::before, .status-section.bottom:hover::before {
-            transform: scaleX(1);
         }
 
         .status-title.top {
@@ -269,23 +247,22 @@
             flex-shrink: 0;
         }
 
-        /* ========== 弹窗核心修改 ========== */
+        /* ========== 弹窗样式 - 全透明+缩小布局文字 ========== */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: transparent;
-            backdrop-filter: blur(8px);
-            z-index: 3000;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
             display: flex;
             justify-content: center;
             align-items: center;
             opacity: 0;
             visibility: hidden;
-            /* 优化弹窗过渡动画 更丝滑 */
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .modal-overlay.show {
@@ -293,80 +270,91 @@
             visibility: visible;
         }
 
-        /* 统一弹窗容器 缩小内间距+优化动画 */
+        /* 统一弹窗容器样式 - 全透明+缩小尺寸 */
         .ios-menu-container, .status-modal-container {
-            width: 90%;
-            max-width: 420px;
-            background: rgba(40, 40, 60, 0.98);
-            border-radius: 20px;
+            width: 85%;
+            max-width: 380px;
+            background: transparent;
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(100, 100, 150, 0.4);
-            /* 取消放大 仅保留位移动画 */
-            transform: translateY(20px);
-            transition: all 0.3s ease;
-            padding: 0;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(120, 120, 200, 0.2);
+            transform: scale(0.95) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
         }
 
         .modal-overlay.show .ios-menu-container,
         .modal-overlay.show .status-modal-container {
-            transform: translateY(0);
+            transform: scale(1) translateY(0);
         }
 
-        /* 弹窗关闭按钮 微调位置 */
+        /* 关闭按钮重构 - 缩小尺寸 */
         .ios-menu-close, .status-modal-close {
             position: absolute;
             top: 10px;
             right: 10px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             border: none;
-            color: #a0a0c0;
-            width: 32px;
-            height: 32px;
+            color: #c0c0e0;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
             z-index: 10;
         }
 
         .ios-menu-close:hover, .status-modal-close:hover {
-            background: rgba(255, 107, 107, 0.3);
-            color: #ff6b6b;
-            transform: rotate(90deg);
+            background: rgba(255, 107, 107, 0.4);
+            color: #ffffff;
+            transform: rotate(90deg) scale(1.1);
         }
 
-        /* iOS菜单弹窗 缩小内间距 */
+        /* ========== iOS服务详情弹窗 - 缩小布局和文字 ========== */
         .ios-menu-header {
-            padding: 15px 12px 8px;
+            padding: 12px 10px 6px;
             text-align: center;
             position: relative;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(30, 30, 50, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: linear-gradient(90deg, rgba(255, 107, 107, 0.05), rgba(78, 205, 196, 0.05));
+        }
+
+        .ios-menu-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 3px;
+        }
+
+        .ios-menu-subtitle {
+            font-size: 0.8rem;
+            color: #4ecdc4;
+            font-weight: 600;
         }
 
         .ios-menu-body {
-            padding: 12px 10px;
-            max-height: 60vh;
+            padding: 12px;
+            max-height: 65vh;
             overflow-y: auto;
         }
 
         .ios-menu-description {
-            font-size: 0.9rem;
-            line-height: 1.6;
+            font-size: 0.8rem;
+            line-height: 1.5;
             color: #e0e0ff;
             margin-bottom: 10px;
-            text-align: center;
-            padding: 6px 8px;
+            padding: 8px 10px;
             background: rgba(78, 205, 196, 0.05);
             border-radius: 8px;
+            border-left: 2px solid #4ecdc4;
         }
 
-        /* 缩小表单元素间距 */
+        /* 表单布局优化 - 缩小间距和文字 */
         .ios-menu-dispatcher,
         .ios-menu-boss,
         .ios-menu-remark {
@@ -378,44 +366,53 @@
         .ios-menu-remark label {
             display: block;
             color: #e0e0ff;
-            margin-bottom: 3px;
-            font-size: 0.9rem;
+            margin-bottom: 4px;
+            font-size: 0.8rem;
             font-weight: 500;
         }
 
-        /* 取消输入框聚焦放大 */
         .ios-menu-dispatcher select,
         .ios-menu-boss input,
         .ios-menu-remark input {
             width: 100%;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(78, 205, 196, 0.3);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(78, 205, 196, 0.2);
             border-radius: 8px;
             padding: 8px 10px;
             color: #f0f0f0;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             outline: none;
             transition: all 0.2s ease;
-            transform: none !important;
         }
 
         .ios-menu-dispatcher select:focus,
         .ios-menu-boss input:focus,
         .ios-menu-remark input:focus {
             border-color: #ff6b6b;
-            box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
-            transform: none !important;
+            box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.15);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        /* 按钮组布局优化 - 缩小尺寸 */
+        .ios-menu-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
         }
 
         .ios-menu-btn {
-            padding: 10px 14px;
-            border-radius: 12px;
+            flex: 1;
+            padding: 8px 0;
+            border-radius: 8px;
             border: none;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin: 0 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
         
         .ios-menu-btn.primary {
@@ -424,29 +421,36 @@
         }
         
         .ios-menu-btn.primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
         }
 
         .ios-menu-btn.secondary {
-            background: rgba(78, 205, 196, 0.2);
+            background: rgba(78, 205, 196, 0.15);
             color: #4ecdc4;
+            border: 1px solid rgba(78, 205, 196, 0.2);
         }
 
-        /* 状态操作弹窗 缩小内间距 */
+        .ios-menu-btn.secondary:hover {
+            background: rgba(78, 205, 196, 0.25);
+            color: #ffffff;
+        }
+
+        /* ========== 状态操作弹窗 - 缩小布局和文字 ========== */
         .status-modal-container {
-            padding: 15px;
-            position: relative;
+            padding: 25px;
         }
 
         .status-modal-header {
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .status-modal-title {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             color: #ff6b6b;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .status-modal-form-item {
@@ -457,47 +461,44 @@
             display: block;
             font-size: 0.8rem;
             color: #e0e0ff;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
             font-weight: 500;
         }
 
-        /* 取消输入框聚焦放大 */
         .status-modal-form-item input,
         .status-modal-form-item select {
             width: 100%;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(78, 205, 196, 0.3);
-            border-radius: 7px;
-            padding: 7px 9px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(78, 205, 196, 0.2);
+            border-radius: 8px;
+            padding: 8px 10px;
             color: #f0f0f0;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             outline: none;
             transition: all 0.2s ease;
-            transform: none !important;
         }
 
         .status-modal-form-item input:focus,
         .status-modal-form-item select:focus {
             border-color: #ff6b6b;
-            box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
-            transform: none !important;
+            box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.15);
         }
 
         .status-modal-actions {
             display: flex;
             gap: 6px;
-            margin-top: 5px;
+            margin-top: 15px;
         }
 
         .status-modal-btn {
             flex: 1;
-            padding: 6px;
-            border-radius: 7px;
+            padding: 8px 0;
+            border-radius: 8px;
             border: none;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .status-modal-btn.primary {
@@ -505,36 +506,52 @@
             color: white;
         }
 
+        .status-modal-btn.primary:hover {
+            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+        }
+
         .status-modal-btn.secondary {
-            background: rgba(78, 205, 196, 0.2);
+            background: rgba(78, 205, 196, 0.15);
             color: #4ecdc4;
+            border: 1px solid rgba(78, 205, 196, 0.2);
+        }
+
+        .status-modal-btn.secondary:hover {
+            background: rgba(78, 205, 196, 0.25);
+            color: #ffffff;
         }
 
         .status-modal-btn.danger {
-            background: rgba(160, 160, 192, 0.2);
+            background: rgba(160, 160, 192, 0.15);
             color: #a0a0c0;
+            border: 1px solid rgba(160, 160, 192, 0.2);
         }
 
-        /* 通知弹窗 优化动画 */
+        .status-modal-btn.danger:hover {
+            background: rgba(160, 160, 192, 0.25);
+            color: #ffffff;
+        }
+
+        /* 通知弹窗优化 */
         .notification {
             position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background: rgba(30, 30, 50, 0.95);
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, rgba(30, 30, 50, 0.98), rgba(45, 45, 70, 0.98));
             border-left: 4px solid #4ecdc4;
-            padding: 12px 18px;
+            padding: 15px 20px;
             border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-            z-index: 1000;
-            max-width: 320px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 9998;
+            max-width: 350px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             opacity: 0;
             visibility: hidden;
             transform: translateX(30px);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(78, 205, 196, 0.3);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid rgba(78, 205, 196, 0.2);
         }
         
         .notification.show {
@@ -544,18 +561,18 @@
         }
 
         .notification-icon {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             color: #4ecdc4;
             flex-shrink: 0;
         }
         
         .notification-text {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: #f0f0f0;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
-        /* 其他基础样式 */
+        /* 其他基础样式 - 保持不变 */
         .status-item {
             display: flex;
             justify-content: space-between;
@@ -649,7 +666,7 @@
             <div class="subtitle">专业游戏陪玩 · 定制化服务 · 极致游戏体验</div>
         </div>
         
-        <!-- 服务分类区域 - 保持不变 -->
+        <!-- 服务分类区域 - 布局不变 -->
         <div class="services-grid">
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-utensils"></i> 胃袋服务</div>
@@ -767,7 +784,7 @@
             </div>
         </div>
 
-        <!-- 进度/报单模块 - 保持不变 -->
+        <!-- 进度/报单模块 - 布局不变 -->
         <div class="status-top-grid">
             <div class="status-section top">
                 <div class="status-title top"><i class="fas fa-tasks"></i> 进度</div>
@@ -788,7 +805,7 @@
             </div>
         </div>
 
-        <!-- 结单模块 - 保持不变 -->
+        <!-- 结单模块 - 布局不变 -->
         <div class="status-section bottom">
             <div class="status-title top"><i class="fas fa-check-circle"></i> 结单</div>
             <div id="settleList" class="status-list"></div>
@@ -803,7 +820,7 @@
         </div>
     </div>
 
-    <!-- iOS风格菜单 - 结构不变 -->
+    <!-- iOS风格菜单 - 结构不变 样式优化 -->
     <div class="modal-overlay" id="iosMenuOverlay">
         <div class="ios-menu-container" id="iosMenuContainer">
             <button class="ios-menu-close" id="iosMenuClose">&times;</button>
@@ -830,7 +847,7 @@
                     <label for="serviceRemark">备注信息（选填）</label>
                     <input type="text" id="serviceRemark" placeholder="输入备注，例如：游戏ID、需求等">
                 </div>
-                <div class="ios-menu-actions" style="display: flex; gap: 10px; margin-top: 15px; justify-content: center;">
+                <div class="ios-menu-actions">
                     <button class="ios-menu-btn primary" id="iosMenuAddBtn">
                         <i class="fas fa-cart-plus"></i> 加入进度
                     </button>
@@ -842,7 +859,7 @@
         </div>
     </div>
 
-    <!-- 底部状态项操作弹窗 - 结构不变 -->
+    <!-- 底部状态项操作弹窗 - 结构不变 样式优化 -->
     <div class="modal-overlay" id="statusModalOverlay">
         <div class="status-modal-container">
             <div class="status-modal-header">
@@ -874,7 +891,7 @@
         </div>
     </div>
 
-    <!-- 通知消息 - 结构不变 -->
+    <!-- 通知消息 - 样式优化 -->
     <div class="notification" id="notification">
         <i class="fas fa-check-circle notification-icon"></i>
         <div class="notification-text" id="notificationText">服务已添加到订单</div>
@@ -946,7 +963,7 @@
             });
         });
 
-        // ========== 弹窗动画函数 - 取消延迟效果 ==========
+        // ========== 弹窗动画函数 ==========
         function showIosMenu() {
             const overlay = document.getElementById('iosMenuOverlay');
             overlay.classList.add('show');
@@ -956,7 +973,6 @@
         function hideIosMenu() {
             const overlay = document.getElementById('iosMenuOverlay');
             overlay.classList.remove('show');
-            // 取消延迟 直接恢复滚动
             document.body.style.overflow = 'auto';
         }
 
@@ -1007,7 +1023,6 @@
         function hideStatusModal() {
             const overlay = document.getElementById('statusModalOverlay');
             overlay.classList.remove('show');
-            // 取消延迟 直接恢复滚动
             document.body.style.overflow = 'auto';
         }
 
