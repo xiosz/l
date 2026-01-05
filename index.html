@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
     <title>puppy俱乐部 - 点单</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -13,14 +13,19 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0a0a0f;
-            color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #000;
             min-height: 100vh;
             overflow-x: hidden;
             line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
         }
         
+        /* 恢复粒子背景显示效果 - 提高透明度、调整层级 */
         #particles-js {
             position: fixed;
             width: 100%;
@@ -28,12 +33,13 @@
             top: 0;
             left: 0;
             z-index: -1;
+            opacity: 0.6;
         }
         
         .container {
             max-width: 1200px;
+            width: 90%;
             margin: 0 auto;
-            padding: 20px 15px;
             position: relative;
             z-index: 1;
         }
@@ -47,11 +53,8 @@
         .logo {
             font-size: 2.5rem;
             font-weight: 800;
-            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 20px rgba(79, 192, 210, 0.3);
+            color: #000;
+            text-shadow: 5px 3px 3px rgba(0,0,0,0.1);
             display: inline-block;
             position: relative;
         }
@@ -64,19 +67,19 @@
             transform: translateX(-50%);
             width: 120px;
             height: 2px;
-            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            background-color: #b8b9be;
             border-radius: 2px;
         }
         
         .subtitle {
             font-size: 0.9rem;
-            color: #a0a0c0;
+            color: #666;
             letter-spacing: 1px;
             margin-top: 15px;
             font-weight: 300;
         }
         
-        /* 服务分类网格 - 取消顶部渐变条 */
+        /* 服务分类网格 - 取消hover内阴影 */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -85,27 +88,30 @@
         }
         
         .service-card {
-            background: rgba(20, 20, 35, 0.95);
+            background: #f0f0f0;
             border-radius: 10px;
             padding: 12px 10px;
-            border: 1px solid rgba(100, 100, 150, 0.2);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+            box-shadow: 3px 3px 6px #b8b9be, -3px -3px 6px #fff !important;
             transition: all 0.4s ease;
             overflow: hidden;
             position: relative;
         }
         
-        /* 取消服务卡片顶部渐变条 */
         .service-card::before {
             display: none;
+        }
+
+        /* 取消卡片hover内阴影 */
+        .service-card:hover {
+            box-shadow: 3px 3px 6px #b8b9be, -3px -3px 6px #fff !important;
         }
         
         .category-title {
             font-size: 1rem;
-            color: #ff6b6b;
+            color: #000;
             margin-bottom: 8px;
             padding-bottom: 4px;
-            border-bottom: 2px solid rgba(255, 107, 107, 0.2);
+            border-bottom: 2px solid #e0e0e0;
         }
         
         .category-title i {
@@ -115,7 +121,7 @@
         
         .service-item {
             padding: 4px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            border-bottom: 1px solid #e0e0e0;
             font-size: 0.85rem;
             display: flex;
             justify-content: space-between;
@@ -134,17 +140,18 @@
             top: 0;
             height: 100%;
             width: 2px;
-            background: linear-gradient(180deg, #ff6b6b, #4ecdc4);
+            background-color: #b8b9be;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
         
+        /* 服务项hover仅显示左侧竖线，取消背景变化 */
         .service-item:hover {
-            background: rgba(255, 255, 255, 0.04);
             padding-left: 8px;
             padding-right: 8px;
             margin-left: -6px;
             margin-right: -6px;
+            background: #f0f0f0;
         }
         
         .service-item:hover::before {
@@ -153,7 +160,7 @@
         
         .service-name {
             font-weight: 600;
-            color: #e0e0ff;
+            color: #333;
             display: flex;
             align-items: center;
             font-size: 0.85rem;
@@ -162,17 +169,21 @@
         .service-icon {
             margin-right: 6px;
             font-size: 0.85rem;
-            color: #ff6b6b;
+            color: #666;
         }
         
         .service-price {
             font-weight: 700;
-            color: #4ecdc4;
+            color: #666;
             font-size: 0.8rem;
             white-space: nowrap;
         }
+        /* 价格数字红色样式 */
+        .price-num {
+            color: #ff5555;
+        }
 
-        /* 进度/报单/结单模块 - 取消顶部渐变条 */
+        /* 进度/报单/结单模块 - 取消hover内阴影 */
         .status-top-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -182,11 +193,10 @@
         }
 
         .status-section.top, .status-section.bottom {
-            background: rgba(20, 20, 35, 0.95);
+            background: #f0f0f0;
             border-radius: 12px;
             padding: 18px 15px;
-            border: 1px solid rgba(100, 100, 150, 0.2);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 3px 3px 6px #b8b9be, -3px -3px 6px #fff !important;
             transition: all 0.4s ease;
             overflow: hidden;
             position: relative;
@@ -200,25 +210,23 @@
             margin-bottom: 20px;
         }
 
-        /* 取消状态模块顶部渐变条 */
         .status-section.top::before, .status-section.bottom::before {
             display: none;
         }
 
+        /* 取消模块hover内阴影和位移 */
         .status-section.top:hover, .status-section.bottom:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
-            border-color: rgba(255, 107, 107, 0.5);
+            box-shadow: 3px 3px 6px #b8b9be, -3px -3px 6px #fff !important;
+            transform: none;
+            border: none;
         }
 
         .status-title.top {
             font-size: 1.1rem;
-            color: #ff6b6b;
+            color: #000;
             margin-bottom: 12px;
             padding-bottom: 6px;
-            border-bottom: 2px solid rgba(255, 107, 107, 0.2);
-            display: flex;
-            align-items: center;
+            border-bottom: 2px solid #e0e0e0;
             flex-shrink: 0;
         }
 
@@ -240,21 +248,22 @@
             justify-content: space-between;
             align-items: center;
             padding-top: 6px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid #e0e0e0;
             font-size: 0.65rem;
             font-weight: 600;
             margin-top: auto;
             flex-shrink: 0;
+            color: #333;
         }
 
-        /* ========== 弹窗样式 - 全透明+缩小布局文字 ========== */
+        /* ========== 弹窗样式 - 磨砂风格，取消按钮hover内阴影 ========== */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(10px);
             z-index: 9999;
             display: flex;
@@ -270,15 +279,14 @@
             visibility: visible;
         }
 
-        /* 统一弹窗容器样式 - 全透明+缩小尺寸 */
+        /* 统一弹窗容器样式 */
         .ios-menu-container, .status-modal-container {
             width: 85%;
             max-width: 380px;
-            background: transparent;
+            background: #f0f0f0;
             border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(120, 120, 200, 0.2);
+            box-shadow: 5px 5px 15px #b8b9be, -5px -5px 15px #fff !important;
             transform: scale(0.95) translateY(20px);
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
@@ -289,14 +297,14 @@
             transform: scale(1) translateY(0);
         }
 
-        /* 关闭按钮重构 - 缩小尺寸 */
+        /* 关闭按钮 - 取消hover内阴影 */
         .ios-menu-close, .status-modal-close {
             position: absolute;
             top: 10px;
             right: 10px;
-            background: rgba(255, 255, 255, 0.08);
+            background: #f0f0f0;
             border: none;
-            color: #c0c0e0;
+            color: #666;
             width: 30px;
             height: 30px;
             border-radius: 50%;
@@ -304,36 +312,36 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            z-index: 10;
+            font-size: 16px;
+            box-shadow: 2px 2px 5px #b8b9be, -2px -2px 5px #fff !important;
+            transition: all 0.2s ease;
         }
 
         .ios-menu-close:hover, .status-modal-close:hover {
-            background: rgba(255, 107, 107, 0.4);
-            color: #ffffff;
-            transform: rotate(90deg) scale(1.1);
+            box-shadow: 2px 2px 5px #b8b9be, -2px -2px 5px #fff !important;
+            color: #000;
+            transform: none;
         }
 
-        /* ========== iOS服务详情弹窗 - 缩小布局和文字 ========== */
+        /* ========== iOS服务详情弹窗 - 适配新风格 ========== */
         .ios-menu-header {
             padding: 12px 10px 6px;
             text-align: center;
             position: relative;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            background: linear-gradient(90deg, rgba(255, 107, 107, 0.05), rgba(78, 205, 196, 0.05));
+            border-bottom: 1px solid #e0e0e0;
+            background: #f5f5f5;
         }
 
         .ios-menu-title {
             font-size: 1rem;
             font-weight: 700;
-            color: #ff6b6b;
+            color: #000;
             margin-bottom: 3px;
         }
 
         .ios-menu-subtitle {
             font-size: 0.8rem;
-            color: #4ecdc4;
+            color: #666;
             font-weight: 600;
         }
 
@@ -346,15 +354,15 @@
         .ios-menu-description {
             font-size: 0.8rem;
             line-height: 1.5;
-            color: #e0e0ff;
+            color: #333;
             margin-bottom: 10px;
             padding: 8px 10px;
-            background: rgba(78, 205, 196, 0.05);
+            background: #f5f5f5;
             border-radius: 8px;
-            border-left: 2px solid #4ecdc4;
+            border-left: 2px solid #b8b9be;
         }
 
-        /* 表单布局优化 - 缩小间距和文字 */
+        /* 表单布局优化 */
         .ios-menu-dispatcher,
         .ios-menu-boss,
         .ios-menu-remark {
@@ -365,7 +373,7 @@
         .ios-menu-boss label,
         .ios-menu-remark label {
             display: block;
-            color: #e0e0ff;
+            color: #333;
             margin-bottom: 4px;
             font-size: 0.8rem;
             font-weight: 500;
@@ -375,25 +383,24 @@
         .ios-menu-boss input,
         .ios-menu-remark input {
             width: 100%;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(78, 205, 196, 0.2);
+            background: #f0f0f0;
+            border: none;
             border-radius: 8px;
             padding: 8px 10px;
-            color: #f0f0f0;
+            color: #000;
             font-size: 0.85rem;
             outline: none;
-            transition: all 0.2s ease;
+            box-shadow: inset 2px 2px 3px #b8b9be, inset -2px -2px 3px #fff !important;
         }
 
         .ios-menu-dispatcher select:focus,
         .ios-menu-boss input:focus,
         .ios-menu-remark input:focus {
-            border-color: #ff6b6b;
-            box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.15);
-            background: rgba(255, 255, 255, 0.06);
+            box-shadow: inset 2px 2px 3px #b8b9be, inset -2px -2px 3px #fff !important;
+            background: #f5f5f5;
         }
 
-        /* 按钮组布局优化 - 缩小尺寸 */
+        /* 按钮组 - 取消hover内阴影 */
         .ios-menu-actions {
             display: flex;
             gap: 8px;
@@ -413,30 +420,17 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
+            background: #f0f0f0;
+            box-shadow: 3px 3px 6px #b8b9be, -3px -3px 6px #fff !important;
+            color: #333;
         }
         
-        .ios-menu-btn.primary {
-            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
-            color: white;
-        }
-        
-        .ios-menu-btn.primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        .ios-menu-btn:hover {
+            box-shadow: 3px 3px 6px #b8b9be, -3px -3px 6px #fff !important;
+            color: #000;
         }
 
-        .ios-menu-btn.secondary {
-            background: rgba(78, 205, 196, 0.15);
-            color: #4ecdc4;
-            border: 1px solid rgba(78, 205, 196, 0.2);
-        }
-
-        .ios-menu-btn.secondary:hover {
-            background: rgba(78, 205, 196, 0.25);
-            color: #ffffff;
-        }
-
-        /* ========== 状态操作弹窗 - 缩小布局和文字 ========== */
+        /* ========== 状态操作弹窗 ========== */
         .status-modal-container {
             padding: 25px;
         }
@@ -444,12 +438,12 @@
         .status-modal-header {
             margin-bottom: 12px;
             padding-bottom: 8px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid #e0e0e0;
         }
 
         .status-modal-title {
             font-size: 0.95rem;
-            color: #ff6b6b;
+            color: #000;
             font-weight: 700;
         }
 
@@ -460,7 +454,7 @@
         .status-modal-form-item label {
             display: block;
             font-size: 0.8rem;
-            color: #e0e0ff;
+            color: #333;
             margin-bottom: 4px;
             font-weight: 500;
         }
@@ -468,20 +462,20 @@
         .status-modal-form-item input,
         .status-modal-form-item select {
             width: 100%;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(78, 205, 196, 0.2);
+            background: #f0f0f0;
+            border: none;
             border-radius: 8px;
             padding: 8px 10px;
-            color: #f0f0f0;
+            color: #000;
             font-size: 0.85rem;
             outline: none;
-            transition: all 0.2s ease;
+            box-shadow: inset 2px 2px 3px #b8b9be, inset -2px -2px 3px #fff !important;
         }
 
         .status-modal-form-item input:focus,
         .status-modal-form-item select:focus {
-            border-color: #ff6b6b;
-            box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.15);
+            box-shadow: inset 2px 2px 3px #b8b9be, inset -2px -2px 3px #fff !important;
+            background: #f5f5f5;
         }
 
         .status-modal-actions {
@@ -499,37 +493,14 @@
             cursor: pointer;
             transition: all 0.2s ease;
             font-weight: 600;
+            background: #f0f0f0;
+            box-shadow: 3px 3px 6px #b8b9be, -3px -3px 6px #fff !important;
+            color: #333;
         }
 
-        .status-modal-btn.primary {
-            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
-            color: white;
-        }
-
-        .status-modal-btn.primary:hover {
-            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
-        }
-
-        .status-modal-btn.secondary {
-            background: rgba(78, 205, 196, 0.15);
-            color: #4ecdc4;
-            border: 1px solid rgba(78, 205, 196, 0.2);
-        }
-
-        .status-modal-btn.secondary:hover {
-            background: rgba(78, 205, 196, 0.25);
-            color: #ffffff;
-        }
-
-        .status-modal-btn.danger {
-            background: rgba(160, 160, 192, 0.15);
-            color: #a0a0c0;
-            border: 1px solid rgba(160, 160, 192, 0.2);
-        }
-
-        .status-modal-btn.danger:hover {
-            background: rgba(160, 160, 192, 0.25);
-            color: #ffffff;
+        .status-modal-btn:hover {
+            box-shadow: 3px 3px 6px #b8b9be, -3px -3px 6px #fff !important;
+            color: #000;
         }
 
         /* 通知弹窗优化 */
@@ -537,11 +508,11 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: linear-gradient(135deg, rgba(30, 30, 50, 0.98), rgba(45, 45, 70, 0.98));
-            border-left: 4px solid #4ecdc4;
+            background: #f0f0f0;
+            border-left: 4px solid #b8b9be;
             padding: 15px 20px;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 5px 5px 15px #b8b9be, -5px -5px 15px #fff !important;
             z-index: 9998;
             max-width: 350px;
             display: flex;
@@ -551,7 +522,6 @@
             visibility: hidden;
             transform: translateX(30px);
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border: 1px solid rgba(78, 205, 196, 0.2);
         }
         
         .notification.show {
@@ -562,29 +532,28 @@
 
         .notification-icon {
             font-size: 1.5rem;
-            color: #4ecdc4;
+            color: #666;
             flex-shrink: 0;
         }
         
         .notification-text {
             font-size: 1rem;
-            color: #f0f0f0;
+            color: #333;
             line-height: 1.5;
         }
 
-        /* 其他基础样式 - 保持不变 */
+        /* 其他状态项样式 - 取消hover背景变化 */
         .status-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             padding: 4px 3px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid #e0e0e0;
             transition: background 0.3s ease;
             cursor: pointer;
         }
 
         .status-item:hover {
-            background: rgba(255, 255, 255, 0.04);
+            background: #f0f0f0;
         }
 
         .status-item-left {
@@ -600,15 +569,15 @@
         }
 
         .status-item-name {
-            color: #e0e0ff;
+            color: #333;
             font-weight: 600;
             font-size: 0.65rem;
             letter-spacing: 0;
         }
 
         .status-item-remark-tag {
-            background: rgba(78, 205, 196, 0.2);
-            color: #4ecdc4;
+            background: #f5f5f5;
+            color: #666;
             font-size: 0.5rem;
             padding: 1px 3px;
             border-radius: 2px;
@@ -616,8 +585,8 @@
         }
 
         .status-item-remark-tag.empty {
-            background: rgba(160, 160, 192, 0.2);
-            color: #a0a0c0;
+            background: #f0f0f0;
+            color: #999;
         }
 
         .status-item-meta {
@@ -625,12 +594,12 @@
             align-items: center;
             gap: 8px;
             font-size: 0.55rem;
-            color: #a0a0c0;
+            color: #666;
         }
 
         .status-item-price {
-            color: #4ecdc4;
             font-weight: 700;
+            color: #666;
             min-width: 45px;
             text-align: right;
             font-size: 0.6rem;
@@ -640,7 +609,7 @@
         .empty-list {
             text-align: center;
             padding: 15px 10px;
-            color: #8888aa;
+            color: #999;
             font-size: 0.8rem;
         }
 
@@ -648,10 +617,10 @@
             text-align: center;
             margin-top: 20px;
             padding: 12px;
-            color: #8888aa;
+            color: #666;
             font-size: 0.75rem;
             letter-spacing: 1px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid #e0e0e0;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -666,64 +635,64 @@
             <div class="subtitle">专业游戏陪玩 · 定制化服务 · 极致游戏体验</div>
         </div>
         
-        <!-- 服务分类区域 - 布局不变 -->
+        <!-- 服务分类区域 - 布局不变，价格数字包裹price-num类 -->
         <div class="services-grid">
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-utensils"></i> 胃袋服务</div>
                 <div class="service-item" data-name="迷你胃袋" data-price="3.9" data-description="迷你胃袋服务：单局带出50w/不出不结单">
                     <span class="service-name"><i class="fas fa-box service-icon"></i> 迷你胃袋</span>
-                    <span class="service-price">3.9元/单</span>
+                    <span class="service-price"><span class="price-num">3.9</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="小胃袋" data-price="8.8" data-description="小胃袋服务：单局带出100w/不出满488w结单">
                     <span class="service-name"><i class="fas fa-box service-icon"></i> 小胃袋</span>
-                    <span class="service-price">8.8元/单</span>
+                    <span class="service-price"><span class="price-num">8.8</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="中胃袋" data-price="22" data-description="中胃袋服务：单局带出150w/不出满888结单">
                     <span class="service-name"><i class="fas fa-box service-icon"></i> 中胃袋</span>
-                    <span class="service-price">22元/单</span>
+                    <span class="service-price"><span class="price-num">22</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="大胃袋" data-price="68" data-description="大胃袋服务：单局带出300w/不出满1888w结单">
                     <span class="service-name"><i class="fas fa-box service-icon"></i> 大胃袋</span>
-                    <span class="service-price">68元/单</span>
+                    <span class="service-price"><span class="price-num">68</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="包撤离" data-price="25" data-description="昆仑噩梦包撤离一小时">
                     <span class="service-name"><i class="fas fa-shoe-prints service-icon"></i> 包撤离</span>
-                    <span class="service-price">25元/单</span>
+                    <span class="service-price"><span class="price-num">25</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="包全棺" data-price="30" data-description="昆仑噩梦包全棺一小时">
                     <span class="service-name"><i class="fas fa-shoe-prints service-icon"></i> 包全棺</span>
-                    <span class="service-price">30元/单</span>
+                    <span class="service-price"><span class="price-num">30</span>元/单</span>
                 </div>
             </div>
             <div class="service-card">
                 <div class="category-title"><i class="fas fa-meteor"></i> 娱乐玩法</div>
                 <div class="service-item" data-name="六星连珠" data-price="28.8" data-description="六星连珠：板宝根据每把带出的物品板板自行在图中选择对应物品打勾，直到有六个物品连成一条线(横竖斜)即结单回收物按板板实际带出来的算。">
                     <span class="service-name"><i class="fas fa-star service-icon"></i> 六星连珠</span>
-                    <span class="service-price">28.8元/单</span>
+                    <span class="service-price"><span class="price-num">28.8</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="臭鞋子" data-price="3.99" data-description="臭鞋子玩法：板板在古城地图里找鞋，禁止兰炼陪陪摸金，板板死亡不补，死亡时找到几只就多少板板找到一只鞋20w，无保底累加确定金额之后打古城/噩梦累计带出总金额">
                     <span class="service-name"><i class="fas fa-shoe-prints service-icon"></i> 臭鞋子</span>
-                    <span class="service-price">3.99元/单</span>
+                    <span class="service-price"><span class="price-num">3.99</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="升级臭鞋子" data-price="9.99" data-description="升级版臭鞋子：鞋子/流苏/扇子20w玉镯/玉扳指10w魔芋爽/鬼玺30w确定金额之后打古城/噩梦累计打出总金额">
                     <span class="service-name"><i class="fas fa-shoe-prints service-icon"></i> 升级臭鞋子</span>
-                    <span class="service-price">9.99元/单</span>
+                    <span class="service-price"><span class="price-num">9.99</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="白鼬戏法" data-price="9.9" data-description="白鼬戏法：开一局蜀道入口，陪玩带一只白鼬进地图，看白鼬第一次变成什么回收物来决定打多少金额。圣杯300w大剑200w其他150w">
                     <span class="service-name"><i class="fas fa-shoe-prints service-icon"></i> 白鼬戏法</span>
-                    <span class="service-price">9.9元/单</span>
+                    <span class="service-price"><span class="price-num">9.9</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="指定/凌晨" data-price="2" data-description="指定或凌晨+2r">
                     <span class="service-name"><i class="fas fa-shoe-prints service-icon"></i> 指定/凌晨</span>
-                    <span class="service-price">2元/单</span>
+                    <span class="service-price"><span class="price-num">2</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="赌王" data-price="8.88" data-description="猜对一次打166w结单，猜对两次你将获得赌王称号，点单群刷一次排面，+打300w结单猜错打88w结单。os：直奔金棺，其他不开直接投降">
                     <span class="service-name"><i class="fas fa-shoe-prints service-icon"></i> 赌王</span>
-                    <span class="service-price">8.88元/单</span>
+                    <span class="service-price"><span class="price-num">8.88</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="祈愿满分" data-price="28.8" data-description="陪陪带板板玩昆仑噩梦，带出的回收物累计算分值，初始为0分，累计到一百分就结单。撤离成功+2分，陪陪原因撤离失败扣5分。分值：金樽/青铜当卢1分壁画/金鳞2分虎符/圣诞限定4分鬼玺/雪莲6分陶俑/白玉杯/神鹿8分，大剑10分，圣杯20分若板板故意不拿不交或者因为板板的原因撤离失败，回收物依旧算上分值。">
                     <span class="service-name"><i class="fas fa-shoe-prints service-icon"></i> 祈愿满分</span>
-                    <span class="service-price">28.8元/单</span>
+                    <span class="service-price"><span class="price-num">28.8</span>元/单</span>
                 </div>
             </div>
             
@@ -731,27 +700,27 @@
                 <div class="category-title"><i class="fas fa-fist-raised"></i> 战斗与策略</div>
                 <div class="service-item" data-name="屠龙" data-price="9" data-description="屠龙服务：陪陪会进行干扰，击杀怪物，不算金额内玩法：板板选择地图，在撤离前击杀多少怪物就+多少10w，要注意板板撤离失败-20w保底，所以要注意安全哦，保底为：40w例如：板板击杀12只怪，则需要带120w+40w才算结单">
                     <span class="service-name"><i class="fas fa-dragon service-icon"></i> 屠龙</span>
-                    <span class="service-price">9元/单</span>
+                    <span class="service-price"><span class="price-num">9</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="赌命" data-price="8" data-description="赌命服务：玩法：开古城困难陪陪拿莉莉(减cd)，给板带5包荧光棒给板板用兰炼丹(不进图不拿别的只用荧光棒)，靠炼出来的物品成功撤离就去噩梦带板打300w，出任何都不补，撤离失败就带板打一把古城出任何不补。">
                     <span class="service-name"><i class="fas fa-shield-alt service-icon"></i> 赌命</span>
-                    <span class="service-price">8元/单</span>
+                    <span class="service-price"><span class="price-num">8</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="金棺尿壶" data-price="6.6" data-description="金棺尿壶服务：开一把古城极限去开金棺，其他不开直接投降不是尿壶就去噩梦累计打200w是尿壶就去噩梦累计打100w">
                     <span class="service-name"><i class="fas fa-gem service-icon"></i> 金棺尿壶</span>
-                    <span class="service-price">6.6元/单</span>
+                    <span class="service-price"><span class="price-num">6.6</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="玉扳指" data-price="4" data-description="玉扳指服务：开一把古城极限，只算重铸，棺内变出一个玉扳指就20w累计，叠加去噩梦累计兑换金额">
                     <span class="service-name"><i class="fas fa-ring service-icon"></i> 玉扳指</span>
-                    <span class="service-price">4元/单</span>
+                    <span class="service-price"><span class="price-num">4</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="比大小" data-price="6.6" data-description="比大小服务：玩法：陪陪和板板都拿兰自行捡破烂练道具/不可开馆/不拿道具如黄牛，三次机会，用最高价值的回收物对比/金丹价值25w/紫丹1w，陪陪贵-结束后带板打50w板板贵-结束后带板打150w平局-结束后带板打100w">
                     <span class="service-name"><i class="fas fa-dice service-icon"></i> 比大小</span>
-                    <span class="service-price">6.6元/单</span>
+                    <span class="service-price"><span class="price-num">6.6</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="噩梦1+1" data-price="18" data-description="保护/投喂一小时">
                     <span class="service-name"><i class="fas fa-shoe-prints service-icon"></i> 噩梦1+1</span>
-                    <span class="service-price">18元/单</span>
+                    <span class="service-price"><span class="price-num">18</span>元/单</span>
                 </div>
             </div>
             
@@ -759,27 +728,27 @@
                 <div class="category-title"><i class="fas fa-infinity"></i> 热门系列</div>
                 <div class="service-item" data-name="雪莲永动机" data-price="8.8" data-description="雪莲永动机服务：开一把昆仑噩梦，开完棺之后若有雪莲即接着打，直到某一局没有雪莲停止才结单陪陪玩艾伦，板子玩莉莉，不重铸">
                     <span class="service-name"><i class="fas fa-snowflake service-icon"></i> 雪莲永动机</span>
-                    <span class="service-price">8.8元/单</span>
+                    <span class="service-price"><span class="price-num">8.8</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="魔芋永动机" data-price="6.6" data-description="魔芋永动机服务：开一把古城极限，开完棺之后若有魔芋爽即接着打，直到某一局没有魔芋爽停止才结单陪陪玩vv安，板随意玩什么，可以重铸">
                     <span class="service-name"><i class="fas fa-leaf service-icon"></i> 魔芋永动机</span>
-                    <span class="service-price">6.6元/单</span>
+                    <span class="service-price"><span class="price-num">6.6</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="摇一摇" data-price="8.88" data-description="摇一摇服务：摇到1昆仑噩梦三局(包装备)摇到2累计开出5个大金(8w以上算大金)要到3单局带出66w结单摇到4古城极限五局(包装备)摇到5单局带出120w(保底520w)摇到6累计带出188w结单">
                     <span class="service-name"><i class="fas fa-dice service-icon"></i> 摇一摇</span>
-                    <span class="service-price">8.88元/单</span>
+                    <span class="service-price"><span class="price-num">8.88</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="保护老板" data-price="9.9" data-description="保护老板服务：开一把古城极限，可以拔龙珠，不可以找连弩地刺古城外狼天王，陪陪带一腰包除颤仪，一包用完即结单，板板找怪物送死，陪陪保护老板不让老板死老板成功死一次20w，死五次100w，陪陪死一次50w。累计叠加，若老板一次没死保底50w去噩梦/古城兑换金额">
                     <span class="service-name"><i class="fas fa-user-shield service-icon"></i> 保护老板</span>
-                    <span class="service-price">9.9元/单</span>
+                    <span class="service-price"><span class="price-num">9.9</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="保护老板（昆仑）" data-price="11.9" data-description="保护老板（昆仑）服务：开一把昆仑极限，可以拔龙珠，不可以找连弩地刺古城外狼天王，陪陪带一腰包除颤仪，一包用完即结单，板板找怪物送死，陪陪保护老板不让老板死老板成功死一次20w，死五次100w，陪陪死一次50w。累计叠加">
                     <span class="service-name"><i class="fas fa-mountain service-icon"></i> 保护昆仑</span>
-                    <span class="service-price">11.9元/单</span>
+                    <span class="service-price"><span class="price-num">11.9</span>元/单</span>
                 </div>
                 <div class="service-item" data-name="保护老板（噩梦）" data-price="16.9" data-description="保护老板（噩梦）服务：开一把噩梦极限，可以拔龙珠，不可以找连弩地刺古城外狼天王，陪陪带一腰包除颤仪，一包用完即结单，板板找怪物送死，陪陪保护老板不让老板死老板成功死一次20w，死五次100w，陪陪死一次50w。累计叠加">
                     <span class="service-name"><i class="fas fa-mountain service-icon"></i> 保护噩梦</span>
-                    <span class="service-price">16.9元/单</span>
+                    <span class="service-price"><span class="price-num">16.9</span>元/单</span>
                 </div>
             </div>
         </div>
@@ -796,7 +765,7 @@
             </div>
 
             <div class="status-section top">
-                <div class="status-title top"><i class="fas fa-file-alt"></i> 报单</div>
+                <div class="status-title top"><i class="fas fa-file-invoice"></i> 报单</div>
                 <div id="reportList" class="status-list"></div>
                 <div class="status-total">
                     <span class="status-total-label">报单总金额：</span>
@@ -820,7 +789,7 @@
         </div>
     </div>
 
-    <!-- iOS风格菜单 - 结构不变 样式优化 -->
+    <!-- iOS风格菜单 - 结构不变 -->
     <div class="modal-overlay" id="iosMenuOverlay">
         <div class="ios-menu-container" id="iosMenuContainer">
             <button class="ios-menu-close" id="iosMenuClose">&times;</button>
@@ -859,7 +828,7 @@
         </div>
     </div>
 
-    <!-- 底部状态项操作弹窗 - 结构不变 样式优化 -->
+    <!-- 底部状态项操作弹窗 - 结构不变 -->
     <div class="modal-overlay" id="statusModalOverlay">
         <div class="status-modal-container">
             <div class="status-modal-header">
@@ -891,7 +860,7 @@
         </div>
     </div>
 
-    <!-- 通知消息 - 样式优化 -->
+    <!-- 通知消息 -->
     <div class="notification" id="notification">
         <i class="fas fa-check-circle notification-icon"></i>
         <div class="notification-text" id="notificationText">服务已添加到订单</div>
@@ -899,16 +868,16 @@
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // 粒子背景初始化
+        // 粒子背景初始化 - 增强显示效果配置
         particlesJS('particles-js', {
             "particles": {
-                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": ["#ff6b6b", "#4ecdc4", "#45b7d1", "#96ceb4", "#feca57"] },
+                "number": { "value": 120, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": ["#ff6b6b", "#4ecdc4", "#45b7d1", "#b8b9be"] },
                 "shape": { "type": "circle" },
-                "opacity": { "value": 0.7, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.2 } },
-                "size": { "value": 4, "random": true, "anim": { "enable": true, "speed": 2, "size_min": 0.5 } },
-                "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.2, "width": 1 },
-                "move": { "enable": true, "speed": 2.5, "direction": "none", "random": true, "out_mode": "out" }
+                "opacity": { "value": 0.8, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.3 } },
+                "size": { "value": 5, "random": true, "anim": { "enable": true, "speed": 3, "size_min": 1 } },
+                "line_linked": { "enable": true, "distance": 120, "color": "#b8b9be", "opacity": 0.5, "width": 1.2 },
+                "move": { "enable": true, "speed": 3, "direction": "none", "random": true, "out_mode": "out" }
             },
             "interactivity": {
                 "detect_on": "canvas",
@@ -929,7 +898,7 @@
             renderReportList();
             renderSettleList();
 
-            // 服务项点击事件
+            // 服务项点击事件 - 恢复弹窗功能，价格数字红色
             document.querySelectorAll('.service-item').forEach(item => {
                 item.addEventListener('click', function() {
                     const name = this.getAttribute('data-name');
@@ -938,7 +907,8 @@
                     
                     currentService = { name, price, desc };
                     document.getElementById('iosMenuTitle').textContent = name;
-                    document.getElementById('iosMenuSubtitle').textContent = price + ' 元/单';
+                    // 弹窗价格数字添加红色类
+                    document.getElementById('iosMenuSubtitle').innerHTML = `<span class="price-num">${price}</span> 元/单`;
                     document.getElementById('iosMenuDescription').textContent = desc;
                     document.getElementById('serviceDispatcher').value = '园';
                     document.getElementById('serviceBoss').value = '';
@@ -1114,7 +1084,8 @@
                         <p>暂无进度项目<br>点击上方服务添加</p>
                     </div>
                 `;
-                document.getElementById('progressTotal').textContent = '0.00 元';
+                // 修复：空列表时总金额用innerHTML，正确显示红色
+                document.getElementById('progressTotal').innerHTML = `<span class="price-num">0.00</span> 元`;
                 return;
             }
 
@@ -1134,12 +1105,12 @@
                                 <div><span>老板：</span>${item.boss || '未填写'}</div>
                             </div>
                         </div>
-                        <div class="status-item-price">${item.price.toFixed(2)} 元</div>
+                        <div class="status-item-price"><span class="price-num">${item.price.toFixed(2)}</span> 元</div>
                     </div>
                 `;
             });
             listEl.innerHTML = html;
-            document.getElementById('progressTotal').textContent = calcTotal(progressList).toFixed(2) + ' 元';
+            document.getElementById('progressTotal').innerHTML = `<span class="price-num">${calcTotal(progressList).toFixed(2)}</span> 元`;
         }
 
         function renderReportList() {
@@ -1150,7 +1121,8 @@
                         <p>暂无报单项目<br>从进度列表移入</p>
                     </div>
                 `;
-                document.getElementById('reportTotal').textContent = '0.00 元';
+                // 修复：空列表时总金额用innerHTML，正确显示红色
+                document.getElementById('reportTotal').innerHTML = `<span class="price-num">0.00</span> 元`;
                 return;
             }
 
@@ -1170,12 +1142,12 @@
                                 <div><span>老板：</span>${item.boss || '未填写'}</div>
                             </div>
                         </div>
-                        <div class="status-item-price">${item.price.toFixed(2)} 元</div>
+                        <div class="status-item-price"><span class="price-num">${item.price.toFixed(2)}</span> 元</div>
                     </div>
                 `;
             });
             listEl.innerHTML = html;
-            document.getElementById('reportTotal').textContent = calcTotal(reportList).toFixed(2) + ' 元';
+            document.getElementById('reportTotal').innerHTML = `<span class="price-num">${calcTotal(reportList).toFixed(2)}</span> 元`;
         }
 
         function renderSettleList() {
@@ -1186,7 +1158,8 @@
                         <p>暂无结单项目<br>从报单列表移入</p>
                     </div>
                 `;
-                document.getElementById('settleTotal').textContent = '0.00 元';
+                // 修复：空列表时总金额用innerHTML，正确显示红色
+                document.getElementById('settleTotal').innerHTML = `<span class="price-num">0.00</span> 元`;
                 return;
             }
 
@@ -1206,14 +1179,14 @@
                                 <div><span>老板：</span>${item.boss || '未填写'}</div>
                             </div>
                         </div>
-                        <div class="status-item-price">${item.price.toFixed(2)} 元</div>
+                        <div class="status-item-price"><span class="price-num">${item.price.toFixed(2)}</span> 元</div>
                     </div>
                 `;
             });
             listEl.innerHTML = html;
             const total = calcTotal(settleList);
             const discountTotal = total * 0.8;
-            document.getElementById('settleTotal').textContent = `共 ${total.toFixed(2)} 元 × 0.8 = ${discountTotal.toFixed(2)} 元`;
+            document.getElementById('settleTotal').innerHTML = `共 <span class="price-num">${total.toFixed(2)}</span> 元 × 0.8 = <span class="price-num">${discountTotal.toFixed(2)}</span> 元`;
         }
 
         function calcTotal(list) {
